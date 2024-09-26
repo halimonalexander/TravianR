@@ -1,20 +1,4 @@
 <?php
-#################################################################################
-##                                                                             ##
-##              -= YOU MUST NOT REMOVE OR CHANGE THIS NOTICE =-                ##
-##                                                                             ##
-## --------------------------------------------------------------------------- ##
-##                                                                             ##
-##  Project:       ZravianX & TravianZ                                         ##
-##  Version:       2011.11.02                                                  ##
-##  Filename:      notification/lang/en.php                                    ##
-##  Developed by:  ZZJHONS & Songeriux                                         ##
-##  License:       Creative Commons BY-NC-SA 3.0                               ##
-##  Copyright:     ZravianX (c) 2011 - All rights reserved                     ##
-##  URLs:          http://zravianx.zzjhons.com                                 ##
-##  Source code:   http://www.github.com/songeriux/TravianZ                    ##
-##                                                                             ##
-#################################################################################
 
 $lang['notification']['awaits_you'] = "awaits YOU!";
 $lang['notification']['join_now'] = "Join NOW and show everyone just how good you are!";

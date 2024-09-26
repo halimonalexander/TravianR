@@ -1,7 +1,7 @@
-<?php 
+<?php
 
-include_once ("config.php");
-include_once ("Lang/".LANG.".php");
+include_once("config.php");
+include_once("Lang/" . LANG . ".php");
 
 $pattern = array();
 $pattern[0] = "/\[b\](.*?)\[\/b\]/is";
@@ -98,61 +98,61 @@ $replace = array();
 $replace[0] = "<b>$1</b>";
 $replace[1] = "<i>$1</i>";
 $replace[2] = "<u>$1</u>";
-$replace[3] = "<img class='unit u1' src='img/x.gif' title='".U1."' alt='".U1."'>";
-$replace[4] = "<img class='unit u2' src='img/x.gif' title='".U2."' alt='".U2."'>";
-$replace[5] = "<img class='unit u3' src='img/x.gif' title='".U3."' alt='".U3."'>";
-$replace[6] = "<img class='unit u4' src='img/x.gif' title='".U4."' alt='".U4."'>";
-$replace[7] = "<img class='unit u5' src='img/x.gif' title='".U5."' alt='".U5."'>";
-$replace[8] = "<img class='unit u6' src='img/x.gif' title='".U6."' alt='".U6."'>";
-$replace[9] = "<img class='unit u7' src='img/x.gif' title='".U7."' alt='".U7."'>";
-$replace[10] = "<img class='unit u8' src='img/x.gif' title='".U8."' alt='".U8."'>";
-$replace[11] = "<img class='unit u9' src='img/x.gif' title='".U9."' alt='".U9."'>";
-$replace[12] = "<img class='unit u10' src='img/x.gif' title='".U10."' alt='".U10."'>";
-$replace[13] = "<img class='unit u11' src='img/x.gif' title='".U11."' alt='".U11."'>";
-$replace[14] = "<img class='unit u12' src='img/x.gif' title='".U12."' alt='".U12."'>";
-$replace[15] = "<img class='unit u13' src='img/x.gif' title='".U13."' alt='".U13."'>";
-$replace[16] = "<img class='unit u14' src='img/x.gif' title='".U14."' alt='".U14."'>";
-$replace[17] = "<img class='unit u15' src='img/x.gif' title='".U15."' alt='".U15."'>";
-$replace[18] = "<img class='unit u16' src='img/x.gif' title='".U16."' alt='".U16."'>";
-$replace[19] = "<img class='unit u17' src='img/x.gif' title='".U17."' alt='".U17."'>";
-$replace[20] = "<img class='unit u18' src='img/x.gif' title='".U18."' alt='".U18."'>";
-$replace[21] = "<img class='unit u19' src='img/x.gif' title='".U19."' alt='".U19."'>";
-$replace[22] = "<img class='unit u20' src='img/x.gif' title='".U20."' alt='".U20."'>";
-$replace[23] = "<img class='unit u21' src='img/x.gif' title='".U21."' alt='".U21."'>";
-$replace[24] = "<img class='unit u22' src='img/x.gif' title='".U22."' alt='".U22."'>";
-$replace[25] = "<img class='unit u23' src='img/x.gif' title='".U23."' alt='".U23."'>";
-$replace[26] = "<img class='unit u24' src='img/x.gif' title='".U24."' alt='".U24."'>";
-$replace[27] = "<img class='unit u25' src='img/x.gif' title='".U25."' alt='".U25."'>";
-$replace[28] = "<img class='unit u26' src='img/x.gif' title='".U26."' alt='".U26."'>";
-$replace[29] = "<img class='unit u27' src='img/x.gif' title='".U27."' alt='".U27."'>";
-$replace[30] = "<img class='unit u28' src='img/x.gif' title='".U28."' alt='".U28."'>";
-$replace[31] = "<img class='unit u29' src='img/x.gif' title='".U29."' alt='".U29."'>";
-$replace[32] = "<img class='unit u30' src='img/x.gif' title='".U30."' alt='".U30."'>";
-$replace[33] = "<img class='unit u31' src='img/x.gif' title='".U31."' alt='".U31."'>";
-$replace[34] = "<img class='unit u32' src='img/x.gif' title='".U32."' alt='".U32."'>";
-$replace[35] = "<img class='unit u33' src='img/x.gif' title='".U33."' alt='".U33."'>";
-$replace[36] = "<img class='unit u34' src='img/x.gif' title='".U34."' alt='".U34."'>";
-$replace[37] = "<img class='unit u35' src='img/x.gif' title='".U35."' alt='".U35."'>";
-$replace[38] = "<img class='unit u36' src='img/x.gif' title='".U36."' alt='".U36."'>";
-$replace[39] = "<img class='unit u37' src='img/x.gif' title='".U37."' alt='".U37."'>";
-$replace[40] = "<img class='unit u38' src='img/x.gif' title='".U38."' alt='".U38."'>";
-$replace[41] = "<img class='unit u39' src='img/x.gif' title='".U39."' alt='".U39."'>";
-$replace[42] = "<img class='unit u40' src='img/x.gif' title='".U40."' alt='".U40."'>";
-$replace[43] = "<img class='unit u41' src='img/x.gif' title='".U41."' alt='".U41."'>";
-$replace[44] = "<img class='unit u42' src='img/x.gif' title='".U42."' alt='".U42."'>";
-$replace[45] = "<img class='unit u43' src='img/x.gif' title='".U43."' alt='".U43."'>";
-$replace[46] = "<img class='unit u44' src='img/x.gif' title='".U44."' alt='".U44."'>";
-$replace[47] = "<img class='unit u45' src='img/x.gif' title='".U45."' alt='".U45."'>";
-$replace[48] = "<img class='unit u46' src='img/x.gif' title='".U46."' alt='".U46."'>";
-$replace[49] = "<img class='unit u47' src='img/x.gif' title='".U47."' alt='".U47."'>";
-$replace[50] = "<img class='unit u48' src='img/x.gif' title='".U48."' alt='".U48."'>";
-$replace[51] = "<img class='unit u49' src='img/x.gif' title='".U49."' alt='".U49."'>";
-$replace[52] = "<img class='unit u50' src='img/x.gif' title='".U50."' alt='".U50."'>";
-$replace[53] = "<img class='unit uhero' src='img/x.gif' title='".U0."' alt='".U0."'>";
-$replace[54] = "<img src='img/x.gif' class='r1' title='".R1."' alt='".R1."'>";
-$replace[55] = "<img src='img/x.gif' class='r2' title='".R2."' alt='".R2."'>";
-$replace[56] = "<img src='img/x.gif' class='r3' title='".R3."' alt='".R3."'>";
-$replace[57] = "<img src='img/x.gif' class='r4' title='".R4."' alt='".R4."'>";
+$replace[3] = "<img class='unit u1' src='img/x.gif' title='" . U1 . "' alt='" . U1 . "'>";
+$replace[4] = "<img class='unit u2' src='img/x.gif' title='" . U2 . "' alt='" . U2 . "'>";
+$replace[5] = "<img class='unit u3' src='img/x.gif' title='" . U3 . "' alt='" . U3 . "'>";
+$replace[6] = "<img class='unit u4' src='img/x.gif' title='" . U4 . "' alt='" . U4 . "'>";
+$replace[7] = "<img class='unit u5' src='img/x.gif' title='" . U5 . "' alt='" . U5 . "'>";
+$replace[8] = "<img class='unit u6' src='img/x.gif' title='" . U6 . "' alt='" . U6 . "'>";
+$replace[9] = "<img class='unit u7' src='img/x.gif' title='" . U7 . "' alt='" . U7 . "'>";
+$replace[10] = "<img class='unit u8' src='img/x.gif' title='" . U8 . "' alt='" . U8 . "'>";
+$replace[11] = "<img class='unit u9' src='img/x.gif' title='" . U9 . "' alt='" . U9 . "'>";
+$replace[12] = "<img class='unit u10' src='img/x.gif' title='" . U10 . "' alt='" . U10 . "'>";
+$replace[13] = "<img class='unit u11' src='img/x.gif' title='" . U11 . "' alt='" . U11 . "'>";
+$replace[14] = "<img class='unit u12' src='img/x.gif' title='" . U12 . "' alt='" . U12 . "'>";
+$replace[15] = "<img class='unit u13' src='img/x.gif' title='" . U13 . "' alt='" . U13 . "'>";
+$replace[16] = "<img class='unit u14' src='img/x.gif' title='" . U14 . "' alt='" . U14 . "'>";
+$replace[17] = "<img class='unit u15' src='img/x.gif' title='" . U15 . "' alt='" . U15 . "'>";
+$replace[18] = "<img class='unit u16' src='img/x.gif' title='" . U16 . "' alt='" . U16 . "'>";
+$replace[19] = "<img class='unit u17' src='img/x.gif' title='" . U17 . "' alt='" . U17 . "'>";
+$replace[20] = "<img class='unit u18' src='img/x.gif' title='" . U18 . "' alt='" . U18 . "'>";
+$replace[21] = "<img class='unit u19' src='img/x.gif' title='" . U19 . "' alt='" . U19 . "'>";
+$replace[22] = "<img class='unit u20' src='img/x.gif' title='" . U20 . "' alt='" . U20 . "'>";
+$replace[23] = "<img class='unit u21' src='img/x.gif' title='" . U21 . "' alt='" . U21 . "'>";
+$replace[24] = "<img class='unit u22' src='img/x.gif' title='" . U22 . "' alt='" . U22 . "'>";
+$replace[25] = "<img class='unit u23' src='img/x.gif' title='" . U23 . "' alt='" . U23 . "'>";
+$replace[26] = "<img class='unit u24' src='img/x.gif' title='" . U24 . "' alt='" . U24 . "'>";
+$replace[27] = "<img class='unit u25' src='img/x.gif' title='" . U25 . "' alt='" . U25 . "'>";
+$replace[28] = "<img class='unit u26' src='img/x.gif' title='" . U26 . "' alt='" . U26 . "'>";
+$replace[29] = "<img class='unit u27' src='img/x.gif' title='" . U27 . "' alt='" . U27 . "'>";
+$replace[30] = "<img class='unit u28' src='img/x.gif' title='" . U28 . "' alt='" . U28 . "'>";
+$replace[31] = "<img class='unit u29' src='img/x.gif' title='" . U29 . "' alt='" . U29 . "'>";
+$replace[32] = "<img class='unit u30' src='img/x.gif' title='" . U30 . "' alt='" . U30 . "'>";
+$replace[33] = "<img class='unit u31' src='img/x.gif' title='" . U31 . "' alt='" . U31 . "'>";
+$replace[34] = "<img class='unit u32' src='img/x.gif' title='" . U32 . "' alt='" . U32 . "'>";
+$replace[35] = "<img class='unit u33' src='img/x.gif' title='" . U33 . "' alt='" . U33 . "'>";
+$replace[36] = "<img class='unit u34' src='img/x.gif' title='" . U34 . "' alt='" . U34 . "'>";
+$replace[37] = "<img class='unit u35' src='img/x.gif' title='" . U35 . "' alt='" . U35 . "'>";
+$replace[38] = "<img class='unit u36' src='img/x.gif' title='" . U36 . "' alt='" . U36 . "'>";
+$replace[39] = "<img class='unit u37' src='img/x.gif' title='" . U37 . "' alt='" . U37 . "'>";
+$replace[40] = "<img class='unit u38' src='img/x.gif' title='" . U38 . "' alt='" . U38 . "'>";
+$replace[41] = "<img class='unit u39' src='img/x.gif' title='" . U39 . "' alt='" . U39 . "'>";
+$replace[42] = "<img class='unit u40' src='img/x.gif' title='" . U40 . "' alt='" . U40 . "'>";
+$replace[43] = "<img class='unit u41' src='img/x.gif' title='" . U41 . "' alt='" . U41 . "'>";
+$replace[44] = "<img class='unit u42' src='img/x.gif' title='" . U42 . "' alt='" . U42 . "'>";
+$replace[45] = "<img class='unit u43' src='img/x.gif' title='" . U43 . "' alt='" . U43 . "'>";
+$replace[46] = "<img class='unit u44' src='img/x.gif' title='" . U44 . "' alt='" . U44 . "'>";
+$replace[47] = "<img class='unit u45' src='img/x.gif' title='" . U45 . "' alt='" . U45 . "'>";
+$replace[48] = "<img class='unit u46' src='img/x.gif' title='" . U46 . "' alt='" . U46 . "'>";
+$replace[49] = "<img class='unit u47' src='img/x.gif' title='" . U47 . "' alt='" . U47 . "'>";
+$replace[50] = "<img class='unit u48' src='img/x.gif' title='" . U48 . "' alt='" . U48 . "'>";
+$replace[51] = "<img class='unit u49' src='img/x.gif' title='" . U49 . "' alt='" . U49 . "'>";
+$replace[52] = "<img class='unit u50' src='img/x.gif' title='" . U50 . "' alt='" . U50 . "'>";
+$replace[53] = "<img class='unit uhero' src='img/x.gif' title='" . U0 . "' alt='" . U0 . "'>";
+$replace[54] = "<img src='img/x.gif' class='r1' title='" . R1 . "' alt='" . R1 . "'>";
+$replace[55] = "<img src='img/x.gif' class='r2' title='" . R2 . "' alt='" . R2 . "'>";
+$replace[56] = "<img src='img/x.gif' class='r3' title='" . R3 . "' alt='" . R3 . "'>";
+$replace[57] = "<img src='img/x.gif' class='r4' title='" . R4 . "' alt='" . R4 . "'>";
 $replace[54] = "<img src='img/x.gif' class='r1' title='Lumber' alt='Lumber'>";
 $replace[55] = "<img src='img/x.gif' class='r2' title='Clay' alt='Clay'>";
 $replace[56] = "<img src='img/x.gif' class='r3' title='Iron' alt='Iron'>";
@@ -188,90 +188,90 @@ $replace[85] = "<img class='smiley tongue' src='img/x.gif' alt='*tongue*' title=
 $replace[86] = "<img class='smiley veryangry' src='img/x.gif' alt='*veryangry*' title='*veryangry*'>";
 $replace[87] = "<img class='smiley veryhappy' src='img/x.gif' alt='*veryhappy*' title='*veryhappy*'>";
 $replace[88] = "<img class='smiley wink' src='img/x.gif' alt=';)' title=';)'>";
-for($i=0;$i<=$alliance;$i++){
-$pattern[89+$i] = "/\[alliance".$i."\](.*?)\[\/alliance".$i."\]/is";
-${'bbcoded1_'.$i} = preg_replace($pattern[89+$i], "$1", $input);
-${'bbcoded1_'.$i} = preg_replace('/\[\/alliance'.$i.'\](.*?)\[\/message\]/is', '', $input);
-${'bbcoded1_'.$i} = preg_replace('/\[message\](.*?)\[alliance'.$i.'\]/is', '', ${'bbcoded1_'.$i});
-$aname = $database->getAllianceID(${'bbcoded1_'.$i});
-if($aname != ""){
-$replace[89+$i] = "<a href=allianz.php?aid=$aname>$1</a>";
-}else{
-$replace[89+$i] = "alliance not exist";
+for ($i = 0; $i <= $alliance; $i++) {
+    $pattern[89 + $i] = "/\[alliance" . $i . "\](.*?)\[\/alliance" . $i . "\]/is";
+    ${'bbcoded1_' . $i} = preg_replace($pattern[89 + $i], "$1", $input);
+    ${'bbcoded1_' . $i} = preg_replace('/\[\/alliance' . $i . '\](.*?)\[\/message\]/is', '', $input);
+    ${'bbcoded1_' . $i} = preg_replace('/\[message\](.*?)\[alliance' . $i . '\]/is', '', ${'bbcoded1_' . $i});
+    $aname = $database->getAllianceID(${'bbcoded1_' . $i});
+    if ($aname != "") {
+        $replace[89 + $i] = "<a href=allianz.php?aid=$aname>$1</a>";
+    } else {
+        $replace[89 + $i] = "alliance not exist";
+    }
+    $rep1 = 90 + $i;
 }
-$rep1 = 90+$i;
+for ($i = 0; $i <= $player; $i++) {
+    $pattern[$rep1 + $i] = "/\[player" . $i . "\](.*?)\[\/player" . $i . "\]/is";
+    ${'bbcoded2_' . $i} = preg_replace($pattern[$rep1 + $i], "$1", $input);
+    ${'bbcoded2_' . $i} = preg_replace('/\[\/player' . $i . '\](.*?)\[\/message\]/is', '', $input);
+    ${'bbcoded2_' . $i} = preg_replace('/\[message\](.*?)\[player' . $i . '\]/is', '', ${'bbcoded2_' . $i});
+    $uname = $database->getUserField(${'bbcoded2_' . $i}, "id", 1);
+    if ($uname != "") {
+        $replace[$rep1 + $i] = "<a href=spieler.php?uid=$uname>$1</a>";
+    } else {
+        $replace[$rep1 + $i] = "player not exist";
+    }
+    $rep2 = $rep1 + $i + 1;
 }
-for($i=0;$i<=$player;$i++){
-$pattern[$rep1+$i] = "/\[player".$i."\](.*?)\[\/player".$i."\]/is";
-${'bbcoded2_'.$i} = preg_replace($pattern[$rep1+$i], "$1", $input);
-${'bbcoded2_'.$i} = preg_replace('/\[\/player'.$i.'\](.*?)\[\/message\]/is', '', $input);
-${'bbcoded2_'.$i} = preg_replace('/\[message\](.*?)\[player'.$i.'\]/is', '', ${'bbcoded2_'.$i});
-$uname = $database->getUserField(${'bbcoded2_'.$i}, "id", 1);
-if($uname != ""){
-$replace[$rep1+$i] = "<a href=spieler.php?uid=$uname>$1</a>";
-}else{
-$replace[$rep1+$i] = "player not exist";
+for ($i = 0; $i <= $report; $i++) {
+    $pattern[$rep2 + $i] = "/\[report" . $i . "\](.*?)\[\/report" . $i . "\]/is";
+    ${'bbcoded3_' . $i} = preg_replace($pattern[$rep2 + $i], "$1", $input);
+    ${'bbcoded3_' . $i} = preg_replace('/\[\/report' . $i . '\](.*?)\[\/message\]/is', '', $input);
+    ${'bbcoded3_' . $i} = preg_replace('/\[message\](.*?)\[report' . $i . '\]/is', '', ${'bbcoded3_' . $i});
+    $report = count($database->getNotice4(${'bbcoded3_' . $i}));
+    if ($report > 0) {
+        $topic = $database->getNotice2(${'bbcoded3_' . $i}, "topic");
+        $ally = $database->getNotice2(${'bbcoded3_' . $i}, "ally");
+        $replace[$rep2 + $i] = "<a href=berichte.php?id=$1&aid=$ally>$topic</a>";
+    } else {
+        $replace[$rep2 + $i] = "report not exist";
+    }
+    $rep3 = $rep2 + $i + 1;
 }
-$rep2 = $rep1+$i+1;
-}
-for($i=0;$i<=$report;$i++){
-$pattern[$rep2+$i] = "/\[report".$i."\](.*?)\[\/report".$i."\]/is";
-${'bbcoded3_'.$i} = preg_replace($pattern[$rep2+$i], "$1", $input);
-${'bbcoded3_'.$i} = preg_replace('/\[\/report'.$i.'\](.*?)\[\/message\]/is', '', $input);
-${'bbcoded3_'.$i} = preg_replace('/\[message\](.*?)\[report'.$i.'\]/is', '', ${'bbcoded3_'.$i});
-$report = count($database->getNotice4(${'bbcoded3_'.$i}));
-if($report > 0){
-$topic = $database->getNotice2(${'bbcoded3_'.$i},"topic");
-$ally = $database->getNotice2(${'bbcoded3_'.$i},"ally");
-$replace[$rep2+$i] = "<a href=berichte.php?id=$1&aid=$ally>$topic</a>";
-}else{
-$replace[$rep2+$i] = "report not exist";
-}
-$rep3 = $rep2+$i+1;
-}
-for($i=0;$i<=$coor;$i++){
-$pattern[$rep3+$i] = "/\[coor".$i."\](.*?)\[\/coor".$i."\]/is";
-${'bbcoded4_'.$i} = preg_replace($pattern[$rep3+$i], "$1", $input);
-${'bbcoded4_'.$i} = preg_replace('/\[\/coor'.$i.'\](.*?)\[\/message\]/is', '', $input);
-${'bbcoded4_'.$i} = preg_replace('/\[message\](.*?)\[coor'.$i.'\]/is', '', ${'bbcoded4_'.$i});
-for($x = 0; $x < 401; $x++) {
-if(preg_match('/^'.$x.'/', ${'bbcoded4_'.$i})){
-$xx = 1;
-$cx = $x;
-}
-}
-for($x = 0; $x > -401; $x--) {
-if(preg_match('/^'.$x.'/', ${'bbcoded4_'.$i})){
-$xx = 1;
-$cx = $x;
-}
-}
-for($y = 0; $y < 401; $y++) {
-if(preg_match('/-'.$y.'$/', ${'bbcoded4_'.$i})){
-$yy = 1;
-$cy = $y*(-1);
-}else if(preg_match('/'.$y.'$/', ${'bbcoded4_'.$i})){
-$yy = 1;
-$cy = $y;
-}
-}
-if(preg_match('/|/', ${'bbcoded4_'.$i}) && $xx == 1 && $yy == 1){
-$wref = $database->getVilWref($cx,$cy);
-$cwref = $generator->getMapCheck($wref);
-if($wref != ""){
-$wref1 = $database->getVillageType3($wref);
-if($wref1['oasistype'] == 0 && $wref1['occupied'] == 1){
-$vname = $database->getVillageField($wref,"name");
-}else if($wref1['oasistype'] == 0 && $wref1['occupied'] == 0){
-$vname = "Abandoned valley";
-}else if($wref1['oasistype'] != 0 && $wref1['occupied'] == 1){
-$vname = "Occupied Oasis";
-}else if($wref1['oasistype'] != 0 && $wref1['occupied'] == 0){
-$vname = "Unoccupied Oasis";
-}
-$replace[$rep3+$i] = "<a href=karte.php?d=$wref&c=$cwref>$vname($cx|$cy)</a>";
-}
-}
+for ($i = 0; $i <= $coor; $i++) {
+    $pattern[$rep3 + $i] = "/\[coor" . $i . "\](.*?)\[\/coor" . $i . "\]/is";
+    ${'bbcoded4_' . $i} = preg_replace($pattern[$rep3 + $i], "$1", $input);
+    ${'bbcoded4_' . $i} = preg_replace('/\[\/coor' . $i . '\](.*?)\[\/message\]/is', '', $input);
+    ${'bbcoded4_' . $i} = preg_replace('/\[message\](.*?)\[coor' . $i . '\]/is', '', ${'bbcoded4_' . $i});
+    for ($x = 0; $x < 401; $x++) {
+        if (preg_match('/^' . $x . '/', ${'bbcoded4_' . $i})) {
+            $xx = 1;
+            $cx = $x;
+        }
+    }
+    for ($x = 0; $x > -401; $x--) {
+        if (preg_match('/^' . $x . '/', ${'bbcoded4_' . $i})) {
+            $xx = 1;
+            $cx = $x;
+        }
+    }
+    for ($y = 0; $y < 401; $y++) {
+        if (preg_match('/-' . $y . '$/', ${'bbcoded4_' . $i})) {
+            $yy = 1;
+            $cy = $y * (-1);
+        } else if (preg_match('/' . $y . '$/', ${'bbcoded4_' . $i})) {
+            $yy = 1;
+            $cy = $y;
+        }
+    }
+    if (preg_match('/|/', ${'bbcoded4_' . $i}) && $xx == 1 && $yy == 1) {
+        $wref = $database->getVilWref($cx, $cy);
+        $cwref = $generator->getMapCheck($wref);
+        if ($wref != "") {
+            $wref1 = $database->getVillageType3($wref);
+            if ($wref1['oasistype'] == 0 && $wref1['occupied'] == 1) {
+                $vname = $database->getVillageField($wref, "name");
+            } else if ($wref1['oasistype'] == 0 && $wref1['occupied'] == 0) {
+                $vname = "Abandoned valley";
+            } else if ($wref1['oasistype'] != 0 && $wref1['occupied'] == 1) {
+                $vname = "Occupied Oasis";
+            } else if ($wref1['oasistype'] != 0 && $wref1['occupied'] == 0) {
+                $vname = "Unoccupied Oasis";
+            }
+            $replace[$rep3 + $i] = "<a href=karte.php?d=$wref&c=$cwref>$vname($cx|$cy)</a>";
+        }
+    }
 }
 $input = preg_replace('/\[message\]/', '', $input);
 $input = preg_replace('/\[\/message\]/', '', $input);

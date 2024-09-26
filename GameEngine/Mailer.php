@@ -1,75 +1,69 @@
 <?php
 
-#################################################################################
-##              -= YOU MAY NOT REMOVE OR CHANGE THIS NOTICE =-                 ##
-## --------------------------------------------------------------------------- ##
-##  Filename       Mailer.php                                                  ##
-##  Developed by:  Dixie                                                       ##
-##  License:       TravianX Project                                            ##
-##  Copyright:     TravianX (c) 2010-2011. All rights reserved.                ##
-##                                                                             ##
-#################################################################################
+class Mailer
+{
 
-class Mailer {
+    function sendActivate($email, $username, $pass, $act)
+    {
 
-	function sendActivate($email,$username,$pass,$act) {
+        $subject = "Welcome to " . SERVER_NAME;
 
-		$subject = "Welcome to ".SERVER_NAME;
-
-		$message = "Hello ".$username."
+        $message = "Hello " . $username . "
 
 Thank you for your registration.
 
 ----------------------------
-Name: ".$username."
-Password: ".$pass."
-Activation code: ".$act."
+Name: " . $username . "
+Password: " . $pass . "
+Activation code: " . $act . "
 ----------------------------
 
 Click the following link in order to activate your account:
-".SERVER."activate.php?code=".$act."
+" . SERVER . "activate.php?code=" . $act . "
 
 Greetings,
 Travian adminision";
 
-		$headers = "From: ".ADMIN_EMAIL."\n";
+        $headers = "From: " . ADMIN_EMAIL . "\n";
 
-		mail($email, $subject, $message, $headers);
-	}
+        mail($email, $subject, $message, $headers);
+    }
 
-	function sendInvite($email,$uid,$text) {
+    function sendInvite($email, $uid, $text)
+    {
 
-		$subject = "".SERVER_NAME." registeration";
+        $subject = "" . SERVER_NAME . " registeration";
 
-		$message = "Hello ".$username."
+        $message = "Hello " . $username . "
 
-Try the new ".SERVER_NAME."!
+Try the new " . SERVER_NAME . "!
 
 
-Link: ".SERVER."anmelden.php?id=ref".$uid."
+Link: " . SERVER . "anmelden.php?id=ref" . $uid . "
 
-".$text."
+" . $text . "
 
 
 Greetings,
 Travian";
 
-		$headers = "From: ".ADMIN_EMAIL."\n";
+        $headers = "From: " . ADMIN_EMAIL . "\n";
 
-		mail($email, $subject, $message, $headers);
-	}
+        mail($email, $subject, $message, $headers);
+    }
 
-	function sendPassword($email,$uid,$username,$npw,$cpw) {
+    function sendPassword($email, $uid, $username, $npw, $cpw)
+    {
 
-		$subject = "Password forgotten";
+        $subject = "Password forgotten";
 
-		$message = "Hello ".$username."
+        $message = "Hello " . $username . "
 
 You have requested a new password for Travian.
 
 ----------------------------
-Name: ".$username."
-Password: ".$npw."
+Name: " . $username . "
+Password: " . $npw . "
 ----------------------------
 
 Please click this link to activate your new password. The old password then
@@ -85,11 +79,13 @@ In case you did not request a new password you may ignore this email.
 Travian
 ";
 
-		$headers = "From: ".ADMIN_EMAIL."\n";
+        $headers = "From: " . ADMIN_EMAIL . "\n";
 
-		mail($email, $subject, $message, $headers);
-	}
+        mail($email, $subject, $message, $headers);
+    }
 
-};
+}
+
+;
 $mailer = new Mailer;
 ?>
