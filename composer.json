@@ -1,0 +1,13 @@
+{
+    "name": "admin/travianr",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Travian\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+      "ext-mysqli": "*"
+    }
+}
