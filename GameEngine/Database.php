@@ -15,4 +15,4 @@ switch (DB_TYPE) {
 }
 ## Security
 include("Protection.php");
-?>
+

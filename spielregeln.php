@@ -1,7 +1,8 @@
 <?php
 
 include("GameEngine/config.php");
-include("GameEngine/Database.php");
+include("GameEngine/Database/db_MYSQLi.php");
+$database = new MYSQLi_DB();
 include("GameEngine/Lang/" . LANG . ".php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

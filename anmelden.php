@@ -1,6 +1,14 @@
 <?php
 
-include('GameEngine/Account.php');
+include_once("GameEngine/config.php");
+require("GameEngine/Lang/" . LANG . ".php");
+
+include_once("GameEngine/Form.php");
+$form = new Form();
+
+include_once("GameEngine/Session.php");
+$session = new Session;
+
 $invited = (isset($_GET['uid'])) ? filter_var($_GET['uid'], FILTER_SANITIZE_NUMBER_INT) : $form->getError('invt');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

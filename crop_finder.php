@@ -1,13 +1,5 @@
 <?php
 
-/*-------------------------------------------------------*\
-| ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
-+---------------------------------------------------------+
-| Developed by:  Manni < manuel_mannhardt@web.de >        |
-|                Dzoki < dzoki.travian@gmail.com >        |
-| Copyright:     TravianX Project All rights reserved     |
-\*-------------------------------------------------------*/
-
 include("GameEngine/Village.php");
 
 if ($session->goldclub == 0) {

@@ -1,6 +1,9 @@
-<?php use Travian\Installation\Progressbar;
+<?php
 
-include("templates/script.php");
+use Travian\Installation\Progressbar;
+
+include("../vendor/autoload.php");
+include("../src/Installation/templates/script.php");
 
 if (!isset($_GET['s'])) {
     $_GET['s'] = 0;
@@ -89,7 +92,7 @@ date_default_timezone_set($t_zone);
 
     <div id="mid">
         <div id="side_navi">
-            <?php include("templates/menu.php"); ?>
+            <?php include("../src/Installation/templates/menu.php"); ?>
         </div>
 
         <div id="content" class="login">

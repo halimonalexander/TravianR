@@ -661,7 +661,7 @@ define("THERENOINFO", "There is no<br>information available.");
 define("LANDDIST", "Land distribution");
 define("TRIBE", "Tribe");
 define("ALLIANCE", "Alliance");
-define("OWNER", "Owner");
+//define("OWNER", "Owner");
 define("POP", "Population");
 define("REPORT", "Report");
 define("OPTION", "Options");
@@ -675,7 +675,7 @@ define("SENDMERC", "Send merchant(s)");
 define("BAN", "Player is banned");
 define("BUILDMARKET", "Build marketplace");
 define("PERHOUR", "per hour");
-define("BONUS", "Bonus");
+//define("BONUS", "Bonus");
 define("MAP", "Map");
 define("CROPFINDER", "Crop Finder");
 define("NORTH", "North");
@@ -684,9 +684,9 @@ define("SOUTH", "South");
 define("WEST", "West");
 
 //other
-define("VILLAGE", "Village");
+//define("VILLAGE", "Village");
 define("OASIS", "Oasis");
-define("PLAYER", "Player");
+//define("PLAYER", "Player");
 
 //LOGIN.php
 define("COOKIES", "You must have cookies enabled to be able to log in. If you share this computer with other people you should log out after each session for your own safety.");
@@ -877,7 +877,7 @@ define("NPC_TRADE_DESC", "With the NPC merchant you can distribute the resources
 define("MARKETPLACE_DESC", "At the Marketplace you can trade resources with other players. The higher its level, the more resources can be transported at the same time.");
 
 define("EMBASSY", "Embassy");
-define("ALLIANCE", "Alliance");
+//define("ALLIANCE", "Alliance");
 define("TAG", "Tag");
 define("TO_THE_ALLIANCE", "to the alliance");
 define("JOIN_ALLIANCE", "join alliance");

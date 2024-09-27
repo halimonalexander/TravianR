@@ -92,7 +92,7 @@ $query2 = "SELECT
 
 //$query2;
 
-$result2 = mysql_query($query2) or die(mysql_error());
+$result2 = mysql_query($query2);
 
 $targetalliance = array();
 $neutralarray = array();

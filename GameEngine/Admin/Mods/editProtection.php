@@ -21,7 +21,7 @@ $protection = (time() + $dur);
 
 mysql_query("UPDATE " . TB_PREFIX . "users SET 
 	protect = '" . $protection . "' 
-	WHERE id = $id") or die(mysql_error());
+	WHERE id = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");
 ?>

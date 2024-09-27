@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-include("../GameEngine/Database.php");
+include("../Database/db_MYSQLi.php");
+$database = new MYSQLi_DB();
 include("../GameEngine/Admin/database.php");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

@@ -18,7 +18,7 @@ $sessionaccess = $access['access'];
 if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not Admin!</font></h1>");
 
 $q = "UPDATE " . TB_PREFIX . "users SET gold = gold + " . $_POST['gold'] . " WHERE id != '0'";
-mysql_query($q) or die(mysql_error());
+mysql_query($q));
 
 header("Location: ../../../Admin/admin.php?p=maintenenceResetPlusBonus&g");
 ?>

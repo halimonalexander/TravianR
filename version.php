@@ -1,7 +1,30 @@
 <?php
 
-include("GameEngine/Village.php");
-$amount = $_SESSION['amount'];
+include_once("GameEngine/config.php");
+require("GameEngine/Lang/" . LANG . ".php");
+
+include_once("GameEngine/Session.php");
+$session = new Session;
+
+include_once("GameEngine/Generator.php");
+$generator = new MyGenerator();
+
+include_once("GameEngine/Building.php");
+$building = new Building();
+
+include_once("GameEngine/Database/db_MYSQLi.php");
+$database = new MYSQLi_DB();
+
+include_once("GameEngine/Ranking.php");
+$ranking = new Ranking();
+
+include_once("GameEngine/Village.php");
+//$village = new Village();
+
+include_once("GameEngine/Automation.php");
+//$automation = new Automation();
+
+$amount = $_SESSION['amount'] ?? '';
 $start = $generator->pageLoadTimeStart();
 if (isset($_GET['newdid'])) {
     $_SESSION['wid'] = $_GET['newdid'];
@@ -9,7 +32,7 @@ if (isset($_GET['newdid'])) {
 } else {
     $building->procBuild($_GET);
 }
-$automation->isWinner();
+//$automation->isWinner();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -39,7 +62,6 @@ $automation->isWinner();
     }
     ?>
     <script type="text/javascript">
-
         window.addEvent('domready', start);
     </script>
 </head>
@@ -52,40 +74,6 @@ $automation->isWinner();
     <div id="mid">
         <?php include("Templates/menu.php"); ?>
         <?php include("Templates/version.php"); ?>
-        <div id="products">
-            1. ronix - For coding above and beyond the call of duty</br>
-            2. Dzoki - Version starter</br>
-            3. Shadow - For coding above and beyond the call of duty</br>
-            4. Advocaite - For coding above and beyond the call of duty</br>
-            5. yi12345 - It's always a pleasure</br>
-            6. NarcisRO - bug hunter</br>
-            7. brainiacX - For being able to code, when we needed code the most</br>
-            8. InCube</br>
-            9. akshay9</br>
-            10. KFCSpike</br>
-            11. nean</br>
-            12. hexcoded</br>
-            13. SlimZ</br>
-            14. inblackhole</br>
-            15. elio - Your advise is always welcome</br>
-            16. AL3XAND3R or MisterX - For keeping the faith</br>
-            17. Mr.php</br>
-            18. Akakori</br>
-            19. G3n3s!s</br>
-            20. JimJam</br>
-            21. LoppyLukas</br>
-            22. Dixie</br>
-            23. ZZJHONS</br>
-            24. songeriux</br>
-            25. TTMMTT</br>
-            26. Donnchadh</br>
-            27. DesPlus</br>
-            28. Marvin</br>
-            29. noonn</br>
-            30. Armando</br>
-            31. aggenkeech</br>
-            32. Niko28</br>
-        </div>
     </div>
     </br></br></br></br>
     <div id="side_info">

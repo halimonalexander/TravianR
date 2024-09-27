@@ -1,15 +1,3 @@
-<?php
-
-/** --------------------------------------------------- **\
- * | ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
- * +---------------------------------------------------------+
- * | Credits:     All the developers including the leaders:  |
- * |              Advocaite & Dzoki & Donnchadh              |
- * |                                                         |
- * | Copyright:   TravianX Project All rights reserved       |
- * \** --------------------------------------------------- **/
-
-?>
 <div id="content" class="messages">
     <h1>Messages</h1>
     <?php include("menu.php"); ?>
@@ -27,7 +15,7 @@
             <tfoot>
             <tr>
                 <th><?php
-                    $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'") or die(mysql_error());
+                    $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'");
                     $golds = mysql_fetch_array($MyGold);
                     $date2 = strtotime("NOW");
                     if ($golds['plus'] <= $date2) { ?>

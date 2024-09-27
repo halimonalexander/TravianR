@@ -23,7 +23,7 @@ mysql_query("UPDATE " . TB_PREFIX . "users SET
 	desc1 = '" . $_POST['desc1'] . "', 
 	desc2 = '" . $_POST['desc2'] . "', 
 	quest = '" . $_POST['quest'] . "' 
-	WHERE id = $id") or die(mysql_error());
+	WHERE id = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");
 ?>

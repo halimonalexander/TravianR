@@ -18,7 +18,7 @@ if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not
 
 mysql_query("UPDATE " . TB_PREFIX . "vdata SET 
 	owner = '" . $_POST['newowner'] . "' 
-	WHERE wref = $id") or die(mysql_error());
+	WHERE wref = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $_POST['newowner'] . "");
 ?>

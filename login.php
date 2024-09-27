@@ -1,7 +1,15 @@
 <?php
 
-error_reporting(E_ALL);
+include_once("GameEngine/config.php");
+require("GameEngine/Lang/" . LANG . ".php");
 include("GameEngine/Account.php");
+
+include_once("GameEngine/Form.php");
+$form = new Form();
+
+include_once("GameEngine/Session.php");
+$session = new Session;
+
 if (isset($_GET['del_cookie'])) {
     setcookie("COOKUSR", "", time() - 3600 * 24, "/");
     header("Location: login.php");
@@ -10,7 +18,7 @@ if (!isset($_COOKIE['COOKUSR'])) {
     $_COOKIE['COOKUSR'] = "";
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['csrf']) || $_SESSION['csrf'] !== $_POST['csrf'])
         throw new RuntimeException('CSRF attack');
 }

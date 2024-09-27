@@ -1,40 +1,4 @@
 <?php
-// Security.class.php
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2009-2012 Kai Ratzeburg                                |
-// +----------------------------------------------------------------------+
-// | Licensed under the Apache License, Version 2.0 (the "License");      |
-// | you may not use this file except in compliance with the License.     |
-// | You may obtain a copy of the License at                              |
-// | http://www.apache.org/licenses/LICENSE-2.0                           |
-// | Unless required by applicable law or agreed to in writing, software  |
-// | distributed under the License is distributed on an "AS IS" BASIS,    |
-// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or      |
-
-// | implied. See the License for the specific language governing         |
-// | permissions and limitations under the License.                       |
-// +----------------------------------------------------------------------+
-// | Author: Kai Ratzeburg <ice-x@live.de>                                |
-// +----------------------------------------------------------------------+
-
-// Source Code Highlight 
-/* Security Fix; Only dev
-if(isset($_GET['show_source']))
-{
-    highlight_file(__FILE__);
-    exit;
-}
-*/
-
-/**
- * Provides static functions to help protect against cross site scripting
- * attacks and helps clean up the php environment upon initializing.
- *
- * Based upon Security library by http://kohanaphp.com/
- *
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- */
-define('PCRE_UNICODE_PROPERTIES', (bool)preg_match('/^\pL$/u', '?'));
 
 class Security
 {
@@ -197,7 +161,7 @@ class Security
      */
     protected function clean_input_keys($data)
     {
-        $chars = PCRE_UNICODE_PROPERTIES ? '\pL' : 'a-zA-Z';
+        $chars = preg_match('/^\pL$/u', '?') ? '\pL' : 'a-zA-Z';
 
         if (!preg_match('#^[' . $chars . '0-9:_.-]++$#uD', $data)) {
             exit('Illegal key characters in global data');
@@ -233,5 +197,3 @@ class Security
         return $data;
     }
 }
-
-?>

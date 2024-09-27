@@ -7,8 +7,8 @@ class MYSQL_DB
 
     function MYSQL_DB()
     {
-        $this->connection = mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS) or die(mysql_error());
-        mysql_select_db(SQL_DB, $this->connection) or die(mysql_error());
+        $this->connection = mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS);
+        mysql_select_db(SQL_DB, $this->connection);
         mysql_query("SET NAMES 'UTF8'");  //Fix utf8 phpmyadmin by gm4st3r
     }
 
@@ -160,7 +160,7 @@ class MYSQL_DB
         } else {
             $q = "SELECT $field FROM " . TB_PREFIX . "users where username = '$ref'";
         }
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         if ($result) {
             $dbarray = mysql_fetch_array($result);
             return $dbarray[$field];
@@ -179,7 +179,7 @@ class MYSQL_DB
     function getVrefField($ref, $field)
     {
         $q = "SELECT $field FROM " . TB_PREFIX . "vdata where wref = '$ref'";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray[$field];
     }
@@ -187,7 +187,7 @@ class MYSQL_DB
     function getVrefCapital($ref)
     {
         $q = "SELECT * FROM " . TB_PREFIX . "vdata where owner = '$ref' and capital = 1";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray;
     }
@@ -213,7 +213,7 @@ class MYSQL_DB
         } else {
             $q = "SELECT $field FROM " . TB_PREFIX . "activate where username = '$ref'";
         }
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray[$field];
     }
@@ -455,7 +455,7 @@ class MYSQL_DB
         }
         $time = time();
         $q = "INSERT into " . TB_PREFIX . "vdata (wref, owner, name, capital, pop, cp, celebration, wood, clay, iron, maxstore, crop, maxcrop, lastupdate, created) values ('$wid', '$uid', '$vname', '$capital', 2, 1, 0, 750, 750, 750, " . STORAGE_BASE . ", 750, " . STORAGE_BASE . ", '$time', '$time')";
-        return mysql_query($q, $this->connection) or die(mysql_error());
+        return mysql_query($q, $this->connection));
     }
 
     function addResourceFields($vid, $type)
@@ -1369,7 +1369,7 @@ class MYSQL_DB
         } else {
             $q = "SELECT $field FROM " . TB_PREFIX . "ali_permission where username = '$ref'";
         }
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray[$field];
     }
@@ -1945,7 +1945,7 @@ class MYSQL_DB
     {
         $time = time();
         $q = "INSERT INTO " . TB_PREFIX . "ali_invite values (0,$uid,$alli,$sender,$time,0)";
-        return mysql_query($q, $this->connection) or die(mysql_error());
+        return mysql_query($q, $this->connection));
     }
 
     function removeInvitation($id)
@@ -2080,7 +2080,7 @@ class MYSQL_DB
             $time = time();
         }
         $q = "INSERT INTO " . TB_PREFIX . "ndata (id, uid, toWref, ally, topic, ntype, data, time, viewed) values (0,'$uid','$toWref','$ally','$topic',$type,'$data',$time,0)";
-        return mysql_query($q, $this->connection) or die(mysql_error());
+        return mysql_query($q, $this->connection));
     }
 
     function getNotice($uid)
@@ -2138,7 +2138,7 @@ class MYSQL_DB
     function getTradeRoute2($id)
     {
         $q = "SELECT * FROM " . TB_PREFIX . "route where id = $id";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray;
     }
@@ -2146,7 +2146,7 @@ class MYSQL_DB
     function getTradeRouteUid($id)
     {
         $q = "SELECT * FROM " . TB_PREFIX . "route where id = $id";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['uid'];
     }
@@ -2170,7 +2170,7 @@ class MYSQL_DB
     function addBuilding($wid, $field, $type, $loop, $time, $master, $level)
     {
         $x = "UPDATE " . TB_PREFIX . "fdata SET f" . $field . "t=" . $type . " WHERE vref=" . $wid;
-        mysql_query($x, $this->connection) or die(mysql_error());
+        mysql_query($x, $this->connection));
         $q = "INSERT into " . TB_PREFIX . "bdata values (0,$wid,$field,$type,$loop,$time,$master,$level)";
         return mysql_query($q, $this->connection);
     }
@@ -2269,13 +2269,13 @@ class MYSQL_DB
         } else {
             if ($jobs[$jobDeleted]['field'] >= 19) {
                 $x = "SELECT f" . $jobs[$jobDeleted]['field'] . " FROM " . TB_PREFIX . "fdata WHERE vref=" . $jobs[$jobDeleted]['wid'];
-                $result = mysql_query($x, $this->connection) or die(mysql_error());
+                $result = mysql_query($x, $this->connection));
                 $fieldlevel = mysql_fetch_row($result);
                 if ($fieldlevel[0] == 0) {
                     if ($village->natar == 1 && $jobs[$jobDeleted]['field'] == 99) { //fix by ronix
                     } else {
                         $x = "UPDATE " . TB_PREFIX . "fdata SET f" . $jobs[$jobDeleted]['field'] . "t=0 WHERE vref=" . $jobs[$jobDeleted]['wid'];
-                        mysql_query($x, $this->connection) or die(mysql_error());
+                        mysql_query($x, $this->connection));
                     }
                 }
             }
@@ -2283,7 +2283,7 @@ class MYSQL_DB
                 if (($jobs[$jobLoopconID]['field'] <= 18 && $jobs[$jobDeleted]['field'] <= 18) || ($jobs[$jobLoopconID]['field'] >= 19 && $jobs[$jobDeleted]['field'] >= 19) || sizeof($jobs) < 3) {
                     $uprequire = $building->resourceRequired($jobs[$jobLoopconID]['field'], $jobs[$jobLoopconID]['type']);
                     $x = "UPDATE " . TB_PREFIX . "bdata SET loopcon=0,timestamp=" . (time() + $uprequire['time']) . " WHERE wid=" . $jobs[$jobDeleted]['wid'] . " AND loopcon=1 AND master=0";
-                    mysql_query($x, $this->connection) or die(mysql_error());
+                    mysql_query($x, $this->connection));
                 }
             }
         }
@@ -2494,7 +2494,7 @@ class MYSQL_DB
     function getMarketField($vref, $field)
     {
         $q = "SELECT $field FROM " . TB_PREFIX . "market where vref = '$vref'";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray[$field];
     }
@@ -2861,7 +2861,7 @@ class MYSQL_DB
     function checkIfResearched($vref, $unit)
     {
         $q = "SELECT $unit FROM " . TB_PREFIX . "tdata WHERE vref = $vref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray[$unit];
     }
@@ -3187,7 +3187,7 @@ class MYSQL_DB
     function getWWLevel($vref)
     {
         $q = "SELECT f99 FROM " . TB_PREFIX . "fdata WHERE vref = $vref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['f99'];
     }
@@ -3200,7 +3200,7 @@ class MYSQL_DB
     function getWWOwnerID($vref)
     {
         $q = "SELECT owner FROM " . TB_PREFIX . "vdata WHERE wref = $vref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['owner'];
     }
@@ -3213,7 +3213,7 @@ class MYSQL_DB
     function getUserAllianceID($id)
     {
         $q = "SELECT alliance FROM " . TB_PREFIX . "users where id = $id";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['alliance'];
     }
@@ -3226,7 +3226,7 @@ class MYSQL_DB
     function getWWName($vref)
     {
         $q = "SELECT wwname FROM " . TB_PREFIX . "fdata WHERE vref = $vref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['wwname'];
     }
@@ -3380,7 +3380,7 @@ class MYSQL_DB
     function getWoodAvailable($wref)
     {
         $q = "SELECT wood FROM " . TB_PREFIX . "vdata WHERE wref = $wref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['wood'];
     }
@@ -3388,7 +3388,7 @@ class MYSQL_DB
     function getClayAvailable($wref)
     {
         $q = "SELECT clay FROM " . TB_PREFIX . "vdata WHERE wref = $wref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['clay'];
     }
@@ -3396,7 +3396,7 @@ class MYSQL_DB
     function getIronAvailable($wref)
     {
         $q = "SELECT iron FROM " . TB_PREFIX . "vdata WHERE wref = $wref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['iron'];
     }
@@ -3404,7 +3404,7 @@ class MYSQL_DB
     function getCropAvailable($wref)
     {
         $q = "SELECT crop FROM " . TB_PREFIX . "vdata WHERE wref = $wref";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
         return $dbarray['crop'];
     }
@@ -3777,19 +3777,19 @@ class MYSQL_DB
     function addPassword($uid, $npw, $cpw)
     {
         $q = "REPLACE INTO `" . TB_PREFIX . "password`(uid, npw, cpw) VALUES ($uid, '$npw', '$cpw')";
-        mysql_query($q, $this->connection) or die(mysql_error());
+        mysql_query($q, $this->connection));
     }
 
     function resetPassword($uid, $cpw)
     {
         $q = "SELECT npw FROM `" . TB_PREFIX . "password` WHERE uid = $uid AND cpw = '$cpw' AND used = 0";
-        $result = mysql_query($q, $this->connection) or die(mysql_error());
+        $result = mysql_query($q, $this->connection));
         $dbarray = mysql_fetch_array($result);
 
         if (!empty($dbarray)) {
             if (!$this->updateUserField($uid, 'password', md5($dbarray['npw']), 1)) return false;
             $q = "UPDATE `" . TB_PREFIX . "password` SET used = 1 WHERE uid = $uid AND cpw = '$cpw' AND used = 0";
-            mysql_query($q, $this->connection) or die(mysql_error());
+            mysql_query($q, $this->connection));
             return true;
         }
 
@@ -3874,7 +3874,7 @@ class MYSQL_DB
     {
         $time = time();
         $q = "INSERT INTO " . TB_PREFIX . "general values (0,'$casualties','$time',1)";
-        return mysql_query($q, $this->connection) or die(mysql_error());
+        return mysql_query($q, $this->connection));
     }
 
     function getAttackByDate($time)
@@ -3960,7 +3960,7 @@ class MYSQL_DB
     function updatePrisoners($wid, $from, $t1, $t2, $t3, $t4, $t5, $t6, $t7, $t8, $t9, $t10, $t11)
     {
         $q = "UPDATE " . TB_PREFIX . "prisoners set t1 = t1 + $t1, t2 = t2 + $t2, t3 = t3 + $t3, t4 = t4 + $t4, t5 = t5 + $t5, t6 = t6 + $t6, t7 = t7 + $t7, t8 = t8 + $t8, t9 = t9 + $t9, t10 = t10 + $t10, t11 = t11 + $t11 where wref = $wid and " . TB_PREFIX . "prisoners.from = $from";
-        return mysql_query($q, $this->connection) or die(mysql_error());
+        return mysql_query($q, $this->connection));
     }
 
     function getPrisoners($wid, $mode = 0)

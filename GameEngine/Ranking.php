@@ -1,14 +1,5 @@
 <?php
 
-/** --------------------------------------------------- **\
- * | ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
- * +---------------------------------------------------------+
- * | Credits:     All the developers including the leaders:  |
- * |              Advocaite & Dzoki & Donnchadh              |
- * |                                                         |
- * | Copyright:   TravianX Project All rights reserved       |
- * \** --------------------------------------------------- **/
-
 class Ranking
 {
 
@@ -274,7 +265,7 @@ class Ranking
 			AND " . TB_PREFIX . "users.tribe <= 3 ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
             }
 
-            $result = (mysql_query($q));
+            $result = mysql_query($q);
             while ($row = mysql_fetch_assoc($result)) {
                 $datas[] = $row;
             }
@@ -329,7 +320,7 @@ class Ranking
 			ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
 
 
-        $result = (mysql_query($q));
+        $result = mysql_query($q);
         while ($row = mysql_fetch_assoc($result)) {
             $datas[] = $row;
         }
@@ -386,7 +377,7 @@ class Ranking
 			FROM " . TB_PREFIX . "users
 			WHERE " . TB_PREFIX . "users.apall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND " . TB_PREFIX . "users.tribe <= 3
 			ORDER BY " . TB_PREFIX . "users.apall DESC, pop DESC, userid DESC";
-        $result = mysql_query($q) or die(mysql_error());
+        $result = mysql_query($q);
         while ($row = mysql_Fetch_assoc($result)) {
             $datas[] = $row;
         }
@@ -429,7 +420,7 @@ class Ranking
 			FROM " . TB_PREFIX . "users
 			WHERE " . TB_PREFIX . "users.dpall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND " . TB_PREFIX . "users.tribe <= 3
 			ORDER BY " . TB_PREFIX . "users.dpall DESC, pop DESC, userid DESC";
-        $result = mysql_query($q) or die(mysql_error());
+        $result = mysql_query($q);
         while ($row = mysql_Fetch_assoc($result)) {
             $datas[] = $row;
         }
@@ -584,8 +575,3 @@ class Ranking
     }
 }
 
-;
-
-$ranking = new Ranking;
-
-?>

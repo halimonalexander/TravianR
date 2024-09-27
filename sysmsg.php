@@ -11,7 +11,7 @@ if (isset($_GET['del'])) {
     $result = mysql_query($query) or die (mysql_error());
     for ($i = 0; $row = mysql_fetch_row($result); $i++) {
         $updateattquery = mysql_query("UPDATE " . TB_PREFIX . "users SET ok = '0' WHERE id = '" . $row[0] . "'")
-        or die(mysql_error());
+       );
     }
 }
 
@@ -39,7 +39,7 @@ if (@isset($_POST['confirm'])) {
             $result = mysql_query($query) or die (mysql_error());
             for ($i = 0; $row = mysql_fetch_row($result); $i++) {
                 $updateattquery = mysql_query("UPDATE " . TB_PREFIX . "users SET ok = '1' WHERE id = '" . $row[0] . "'")
-                or die(mysql_error());
+               );
             }
             $done = true;
         } else {

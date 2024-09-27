@@ -4,28 +4,20 @@ if (!file_exists('GameEngine/config.php')) {
     header("Location: install/");
     exit;
 }
-
-include("GameEngine/config.php");
-/*
-if($_SERVER['HTTP_HOST'] != '.SERVER.')
-{
-    header('location: '.SERVER.'');
-    exit;
-}
-*/
-
-// delete the /* and the */ if you not use localhost.
-
-error_reporting(E_ALL || E_NOTICE);
-
-if (file_exists('Security/Security.class.php')) {
-    require 'Security/Security.class.php';
-    Security::instance();
-} else {
+if (!file_exists('Security/Security.class.php')) {
     die('Security: Please activate security class!');
 }
-include("GameEngine/Database.php");
-include("GameEngine/Lang/" . LANG . ".php");
+
+require("GameEngine/config.php");
+
+require 'Security/Security.class.php';
+Security::instance();
+
+require("GameEngine/Database/db_MYSQLi.php");
+$database = new MYSQLi_DB();
+
+require("GameEngine/Lang/" . LANG . ".php");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -114,53 +106,18 @@ include("GameEngine/Lang/" . LANG . ".php");
                     <table>
                         <tbody>
                         <tr>
-                            <th><?php
-
-                                echo $lang['index'][0][7];
-
-                                ?>:
-                            </th>
-
-                            <td><?php
-
-                                $return = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE tribe!=0 AND tribe!=4 AND tribe!=5");
-                                $users = (!empty($return)) ? mysql_num_rows($return) : 0;
-                                echo $users;
-                                ?></td>
+                            <th><?php echo $lang['index'][0][7]; ?>:</th>
+                            <td><?php echo $registeredPlayers = $database->getRegisteredPlayersCount(); ?></td>
                         </tr>
 
                         <tr>
-                            <th><?php
-
-                                echo $lang['index'][0][8];
-
-                                ?>:
-                            </th>
-
-                            <td><?php
-
-                                $return = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE " . time() . "-timestamp < (3600*24) AND tribe!=0 AND tribe!=4 AND tribe!=5");
-                                $active = (!empty($return)) ? mysql_num_rows($return) : 0;
-                                echo $active;
-
-                                ?></td>
+                            <th><?php echo $lang['index'][0][8];?>:</th>
+                            <td><?php echo $activePlayers = $database->getActivePlayersCount(); ?></td>
                         </tr>
 
                         <tr>
-                            <th><?php
-
-                                echo $lang['index'][0][9];
-
-                                ?>:
-                            </th>
-
-                            <td><?php
-
-                                $return = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE " . time() . "-timestamp < (60*10) AND tribe!=0 AND tribe!=4 AND tribe!=5");
-                                $online = (!empty($return)) ? mysql_num_rows($return) : 0;
-                                echo $online;
-
-                                ?></td>
+                            <th><?php echo $lang['index'][0][9]; ?>:</th>
+                            <td><?php echo $onlinePlayers = $database->getOnlinePlayersCount(); ?></td>
                         </tr>
                         </tbody>
                     </table>
@@ -206,10 +163,10 @@ include("GameEngine/Lang/" . LANG . ".php");
                         alt="Licencia Creative Commons" style="border-width:0; height:31px; width:88px;"
                         src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" class="logo_traviangames"/></a>
             <ul class="menu">
-                <li><a href="anleitung.php?s=3"><?php echo FAQ; ?></a>|</li>
+                <li><a href="anleitung.php?s=3">FAQ</a>|</li>
                 <li><a href="index.php?screenshots"><?php echo SCREENSHOTS; ?></a>|</li>
-                <li><a href="spielregeln.php"><?php echo SPIELREGELN; ?></a>|</li>
-                <li><a href="agb.php"><?php echo AGB; ?></a>|</li>
+                <li><a href="spielregeln.php"><?php echo GAME_RULES; ?></a>|</li>
+                <li><a href="agb.php">AGB</a>|</li>
                 <li><a href="impressum.php"><?php echo IMPRINT; ?></a></li>
                 <li class="copyright">&copy; 2011-2014 - TravianZ - All rights reserved</li>
             </ul>
@@ -223,21 +180,21 @@ include("GameEngine/Lang/" . LANG . ".php");
         <a href="#" class="closer"><img class="dynamic_img" alt="Close" src="img/un/x.gif"/></a>
         <ul class="world_list">
             <li class="w_big c3" style="background-image:url('img/en/welten/en1_big.jpg');">
-                <a href="login.php"><img class="w_button" src="img/un/x.gif" alt="World" title="<?php echo $users;
+                <a href="login.php"><img class="w_button" src="img/un/x.gif" alt="World" title="<?php echo $registeredPlayers;
                     echo "&nbsp;";
                     echo PLAYERS;
                     echo "&nbsp;|&nbsp;";
-                    echo $active;
+                    echo $activePlayers;
                     echo "&nbsp;";
                     echo ACTIVE;
                     echo "&nbsp;|&nbsp;";
-                    echo $online;
+                    echo $onlinePlayers;
                     echo "&nbsp;";
                     echo ONLINE; ?>"/></a>
                 <div class="label_players c0"><?php echo PLAYERS; ?>:</div>
                 <div class="label_online c0"><?php echo ONLINE; ?>:</div>
-                <div class="players c1"><?php echo $users; ?></div>
-                <div class="online c1"><?php echo $online; ?></div>
+                <div class="players c1"><?php echo $registeredPlayers; ?></div>
+                <div class="online c1"><?php echo $onlinePlayers; ?></div>
             </li>
         </ul>
         <div class="footer"></div>
@@ -250,21 +207,21 @@ include("GameEngine/Lang/" . LANG . ".php");
         <a href="#" class="closer"><img class="dynamic_img" alt="Close" src="img/un/x.gif"/></a>
         <ul class="world_list">
             <li class="w_big c4" style="background-image:url('img/en/welten/en1_big.jpg');">
-                <a href="anmelden.php"><img class="w_button" src="img/un/x.gif" alt="World" title="<?php echo $users;
+                <a href="anmelden.php"><img class="w_button" src="img/un/x.gif" alt="World" title="<?php echo $registeredPlayers;
                     echo "&nbsp;";
                     echo PLAYERS;
                     echo "&nbsp;|&nbsp;";
-                    echo $active;
+                    echo $activePlayers;
                     echo "&nbsp;";
                     echo ACTIVE;
                     echo "&nbsp;|&nbsp;";
-                    echo $online;
+                    echo $onlinePlayers;
                     echo "&nbsp;";
                     echo ONLINE; ?>"/></a>
                 <div class="label_players c0"><?php echo PLAYERS; ?>:</div>
                 <div class="label_online c0"><?php echo ONLINE; ?>:</div>
-                <div class="players c1"><?php echo $users; ?></div>
-                <div class="online c1"><?php echo $online; ?></div>
+                <div class="players c1"><?php echo $registeredPlayers; ?></div>
+                <div class="online c1"><?php echo $onlinePlayers; ?></div>
             </li>
         </ul>
         <div class="footer"></div>

@@ -186,7 +186,7 @@ class Technology
         global $village, $$unit;
         $unitarray = $$unit;
         $res = array();
-        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM " . TB_PREFIX . "vdata WHERE wref = " . $village->wid)) or die(mysql_error());
+        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM " . TB_PREFIX . "vdata WHERE wref = " . $village->wid)));
         if ($res['wood'] > $res['maxstore']) {
             $res['wood'] = $res['maxstore'];
         }
@@ -221,7 +221,7 @@ class Technology
         global $village, $$unit;
         $unitarray = $$unit;
         $res = array();
-        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM " . TB_PREFIX . "vdata WHERE wref = " . $village->wid)) or die(mysql_error());
+        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM " . TB_PREFIX . "vdata WHERE wref = " . $village->wid)));
         $totalres = $res['wood'] + $res['clay'] + $res['iron'] + $res['crop'];
         $totalresunit = ($unitarray['wood'] * ($great ? 3 : 1)) + ($unitarray['clay'] * ($great ? 3 : 1)) + ($unitarray['iron'] * ($great ? 3 : 1)) + ($unitarray['crop'] * ($great ? 3 : 1));
         $max = round($totalres / $totalresunit);

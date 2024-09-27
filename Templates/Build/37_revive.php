@@ -15,13 +15,6 @@ if ($artefact > 0) {
     $artefact_bonus = 1;
     $artefact_bonus2 = 1;
 }
-/*-------------------------------------------------------*\
-| ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
-+---------------------------------------------------------+
-| Developed by:  Manni < manuel_mannhardt@web.de >        |
-|                Dzoki < dzoki.travian@gmail.com >        |
-| Copyright:     TravianX Project All rights reserved     |
-\*-------------------------------------------------------*/
 
 if ($hero_info['unit'] == 1) {
     $name = U1;

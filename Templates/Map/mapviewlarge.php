@@ -104,7 +104,7 @@ $query2 = "SELECT
 			ORDER BY FIND_IN_SET(" . TB_PREFIX . "wdata.id,'$maparray2')";
 
 //echo $query2;
-$result2 = mysql_query($query2) or die(mysql_error());
+$result2 = mysql_query($query2);
 
 $targetalliance = array();
 $neutralarray = array();
