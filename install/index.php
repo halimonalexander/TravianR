@@ -1,4 +1,9 @@
-<?php include("templates/script.php");
+<?php
+
+use Travian\Installation\Progressbar;
+
+include("../vendor/autoload.php");
+include("../src/Installation/templates/script.php");
 
 if (!isset($_GET['s'])) {
     $_GET['s'] = 0;
@@ -87,13 +92,13 @@ date_default_timezone_set($t_zone);
 
     <div id="mid">
         <div id="side_navi">
-            <?php include("templates/menu.php"); ?>
+            <?php include("../src/Installation/templates/menu.php"); ?>
         </div>
 
         <div id="content" class="login">
             <?php
-            IHG_Progressbar::draw_css();
-            $bar = new IHG_Progressbar(7, 'Step %d from %d ');
+            Progressbar::draw_css();
+            $bar = new Progressbar(7, 'Step %d from %d ');
             $bar->draw();
             for ($i = 0; $i < ($_GET['s'] + 1); $i++) {
                 $bar->tick();
@@ -111,25 +116,26 @@ date_default_timezone_set($t_zone);
             } else
                 switch ($_GET['s']) {
                     case 0:
-                        include("templates/greet.php");
+                        include("../src/Installation/templates/greet.php");
                         break;
                     case 1:
-                        include("templates/config.php");
+                        include("../src/Installation/templates/config.php");
                         break;
                     case 2:
-                        include("templates/dataform.php");
+                        include("../src/Installation/templates/dataform.php");
                         break;
                     case 3:
-                        include("templates/field.php");
+                        include("../src/Installation/templates/field.php");
                         break;
                     case 4:
-                        include("templates/multihunter.php");
+                        include("../src/Installation/templates/multihunter.php");
                         break;
                     case 5:
-                        include("templates/oasis.php");
+                        include("../src/Installation/templates/oasis.php");
                         break;
                     case 6:
-                        include("templates/end.php");
+                        include("../GameEngine/config.php");
+                        include("../src/Installation/templates/end.php");
                         break;
                 }
             ?>

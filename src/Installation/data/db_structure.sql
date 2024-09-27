@@ -1,28 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 3.3.9
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Jul 21, 2011 at 02:49 AM
--- Server version: 5.5.8
--- PHP Version: 5.3.5
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `%PREFIX%a2b`
---
-
 CREATE TABLE IF NOT EXISTS `%PREFIX%a2b` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `ckey` varchar(255) NULL,
  `time_check` int(11) NULL DEFAULT '0',
  `to_vid` int(11) NULL,
@@ -49,12 +26,12 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%a2b` (
 -- Table structure for table `%PREFIX%links`
 --
 
-CREATE TABLE `%PREFIX%links` (
- `id` INT( 25 ) NULL AUTO_INCREMENT PRIMARY KEY ,
- `userid` INT( 25 ) NULL ,
- `name` VARCHAR( 50 ) NULL ,
- `url` VARCHAR( 150 ) NULL ,
- `pos` INT( 10 ) NULL
+CREATE TABLE IF NOT EXISTS `%PREFIX%links` (
+ `id` INT(25) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ `userid` INT(25) NULL ,
+ `name` VARCHAR(50) NULL ,
+ `url` VARCHAR(150) NULL ,
+ `pos` INT(10) NULL
 ) ENGINE = InnoDB;
 
 --
@@ -68,7 +45,7 @@ CREATE TABLE `%PREFIX%links` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%abdata` (
- `vref` int(11) NULL,
+ `vref` int(11) NOT NULL,
  `a1` tinyint(2) NULL DEFAULT '0',
  `a2` tinyint(2) NULL DEFAULT '0',
  `a3` tinyint(2) NULL DEFAULT '0',
@@ -100,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%abdata` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%activate` (
- `id` int(255) NULL AUTO_INCREMENT,
+ `id` int(255) NOT NULL AUTO_INCREMENT,
  `username` varchar(100) NULL,
  `password` varchar(100) NULL,
  `email` text NULL,
@@ -125,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%activate` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%active` (
- `username` varchar(100) NULL,
+ `username` varchar(100) NOT NULL,
  `timestamp` int(11) NULL,
  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -142,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%active` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%admin_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `user` text NULL,
  `log` text NULL,
  `time` int(25) NULL,
@@ -160,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%admin_log` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%allimedal` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `allyid` int(11) NULL,
  `categorie` int(11) NULL,
  `plaats` int(11) NULL,
@@ -178,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%allimedal` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%artefacts` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `vref` int(11) NULL,
  `owner` int(11) NULL,
  `type` tinyint(2) NULL,
@@ -192,12 +169,12 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%artefacts` (
  `kind` tinyint(1) NULL DEFAULT '0',
  `bad_effect` tinyint(1) NULL DEFAULT '0',
  `effect2` tinyint(2) NULL DEFAULT '0',
- `lastupdate` int(11) NULL DEFAULT '0', 
+ `lastupdate` int(11) NULL DEFAULT '0',
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Table structure for table `s1_artefacts`
+-- Table structure for table `%PREFIX%artefacts`
 --
 -- --------------------------------------------------------
 
@@ -206,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%artefacts` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%alidata` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `name` varchar(100) NULL,
  `tag` varchar(100) NULL,
  `leader` int(11) NULL,
@@ -240,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%alidata` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ali_invite` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `alliance` int(11) NULL,
  `sender` int(11) NULL,
@@ -261,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ali_invite` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ali_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `aid` int(11) NULL,
  `comment` text NULL,
  `date` int(11) NULL,
@@ -280,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ali_log` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ali_permission` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `alliance` int(11) NULL,
  `rank` varchar(100) NULL,
@@ -307,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ali_permission` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%attacks` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `vref` int(11) NULL,
  `t1` int(11) NULL,
  `t2` int(11) NULL,
@@ -321,17 +298,17 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%attacks` (
  `t10` int(11) NULL,
  `t11` int(11) NULL,
  `attack_type` tinyint(1) NULL,
- `ctar1` int(11) NULL, 
+ `ctar1` int(11) NULL,
  `ctar2` int(11) NULL,
- `spy` int(11) NULL, 
- `b1` tinyint(1) NULL, 
- `b2` tinyint(1) NULL, 
- `b3` tinyint(1) NULL, 
- `b4` tinyint(1) NULL, 
- `b5` tinyint(1) NULL, 
- `b6` tinyint(1) NULL, 
- `b7` tinyint(1) NULL, 
- `b8` tinyint(1) NULL, 
+ `spy` int(11) NULL,
+ `b1` tinyint(1) NULL,
+ `b2` tinyint(1) NULL,
+ `b3` tinyint(1) NULL,
+ `b4` tinyint(1) NULL,
+ `b5` tinyint(1) NULL,
+ `b6` tinyint(1) NULL,
+ `b7` tinyint(1) NULL,
+ `b8` tinyint(1) NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -347,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%attacks` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%banlist` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `name` varchar(100) NULL,
  `reason` varchar(30) NULL,
@@ -370,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%banlist` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%bdata` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wid` int(11) NULL,
  `field` tinyint(2) NULL,
  `type` tinyint(2) NULL,
@@ -393,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%bdata` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%build_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wid` int(11) NULL,
  `log` text NULL,
  PRIMARY KEY (`id`)
@@ -411,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%build_log` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%chat` (
- `id` int(20) NULL AUTO_INCREMENT,
+ `id` int(20) NOT NULL AUTO_INCREMENT,
  `id_user` int(11) NULL,
  `name` varchar(255) NULL,
  `alli` varchar(255) NULL,
@@ -421,14 +398,14 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%chat`
+-- Dumping data for table `%PREFIX%chat`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%config`
+-- Table structure for table `%PREFIX%config`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%config` (
@@ -437,35 +414,35 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%config` (
 INSERT INTO `%PREFIX%config` VALUES (0);
 
 --
--- Dumping data for table `%prefix%config`
+-- Dumping data for table `%PREFIX%config`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%deleting`
+-- Table structure for table `%PREFIX%deleting`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%deleting` (
- `uid` int(11) NULL,
+ `uid` int(11) NOT NULL,
  `timestamp` int(11) NULL,
  PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `%prefix%deleting`
+-- Dumping data for table `%PREFIX%deleting`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%demolition`
+-- Table structure for table `%PREFIX%demolition`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%demolition` (
- `vref` int(11) NULL,
+ `vref` int(11) NOT NULL,
  `buildnumber` int(11) NULL DEFAULT '0',
  `lvl` int(11) NULL DEFAULT '0',
  `timetofinish` int(11) NULL,
@@ -473,18 +450,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%demolition` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%demolition`
+-- Dumping data for table `%PREFIX%demolition`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%diplomacy`
+-- Table structure for table `%PREFIX%diplomacy`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%diplomacy` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `alli1` int(11) NULL,
  `alli2` int(11) NULL,
  `type` tinyint(1) NULL,
@@ -492,18 +469,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%diplomacy` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 --
--- Dumping data for table `%prefix%diplomacy`
+-- Dumping data for table `%PREFIX%diplomacy`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%enforcement`
+-- Table structure for table `%PREFIX%enforcement`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%enforcement` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `u1` int(11) NULL DEFAULT '0',
  `u2` int(11) NULL DEFAULT '0',
  `u3` int(11) NULL DEFAULT '0',
@@ -561,17 +538,17 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%enforcement` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%enforcement`
+-- Dumping data for table `%PREFIX%enforcement`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%farmlist`
+-- Table structure for table `%PREFIX%farmlist`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%farmlist` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wref` int(11) NULL,
  `owner` int(11) NULL,
  `name` varchar(100) NULL,
@@ -579,18 +556,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%farmlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%farmlist`
+-- Dumping data for table `%PREFIX%farmlist`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%fdata`
+-- Table structure for table `%PREFIX%fdata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%fdata` (
- `vref` int(11) NULL,
+ `vref` int(11) NOT NULL,
  `f1` tinyint(2) NULL DEFAULT '0',
  `f1t` tinyint(2) NULL DEFAULT '0',
  `f2` tinyint(2) NULL DEFAULT '0',
@@ -675,21 +652,21 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%fdata` (
  `f99t` tinyint(2) NULL DEFAULT '0',
  `wwname` varchar(100) NULL DEFAULT 'World Wonder',
  PRIMARY KEY (`vref`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `%prefix%fdata`
+-- Dumping data for table `%PREFIX%fdata`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%forum_cat`
+-- Table structure for table `%PREFIX%forum_cat`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%forum_cat` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `owner` varchar(255) NULL,
  `alliance` varchar(255) NULL,
  `forum_name` varchar(255) NULL,
@@ -699,36 +676,36 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%forum_cat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%forum_cat`
+-- Dumping data for table `%PREFIX%forum_cat`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%forum_edit`
+-- Table structure for table `%PREFIX%forum_edit`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%forum_edit` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `alliance` varchar(255) NULL,
  `result` varchar(255) NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%forum_edit`
+-- Dumping data for table `%PREFIX%forum_edit`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%forum_post`
+-- Table structure for table `%PREFIX%forum_post`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%forum_post` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `post` longtext NULL,
  `topic` varchar(255) NULL,
  `owner` varchar(255) NULL,
@@ -741,14 +718,14 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%forum_post` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%forum_post`
+-- Dumping data for table `%PREFIX%forum_post`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%forum_survey`
+-- Table structure for table `%PREFIX%forum_survey`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%forum_survey` (
@@ -775,18 +752,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%forum_survey` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%forum_survey`
+-- Dumping data for table `%PREFIX%forum_survey`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%forum_topic`
+-- Table structure for table `%PREFIX%forum_topic`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%forum_topic` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `title` varchar(255) NULL,
  `post` longtext NULL,
  `date` varchar(255) NULL,
@@ -805,18 +782,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%forum_topic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%forum_topic`
+-- Dumping data for table `%PREFIX%forum_topic`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%general`
+-- Table structure for table `%PREFIX%general`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%general` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `casualties` int(11) NULL,
  `time` int(11) NULL,
  `shown` tinyint(1) NULL,
@@ -824,36 +801,36 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%general` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%general`
+-- Dumping data for table `%PREFIX%general`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%gold_fin_log`
+-- Table structure for table `%PREFIX%gold_fin_log`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%gold_fin_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wid` int(11) NULL,
  `log` text NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%gold_fin_log`
+-- Dumping data for table `%PREFIX%gold_fin_log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%hero`
+-- Table structure for table `%PREFIX%hero`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%hero` (
- `heroid` int(11) NULL AUTO_INCREMENT,
+ `heroid` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `unit` smallint(2) NULL,
  `name` tinytext NULL,
@@ -877,7 +854,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%hero` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 --
--- Dumping data for table `%prefix%hero`
+-- Dumping data for table `%PREFIX%hero`
 --
 
 
@@ -885,47 +862,47 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%hero` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%illegal_log`
+-- Table structure for table `%PREFIX%illegal_log`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%illegal_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `user` int(11) NULL,
  `log` text NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%illegal_log`
+-- Dumping data for table `%PREFIX%illegal_log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%login_log`
+-- Table structure for table `%PREFIX%login_log`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%login_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `ip` varchar(15) NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%login_log`
+-- Dumping data for table `%PREFIX%login_log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%market`
+-- Table structure for table `%PREFIX%market`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%market` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `vref` int(11) NULL,
  `gtype` tinyint(1) NULL,
  `gamt` int(11) NULL,
@@ -939,36 +916,36 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%market` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%market`
+-- Dumping data for table `%PREFIX%market`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%market_log`
+-- Table structure for table `%PREFIX%market_log`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%market_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wid` int(11) NULL,
  `log` text NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%market_log`
+-- Dumping data for table `%PREFIX%market_log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%mdata`
+-- Table structure for table `%PREFIX%mdata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%mdata` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `target` int(11) NULL,
  `owner` int(11) NULL,
  `topic` varchar(100) NULL,
@@ -987,18 +964,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%mdata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%mdata`
+-- Dumping data for table `%PREFIX%mdata`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%medal`
+-- Table structure for table `%PREFIX%medal`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%medal` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `userid` int(11) NULL,
  `categorie` int(11) NULL,
  `plaats` int(11) NULL,
@@ -1010,18 +987,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%medal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%medal`
+-- Dumping data for table `%PREFIX%medal`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%movement`
+-- Table structure for table `%PREFIX%movement`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%movement` (
- `moveid` int(11) NULL AUTO_INCREMENT,
+ `moveid` int(11) NOT NULL AUTO_INCREMENT,
  `sort_type` tinyint(4) NULL DEFAULT '0',
  `from` int(11) NULL DEFAULT '0',
  `to` int(11) NULL DEFAULT '0',
@@ -1039,18 +1016,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%movement` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%movement`
+-- Dumping data for table `%PREFIX%movement`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%ndata`
+-- Table structure for table `%PREFIX%ndata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ndata` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `toWref` int(11) NULL,
  `ally` int(11) NULL,
@@ -1065,18 +1042,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ndata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%ndata`
+-- Dumping data for table `%PREFIX%ndata`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%odata`
+-- Table structure for table `%PREFIX%odata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%odata` (
- `wref` int(11) NULL,
+ `wref` int(11) NOT NULL,
  `type` tinyint(2) NULL,
  `conqured` int(11) NULL,
  `wood` int(11) NULL,
@@ -1095,14 +1072,14 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%odata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `%prefix%odata`
+-- Dumping data for table `%PREFIX%odata`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%online`
+-- Table structure for table `%PREFIX%online`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%online` (
@@ -1114,7 +1091,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%online` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `%prefix%online`
+-- Dumping data for table `%PREFIX%online`
 --
 
 -- --------------------------------------------------------
@@ -1124,7 +1101,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%online` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%prisoners` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wref` int(11) NULL,
  `from` int(11) NULL,
  `t1` int(11) NULL,
@@ -1149,11 +1126,11 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%prisoners` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%raidlist`
+-- Table structure for table `%PREFIX%raidlist`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%raidlist` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `lid` int(11) NULL,
  `towref` int(11) NULL,
  `x` int(11) NULL,
@@ -1173,18 +1150,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%raidlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%raidlist`
+-- Dumping data for table `%PREFIX%raidlist`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%research`
+-- Table structure for table `%PREFIX%research`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%research` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `vref` int(11) NULL,
  `tech` varchar(3) NULL,
  `timestamp` int(11) NULL,
@@ -1192,18 +1169,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%research` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%research`
+-- Dumping data for table `%PREFIX%research`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%route`
+-- Table structure for table `%PREFIX%route`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%route` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `uid` int(11) NULL,
  `wid` int(11) NULL,
  `from` int(11) NULL,
@@ -1220,18 +1197,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%route` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%route`
+-- Dumping data for table `%PREFIX%route`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%send`
+-- Table structure for table `%PREFIX%send`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%send` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wood` int(11) NULL,
  `clay` int(11) NULL,
  `iron` int(11) NULL,
@@ -1241,18 +1218,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%send` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%send`
+-- Dumping data for table `%PREFIX%send`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%tdata`
+-- Table structure for table `%PREFIX%tdata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%tdata` (
- `vref` int(11) NULL,
+ `vref` int(11) NOT NULL,
  `t2` tinyint(1) NULL DEFAULT '0',
  `t3` tinyint(1) NULL DEFAULT '0',
  `t4` tinyint(1) NULL DEFAULT '0',
@@ -1297,36 +1274,36 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%tdata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `%prefix%tdata`
+-- Dumping data for table `%PREFIX%tdata`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%tech_log`
+-- Table structure for table `%PREFIX%tech_log`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%tech_log` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `wid` int(11) NULL,
  `log` text NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%tech_log`
+-- Dumping data for table `%PREFIX%tech_log`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%training`
+-- Table structure for table `%PREFIX%training`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%training` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `vref` int(11) NULL,
  `unit` tinyint(2) NULL,
  `amt` int(11) NULL,
@@ -1338,18 +1315,18 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%training` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%training`
+-- Dumping data for table `%PREFIX%training`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%units`
+-- Table structure for table `%PREFIX%units`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%units` (
- `vref` int(11) NULL,
+ `vref` int(11) NOT NULL,
  `u1` int(11) NULL DEFAULT '0',
  `u2` int(11) NULL DEFAULT '0',
  `u3` int(11) NULL DEFAULT '0',
@@ -1407,7 +1384,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%units` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `%prefix%units`
+-- Dumping data for table `%PREFIX%units`
 --
 
 
@@ -1418,7 +1395,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%units` (
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%users` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `username` varchar(100) NULL,
  `password` varchar(100) NULL,
  `email` text NULL,
@@ -1426,7 +1403,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%users` (
  `access` tinyint(1) NULL DEFAULT '1',
  `gold` int(9) NULL DEFAULT '0',
  `gender` tinyint(1) NULL DEFAULT '0',
- `birthday` date NULL DEFAULT '0000-00-00',
+ `birthday` date NULL DEFAULT NULL,
  `location` text NULL,
  `desc1` text NULL,
  `desc2` text NULL,
@@ -1508,23 +1485,23 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `%prefix%users`
+-- Dumping data for table `%PREFIX%users`
 --
 
 INSERT INTO `%PREFIX%users` (`id`, `username`, `password`, `email`, `tribe`, `access`, `gold`, `gender`, `birthday`, `location`, `desc1`, `desc2`, `plus`, `b1`, `b2`, `b3`, `b4`, `sit1`, `sit2`, `alliance`, `sessid`, `act`, `timestamp`, `ap`, `apall`, `dp`, `dpall`, `protect`, `quest`, `gpack`, `cp`, `lastupdate`, `RR`, `Rc`, `ok`) VALUES
-(5, 'Multihunter', '', 'multihunter@travianx.mail', 0, 9, 0, 0, '0000-00-00', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0),
-(1, 'Support', '', 'support@travianx.mail', 0, 8, 0, 0, '0000-00-00', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0),
-(2, 'Nature', '4262cc190152adfc1a3fcf32af6aa430', 'support@travianx.mail', 4, 9, 0, 0, '0000-00-00', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0),
-(4, 'Taskmaster', '', 'support@travianx.mail', 0, 8, 0, 0, '0000-00-00', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0);
+(5, 'Multihunter', '', 'multihunter@travianx.mail', 0, 9, 0, 0, NULL, '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0),
+(1, 'Support', '', 'support@travianx.mail', 0, 8, 0, 0, NULL, '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0),
+(2, 'Nature', '4262cc190152adfc1a3fcf32af6aa430', 'support@travianx.mail', 4, 9, 0, 0, NULL, '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0),
+(4, 'Taskmaster', '', 'support@travianx.mail', 0, 8, 0, 0, NULL, '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 'gpack/travian_default/', 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%vdata`
+-- Table structure for table `%PREFIX%vdata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%vdata` (
-`wref` int(11) NULL,
+`wref` int(11) NOT NULL,
 `owner` int(11) NULL,
 `name` varchar(100) NULL,
 `capital` tinyint(1) NULL,
@@ -1539,7 +1516,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%vdata` (
 `crop` float(12,2) NULL,
 `maxcrop` int(11) NULL,
 `lastupdate` int(11) NULL,
-`lastupdate2` int(11) NULL DEFAULT '0', 
+`lastupdate2` int(11) NULL DEFAULT '0',
 `loyalty` float(9,6) NULL DEFAULT '100',
 `exp1` int(11) NULL DEFAULT '0',
 `exp2` int(11) NULL DEFAULT '0',
@@ -1553,18 +1530,18 @@ PRIMARY KEY (`wref`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%vdata`
+-- Dumping data for table `%PREFIX%vdata`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `%prefix%wdata`
+-- Table structure for table `%PREFIX%wdata`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%wdata` (
- `id` int(11) NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `fieldtype` tinyint(2) NULL,
  `oasistype` tinyint(2) NULL,
  `x` int(11) NULL,
@@ -1575,16 +1552,16 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%wdata` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `%prefix%wdata`
+-- Dumping data for table `%PREFIX%wdata`
 --
 
 -- --------------------------------------------------------
 --
--- Table structure for table `%prefix%password`
+-- Table structure for table `%PREFIX%password`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%password` (
- `uid` int(11) NULL,
+ `uid` int(11) NOT NULL,
  `npw` varchar(100) NULL,
  `cpw` varchar(100) NULL,
  `used` tinyint(1) NULL DEFAULT '0',
@@ -1593,12 +1570,12 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%password` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 --
--- Dumping data for table `%prefix%password`
+-- Dumping data for table `%PREFIX%password`
 --
 
 -- --------------------------------------------------------
 --
--- Table structure for table `%prefix%ww_attacks`
+-- Table structure for table `%PREFIX%ww_attacks`
 --
 
 CREATE TABLE IF NOT EXISTS `%PREFIX%ww_attacks` (
@@ -1607,7 +1584,7 @@ CREATE TABLE IF NOT EXISTS `%PREFIX%ww_attacks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 --
--- Dumping data for table `%prefix%password`
+-- Dumping data for table `%PREFIX%password`
 --
 
 -- --------------------------------------------------------

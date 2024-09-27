@@ -4,13 +4,7 @@
 All the files are placed. The database is created, so you can now start playing on your own Travian.
 </p>
 
-<?php include("../GameEngine/config.php");
-$time = time();
-rename("../install/", "../installed_" . $time);
-?>
-<p>
-<center><font size="4"><a href="<?php echo HOMEPAGE; ?>">> My TravianZ homepage <</font></a></center>
-</p>
+<p><center><font size="4"><a href="<?php echo HOMEPAGE; ?>">> My TravianZ homepage <</font></a></center></p>
 </br>
 <center>
     <h2>Please support our developers and donate.</h2>

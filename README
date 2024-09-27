@@ -1,2 +1,5 @@
 1. auto-formated code according to PSR
 2. removed tpl files to php
+3. added composer
+4. refactored installations process
+5. bulk fix for mysqli repository class

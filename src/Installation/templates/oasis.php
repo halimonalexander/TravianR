@@ -7,7 +7,8 @@
 // DO NOT REMOVE COPYRIGHT NOTICE! //
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
-<form action="include/oasis.php" method="post" id="dataform">
+<form action="process.php" method="post" id="dataform">
+    <input type="hidden" name="popoasis" value="1">
     <p>
         <span class="f10 c">Populate Oasis</span>
     <table>
