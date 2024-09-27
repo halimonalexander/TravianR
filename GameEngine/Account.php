@@ -1,11 +1,9 @@
 <?php
 
-include("Session.php");
-
 class Account
 {
 
-    function Account()
+    function __construct()
     {
         global $session;
         if (isset($_POST['ft'])) {
@@ -116,8 +114,8 @@ class Account
         if (START_DATE < date('m/d/Y') or START_DATE == date('m/d/Y') && START_TIME <= date('H:i')) {
             global $database;
             $q = "SELECT * FROM " . TB_PREFIX . "activate where act = '" . $_POST['id'] . "'";
-            $result = mysql_query($q, $database->connection);
-            $dbarray = mysql_fetch_array($result);
+            $result = mysqli_query($q, $database->connection);
+            $dbarray = mysqli_fetch_array($result);
             if ($dbarray['act'] == $_POST['id']) {
                 $uid = $database->register($dbarray['username'], $dbarray['password'], $dbarray['email'], $dbarray['tribe'], "");
                 if ($uid) {
@@ -138,8 +136,8 @@ class Account
     {
         global $database;
         $q = "SELECT * FROM " . TB_PREFIX . "activate where id = '" . $_POST['id'] . "'";
-        $result = mysql_query($q, $database->connection);
-        $dbarray = mysql_fetch_array($result);
+        $result = mysqli_query($q, $database->connection);
+        $dbarray = mysqli_fetch_array($result);
         if (md5($_POST['pw']) == $dbarray['password']) {
             $database->unreg($dbarray['username']);
             header("Location: anmelden.php");
@@ -151,7 +149,7 @@ class Account
     private function Login()
     {
         global $database, $session, $form;
-        $_POST['user'] = mysql_real_escape_string($_POST['user']);
+        $_POST['user'] = mysqli_real_escape_string($_POST['user']);
         if (!isset($_POST['user']) || $_POST['user'] == "") {
             $form->addError("user", LOGIN_USR_EMPTY);
         } else if (!$database->checkExist($_POST['user'], 0)) {
@@ -195,7 +193,7 @@ class Account
         global $session, $database;
         unset($_SESSION['wid']);
         $database->activeModify(addslashes($session->username), 1);
-        $database->UpdateOnline("logout") or die(mysql_error());
+        $database->UpdateOnline("logout");
         $session->Logout();
     }
 
@@ -227,9 +225,4 @@ class Account
         $database->updateUserField($uid, "access", USER, 1);
         $message->sendWelcome($uid, $username);
     }
-
 }
-
-;
-$account = new Account;
-?>

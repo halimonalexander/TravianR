@@ -28,7 +28,7 @@ $users = mysql_num_rows(mysql_query("SELECT SQL_CACHE * FROM " . TB_PREFIX . "us
     <tr>
         <td>Players online</td>
         <td><?php $t = time();
-            $result = mysql_query("SELECT SQL_CACHE * FROM " . TB_PREFIX . "users WHERE " . $t . " - timestamp < 300") or die(mysql_error());;
+            $result = mysql_query("SELECT SQL_CACHE * FROM " . TB_PREFIX . "users WHERE " . $t . " - timestamp < 300"));;
             $num_rows = mysql_num_rows($result);
             echo $num_rows; ?>
         </td>

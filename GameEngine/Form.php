@@ -73,6 +73,3 @@ class Form
         return $this->errorarray;
     }
 }
-
-;
-?>

@@ -160,4 +160,4 @@ class MyGenerator
 }
 
 ;
-$generator = new MyGenerator;
+

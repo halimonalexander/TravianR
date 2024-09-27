@@ -145,18 +145,18 @@ if ($session->access < ADMIN) {
 
                     $wid = mysql_fetch_assoc(mysql_query("SELECT * FROM " . TB_PREFIX . "vdata WHERE owner = $uid"));
                     $q = "UPDATE " . TB_PREFIX . "vdata SET pop = 834 WHERE owner = $uid";
-                    mysql_query($q) or die(mysql_error());
+                    mysql_query($q));
                     $q2 = "UPDATE " . TB_PREFIX . "users SET access = 2 WHERE id = $uid";
-                    mysql_query($q2) or die(mysql_error());
+                    mysql_query($q2));
                     if (SPEED > 3) {
                         $speed = 5;
                     } else {
                         $speed = SPEED;
                     }
                     $q3 = "UPDATE " . TB_PREFIX . "units SET u41 = " . (64700 * $speed) . ", u42 = " . (295231 * $speed) . ", u43 = " . (180747 * $speed) . ", u44 = " . (20000 * $speed) . ", u45 = " . (364401 * $speed) . ", u46 = " . (217602 * $speed) . ", u47 = " . (2034 * $speed) . ", u48 = " . (1040 * $speed) . " , u49 = " . (1 * $speed) . ", u50 = " . (9 * $speed) . " WHERE vref = " . $wid['wref'] . "";
-                    mysql_query($q3) or die(mysql_error());
+                    mysql_query($q3));
                     $q4 = "UPDATE " . TB_PREFIX . "users SET desc2 = '$desc' WHERE id = $uid";
-                    mysql_query($q4) or die(mysql_error());
+                    mysql_query($q4));
 
                     /**
                      * SCOUTING ALL PLAYERS FIX BY MisterX
@@ -476,7 +476,7 @@ if ($session->access < ADMIN) {
                     $result = mysql_query($query) or die (mysql_error());
                     for ($i = 0; $row = mysql_fetch_row($result); $i++) {
                         $updateattquery = mysql_query("UPDATE " . TB_PREFIX . "users SET ok = '1' WHERE id = '" . $row[0] . "'")
-                        or die(mysql_error());
+                       );
                     }
 
                     echo "Done";

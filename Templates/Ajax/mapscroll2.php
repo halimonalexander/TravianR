@@ -2,8 +2,8 @@
 session_start();
 include('GameEngine/config.php');
 include_once("GameEngine/Lang/" . LANG . ".php");
-mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS) or die(mysql_error());
-mysql_select_db(SQL_DB) or die(mysql_error());
+mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS);
+mysql_select_db(SQL_DB);
 include("GameEngine/Generator.php");
 include("GameEngine/Database/db_MYSQL.php");
 header("Content-Type: application/json;");
@@ -106,7 +106,7 @@ $query2 = "SELECT
 			ORDER BY FIND_IN_SET(" . TB_PREFIX . "wdata.id,'$maparray2')";
 
 //echo $query2;
-$result2 = mysql_query($query2) or die(mysql_error());
+$result2 = mysql_query($query2);
 
 $i = 0;
 $i2 = 0;

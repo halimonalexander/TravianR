@@ -227,7 +227,7 @@ if ($_GET['mode'] == 'troops' && $_GET['cancel'] == 1) {
         if (($now - $oldmovement[0]['starttime']) < 90 && $oldmovement[0]['from'] == $village->wid) {
 
             $qc = "SELECT * FROM " . TB_PREFIX . "movement where proc = 0 and moveid = " . $_GET['moveid'];
-            $resultc = $database->query($qc) or die(mysql_error());
+            $resultc = $database->query($qc));
 
             if (mysql_num_rows($resultc) == 1) {
 

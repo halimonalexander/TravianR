@@ -57,7 +57,7 @@ $q = "
 	WHERE " . TB_PREFIX . "users.apall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND " . TB_PREFIX . "users.tribe <= 3
 	ORDER BY " . TB_PREFIX . "users.apall DESC, pop DESC, username ASC";
 
-$result = mysql_query($q) or die(mysql_error());
+$result = mysql_query($q));
 while ($row = mysql_fetch_assoc($result)) {
     $attacker[] = $row;
 }
@@ -82,7 +82,7 @@ $q = "
 	FROM " . TB_PREFIX . "users
 	WHERE " . TB_PREFIX . "users.dpall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
 	ORDER BY " . TB_PREFIX . "users.dpall DESC, pop DESC, username ASC";
-$result = mysql_query($q) or die(mysql_error());
+$result = mysql_query($q));
 while ($row = mysql_fetch_assoc($result)) {
     $defender[] = $row;
 }
@@ -98,22 +98,22 @@ foreach ($defender as $key => $row) {
 $sql = mysql_query("SELECT vref FROM " . TB_PREFIX . "fdata WHERE f99 = '100' and f99t = '40'");
 $vref = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT name FROM " . TB_PREFIX . "vdata WHERE wref = '$vref'") or die(mysql_error());
+$sql = mysql_query("SELECT name FROM " . TB_PREFIX . "vdata WHERE wref = '$vref'"));
 $winningvillagename = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT owner FROM " . TB_PREFIX . "vdata WHERE wref = '$vref'") or die(mysql_error());
+$sql = mysql_query("SELECT owner FROM " . TB_PREFIX . "vdata WHERE wref = '$vref'"));
 $owner = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT username FROM " . TB_PREFIX . "users WHERE id = '$owner'") or die(mysql_error());
+$sql = mysql_query("SELECT username FROM " . TB_PREFIX . "users WHERE id = '$owner'"));
 $username = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT alliance FROM " . TB_PREFIX . "users WHERE id = '$owner'") or die(mysql_error());
+$sql = mysql_query("SELECT alliance FROM " . TB_PREFIX . "users WHERE id = '$owner'"));
 $allianceid = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT name, tag FROM " . TB_PREFIX . "alidata WHERE id = '$allianceid'") or die(mysql_error());
+$sql = mysql_query("SELECT name, tag FROM " . TB_PREFIX . "alidata WHERE id = '$allianceid'"));
 $winningalliance = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT tag FROM " . TB_PREFIX . "alidata WHERE id = '$allianceid'") or die(mysql_error());
+$sql = mysql_query("SELECT tag FROM " . TB_PREFIX . "alidata WHERE id = '$allianceid'"));
 $winningalliancetag = mysql_result($sql, 0);
 
 $sql = mysql_query("SELECT vref FROM " . TB_PREFIX . "fdata WHERE f99 = '100' and f99t = '40'");

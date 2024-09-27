@@ -1,11 +1,5 @@
 <?php
 
-/** --------------------------------------------------- **\
- * | ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
- * +---------------------------------------------------------+
- * | Released by:   Dzoki < dzoki.travian@gmail.com >        |
- * | Copyright:     TravianX Project All rights reserved     |
- * \** --------------------------------------------------- **/
 if (!is_numeric($_SESSION['search'])) {
     ?>
     <center><font color=orange size=2><p class=\"error\">The hero <b>"<?php echo $_SESSION['search']; ?>"</b> does not

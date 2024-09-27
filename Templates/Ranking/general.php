@@ -1,14 +1,5 @@
 <?php
 
-/** --------------------------------------------------- **\
- * | ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
- * +---------------------------------------------------------+
- * | Credits:     All the developers including the leaders:  |
- * |              Advocaite & Dzoki & Donnchadh              |
- * |                                                         |
- * | Copyright:   TravianX Project All rights reserved       |
- * \** --------------------------------------------------- **/
-
 $tribe1 = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE tribe = 1");
 $tribe2 = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE tribe = 2");
 $tribe3 = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE tribe = 3");

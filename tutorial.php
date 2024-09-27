@@ -1,7 +1,7 @@
 <?php
-
 include("GameEngine/config.php");
-include("GameEngine/Database.php");
+include("GameEngine/Database/db_MYSQLi.php");
+$database = new MYSQLi_DB();
 include("GameEngine/Lang/" . LANG . ".php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -21,47 +21,26 @@ include("GameEngine/Lang/" . LANG . ".php");
 </head>
 <body class="webkit contentPage">
 <div class="wrapper">
-    <div id="country_select">
-
-    </div>
+    <div id="country_select"></div>
     <div id="header">
         <h1>Welcome to <?php echo SERVER_NAME; ?></h1>
     </div>
-
     <div id="navigation">
-
         <a href="index.php" class="home"><img src="img/x.gif" alt="Travian"/></a>
-
         <table class="menu">
-
             <tr>
-
                 <td><a href="tutorial.php"><span>Tutorial</span></a></td>
-
                 <td><a href="anleitung.php"><span>Manual</span></a></td>
-
                 <td><a href="http://forum.travian.com/" target="_blank"><span>Forum</span></a></td>
-
-
                 <td><a href="index.php?signup"><span>Register</span></a></td>
-
                 <td><a href="index.php?login"><span>Login</span></a></td>
-
             </tr>
-
         </table>
-
     </div>
 
-
     <div id="content">
-
         <div class="grit">
-
-
             <h1>Tutorial</h1>
-
-
             <?php
             if (!isset($_GET['s'])) {
                 $_GET['s'] = "";
@@ -85,40 +64,20 @@ include("GameEngine/Lang/" . LANG . ".php");
                 include("Templates/Tutorial/5.php");
             }
             ?>
-
-
             </ul>
 
             <div class="footer"></div>
-
         </div>
-
     </div>
 
     <div id="iframe_layer" class="overlay">
-
-
         <div class="mask closer"></div>
-
-
         <div class="overlay_content">
-
             <a href="index.php" class="closer"><img class="dynamic_img" alt="Close" src="img/un/x.gif"/></a>
-
             <h2>Anleitung</h2>
-
-
-            <div id="frame_box">
-
-            </div>
-
+            <div id="frame_box"></div>
             <div class="footer"></div>
-
         </div>
-
-
     </div>
-
-
 </body>
 </html>

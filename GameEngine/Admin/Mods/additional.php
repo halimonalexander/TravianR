@@ -34,6 +34,6 @@ mysql_query("UPDATE " . TB_PREFIX . "users SET
 	RR = '" . $_POST['res'] . "', 
 	apall = '" . $_POST['ooff'] . "', 
 	dpall = '" . $_POST['odef'] . "' 
-	WHERE id = " . $id . "") or die(mysql_error());
+	WHERE id = " . $id . ""));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");

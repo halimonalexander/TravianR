@@ -1,14 +1,5 @@
 <?php
 
-/** --------------------------------------------------- **\
- * | ********* DO NOT REMOVE THIS COPYRIGHT NOTICE ********* |
- * +---------------------------------------------------------+
- * | Credits:     All the developers including the leaders:  |
- * |              Advocaite & Dzoki & Donnchadh              |
- * |                                                         |
- * | Copyright:   TravianX Project All rights reserved       |
- * \** --------------------------------------------------- **/
-
 class Message
 {
 
@@ -344,7 +335,7 @@ class Message
         // Vulnerability closed by Shadow
 
         $q = "SELECT * FROM " . TB_PREFIX . "mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
-        $res = mysql_query($q) or die(mysql_error() . " query  " . $q);
+        $res = mysql_query($q) . " query  " . $q);
         $flood = mysql_num_rows($res);
         if ($flood > 5)
             return; //flood
@@ -434,7 +425,7 @@ class Message
         // Vulnerability closed by Shadow
 
         $q = "SELECT * FROM " . TB_PREFIX . "mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
-        $res = mysql_query($q) or die(mysql_error() . " query  " . $q);
+        $res = mysql_query($q) . " query  " . $q);
         $flood = mysql_num_rows($res);
         if ($flood > 5)
             return; //flood

@@ -23,7 +23,7 @@ mysql_query("UPDATE " . TB_PREFIX . "vdata SET
 	crop  = '" . $_POST['crop'] . "', 
 	maxstore  = '" . $_POST['maxstore'] . "', 
 	maxcrop   = '" . $_POST['maxcrop'] . "' 
-	WHERE wref = '" . $id . "'") or die(mysql_error());
+	WHERE wref = '" . $id . "'"));
 
 header("Location: ../../../Admin/admin.php?p=village&did=" . $id . "");
 ?>

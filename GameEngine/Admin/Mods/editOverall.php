@@ -19,7 +19,7 @@ if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not
 mysql_query("UPDATE " . TB_PREFIX . "users SET 
 	apall = '" . $_POST['off'] . "', 
 	dpall = '" . $_POST['def'] . "' 
-	WHERE id = $id") or die(mysql_error());
+	WHERE id = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");
 ?>

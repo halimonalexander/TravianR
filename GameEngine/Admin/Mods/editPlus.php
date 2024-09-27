@@ -97,7 +97,7 @@ mysql_query("UPDATE " . TB_PREFIX . "users SET
 	b2 = '" . $clay . "',
 	b3 = '" . $iron . "',
 	b4 = '" . $crop . "' 
-	WHERE id = $id") or die(mysql_error());
+	WHERE id = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");
 ?>

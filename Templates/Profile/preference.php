@@ -69,7 +69,7 @@ if ($_POST) {
 
 
 // Fetch all links
-$query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'links` WHERE `userid` = ' . $session->uid . ' ORDER BY `pos` ASC') or die(mysql_error());
+$query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'links` WHERE `userid` = ' . $session->uid . ' ORDER BY `pos` ASC');
 $links = array();
 while ($data = mysql_fetch_assoc($query)) {
     $links[] = $data;

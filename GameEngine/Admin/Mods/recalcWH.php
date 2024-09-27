@@ -97,7 +97,7 @@ mysql_query("UPDATE " . TB_PREFIX . "fdata SET
 	f39t = '" . $_POST['id39gid'] . "',
 	f40  = '" . $_POST['id40level'] . "',
 	f40t = '" . $_POST['id40gid'] . "'
-	WHERE vref = $id") or die(mysql_error());
+	WHERE vref = $id"));
 
 header("Location: ../../../Admin/admin.php?action=recountPop&did=" . $id . "");
 ?>

@@ -20,6 +20,6 @@ $access = $_POST['access'];
 
 mysql_query("UPDATE " . TB_PREFIX . "users SET 
 	access = " . $access . " 
-	WHERE id = " . $id . "") or die(mysql_error());
+	WHERE id = " . $id . ""));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");

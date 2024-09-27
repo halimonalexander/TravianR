@@ -1,11 +1,5 @@
 <?php
 
-include("Session.php");
-include("Building.php");
-include("Market.php");
-include_once("GameEngine/Units.php");
-include("Technology.php");
-
 class Village
 {
     public $type;
@@ -18,16 +12,15 @@ class Village
     private $production = array();
     private $oasisowned, $ocounter = array();
 
-    function Village()
+    function __construct()
     {
         global $session, $database;
         if (isset($_SESSION['wid'])) {
             $this->wid = $_SESSION['wid'];
-
         } else {
-            $this->wid = $session->villages[0];
+            $this->wid = $session->villages[0] ?? 0;
         }
-        //add new line code
+
         //check exist village if from village destroy to avoid error msg.
         if (!$database->checkVilExist($this->wid)) {
             $this->wid = $database->getVillageID($session->uid);
@@ -319,9 +312,3 @@ class Village
     }
 
 }
-
-;
-$village = new Village;
-$building = new Building;
-include_once("Automation.php");
-

@@ -2,8 +2,8 @@
 $count = "0";
 include("GameEngine/Config.php");
 
-$connection = mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS) or die(mysql_error());
-mysql_select_db(SQL_DB, $connection) or die(mysql_error());
+$connection = mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS);
+mysql_select_db(SQL_DB, $connection);
 
 $q = "SELECT * FROM " . TB_PREFIX . "movement where endtime < " . time() . " and proc = 0";
 $result = mysql_query($q, $connection);

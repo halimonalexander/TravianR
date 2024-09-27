@@ -1,7 +1,8 @@
 <?php
 
 include_once("../../GameEngine/config.php");
-include_once("../../GameEngine/Database.php");
+include_once("../../GameEngine/Database/db_MYSQLi.php");
+$database = new MYSQLi_DB();
 
 mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS);
 mysql_select_db(SQL_DB);
