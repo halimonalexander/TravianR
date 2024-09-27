@@ -2,15 +2,11 @@
 
 class Account
 {
-
     function __construct()
     {
         global $session;
         if (isset($_POST['ft'])) {
             switch ($_POST['ft']) {
-                case "a1":
-                    $this->Signup();
-                    break;
                 case "a2":
                     $this->Activate();
                     break;
@@ -32,9 +28,59 @@ class Account
         }
     }
 
-    private function Signup()
+    public function Signup(
+        MyGenerator $generator,
+        Form $form,
+        MYSQLi_DB $database,
+        Mailer $mailer,
+        Message $message,
+    ): void {
+        $this->validateRegistrationForm($form, $database);
+
+        if ($form->returnErrors() > 0) {
+            $form->addError("invt", $_POST['invited']);
+            $_SESSION['errorarray'] = $form->getErrors();
+            $_SESSION['valuearray'] = $_POST;
+
+            return;
+        }
+
+        if (AUTH_EMAIL) {
+            $act = $generator->generateRandStr(10);
+            $act2 = $generator->generateRandStr(5);
+            $uid = $database->activate($_POST['name'], md5($_POST['pw']), $_POST['email'], $_POST['vid'], $_POST['kid'], $act, $act2);
+            if ($uid) {
+                $mailer->sendActivate($_POST['email'], $_POST['name'], $_POST['pw'], $act);
+                header("Location: activate.php?id=$uid&q=$act2");
+                exit;
+            }
+        } else {
+            $database->startTransaction();
+            $uid = $database->register($_POST['name'], md5($_POST['pw']), $_POST['email'], $_POST['vid'], "");
+            if (!$uid) {
+                $database->getConnection()->rollback();
+                die('Unable to create user');
+            }
+
+            $database->updateUserField($uid, "act", "", 1);
+            if (!empty($_POST['invited'])) {
+                $database->updateUserField($uid, "invited", $_POST['invited'], 1);
+            }
+            $this->generateBase($database, (int) $_POST['kid'], $uid, $_POST['name']);
+            $message->sendWelcome($database, $uid, $_POST['name']);
+
+            $database->commit();
+
+            setcookie("COOKUSR", $_POST['name'], time() + COOKIE_EXPIRE, COOKIE_PATH);
+            setcookie("COOKEMAIL", $_POST['email'], time() + COOKIE_EXPIRE, COOKIE_PATH);
+
+            header("Location: login.php");
+            exit;
+        }
+    }
+
+    private function validateRegistrationForm(Form $form, MYSQLi_DB $database): void
     {
-        global $database, $form, $mailer, $generator, $session;
         if (!isset($_POST['name']) || trim($_POST['name']) == "") {
             $form->addError("name", USRNM_EMPTY);
         } else {
@@ -49,8 +95,8 @@ class Account
             } else if ($database->checkExist_activate($_POST['name'], 0)) {
                 $form->addError("name", USRNM_TAKEN);
             }
-
         }
+
         if (!isset($_POST['pw']) || trim($_POST['pw']) == "") {
             $form->addError("pw", PW_EMPTY);
         } else {
@@ -61,6 +107,7 @@ class Account
 
             }
         }
+
         if (!isset($_POST['email'])) {
             $form->addError("email", EMAIL_EMPTY);
         } else {
@@ -72,40 +119,13 @@ class Account
                 $form->addError("email", EMAIL_TAKEN);
             }
         }
+
         if (!isset($_POST['vid'])) {
             $form->addError("tribe", TRIBE_EMPTY);
         }
+
         if (!isset($_POST['agb'])) {
             $form->addError("agree", AGREE_ERROR);
-        }
-        if ($form->returnErrors() > 0) {
-            $form->addError("invt", $_POST['invited']);
-            $_SESSION['errorarray'] = $form->getErrors();
-            $_SESSION['valuearray'] = $_POST;
-
-
-            header("Location: anmelden.php");
-        } else {
-            if (AUTH_EMAIL) {
-                $act = $generator->generateRandStr(10);
-                $act2 = $generator->generateRandStr(5);
-                $uid = $database->activate($_POST['name'], md5($_POST['pw']), $_POST['email'], $_POST['vid'], $_POST['kid'], $act, $act2);
-                if ($uid) {
-
-                    $mailer->sendActivate($_POST['email'], $_POST['name'], $_POST['pw'], $act);
-                    header("Location: activate.php?id=$uid&q=$act2");
-                }
-            } else {
-                $uid = $database->register($_POST['name'], md5($_POST['pw']), $_POST['email'], $_POST['vid'], $act);
-                if ($uid) {
-                    setcookie("COOKUSR", $_POST['name'], time() + COOKIE_EXPIRE, COOKIE_PATH);
-                    setcookie("COOKEMAIL", $_POST['email'], time() + COOKIE_EXPIRE, COOKIE_PATH);
-                    $database->updateUserField($uid, "act", "", 1);
-                    $database->updateUserField($uid, "invited", $_POST['invited'], 1);
-                    $this->generateBase($_POST['kid'], $uid, $_POST['name']);
-                    header("Location: login.php");
-                }
-            }
         }
     }
 
@@ -121,6 +141,7 @@ class Account
                 if ($uid) {
                     $database->unreg($dbarray['username']);
                     $this->generateBase($dbarray['kid'], $uid, $dbarray['username']);
+                    $message->sendWelcome($uid, $username);
                     header("Location: activate.php?e=2");
                 }
             } else {
@@ -140,7 +161,7 @@ class Account
         $dbarray = mysqli_fetch_array($result);
         if (md5($_POST['pw']) == $dbarray['password']) {
             $database->unreg($dbarray['username']);
-            header("Location: anmelden.php");
+            header("Location: registration.php");
         } else {
             header("Location: activate.php?e=3");
         }
@@ -206,23 +227,19 @@ class Account
         return true;
     }
 
-    function generateBase($kid, $uid, $username)
+    private function generateBase(MYSQLi_DB $database, int $kid, $uid, $username)
     {
-        global $database, $message;
-        if ($kid == 0) {
-            $kid = rand(1, 4);
-        } else {
-            $kid = $_POST['kid'];
+        if ($kid === 0) {
+            $kid = random_int(1, 4);
         }
 
         $wid = $database->generateBase($kid, 0);
         $database->setFieldTaken($wid);
         $database->addVillage($wid, $uid, $username, 1);
         $database->addResourceFields($wid, $database->getVillageType($wid));
-        $database->addUnits($wid);
-        $database->addTech($wid);
-        $database->addABTech($wid);
+        $database->initUnits($wid);
+        $database->initTech($wid);
+        $database->initABTech($wid);
         $database->updateUserField($uid, "access", USER, 1);
-        $message->sendWelcome($uid, $username);
     }
 }

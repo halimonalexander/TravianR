@@ -4,3 +4,4 @@
 4. refactored installations process
 5. bulk fix for mysqli repository class
 6. fixed guest pages
+7. fixed users registration

@@ -207,7 +207,7 @@ require("GameEngine/Lang/" . LANG . ".php");
         <a href="#" class="closer"><img class="dynamic_img" alt="Close" src="img/un/x.gif"/></a>
         <ul class="world_list">
             <li class="w_big c4" style="background-image:url('img/en/welten/en1_big.jpg');">
-                <a href="anmelden.php"><img class="w_button" src="img/un/x.gif" alt="World" title="<?php echo $registeredPlayers;
+                <a href="registration.php"><img class="w_button" src="img/un/x.gif" alt="World" title="<?php echo $registeredPlayers;
                     echo "&nbsp;";
                     echo PLAYERS;
                     echo "&nbsp;|&nbsp;";
