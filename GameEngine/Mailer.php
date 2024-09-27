@@ -39,7 +39,7 @@ Travian adminision";
 Try the new " . SERVER_NAME . "!
 
 
-Link: " . SERVER . "anmelden.php?id=ref" . $uid . "
+Link: " . SERVER . "registration.php?id=ref" . $uid . "
 
 " . $text . "
 
@@ -85,7 +85,3 @@ Travian
     }
 
 }
-
-;
-$mailer = new Mailer;
-?>

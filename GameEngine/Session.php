@@ -194,7 +194,7 @@ class Session
             $page = $explode[$i];
 
         }
-        $pagearray = array("index.php", "anleitung.php", "tutorial.php", "login.php", "activate.php", "anmelden.php", "xaccount.php");
+        $pagearray = array("index.php", "anleitung.php", "tutorial.php", "login.php", "activate.php", "registration.php", "xaccount.php");
         if (!$this->logged_in) {
             if (!in_array($page, $pagearray) || $page == "logout.php") {
                 header("Location: login.php");

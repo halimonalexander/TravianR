@@ -7,7 +7,23 @@ include_once("GameEngine/Form.php");
 $form = new Form();
 
 include_once("GameEngine/Session.php");
-$session = new Session;
+$session = new Session();
+
+if (isset($_POST['ft']) && $_POST['ft'] === 'a1') {
+    include_once("GameEngine/Generator.php");
+    include_once("GameEngine/Mailer.php");
+    include_once("GameEngine/Message.php");
+    include_once("GameEngine/Database/db_MYSQLi.php");
+    include_once("GameEngine/Account.php");
+
+    (new Account())->Signup(
+        new MyGenerator(),
+        $form,
+        new MYSQLi_DB(),
+        new Mailer(),
+        new Message(),
+    );
+}
 
 $invited = (isset($_GET['uid'])) ? filter_var($_GET['uid'], FILTER_SANITIZE_NUMBER_INT) : $form->getError('invt');
 ?>
@@ -34,8 +50,7 @@ $invited = (isset($_GET['uid'])) ? filter_var($_GET['uid'], FILTER_SANITIZE_NUMB
 <body class="v35 ie ie7" onload="initCounter()">
 
 <div class="wrapper">
-    <div id="dynamic_header">
-    </div>
+    <div id="dynamic_header"></div>
     <div id="header"></div>
     <div id="mid">
         <?php include("Templates/menu.php");
@@ -47,7 +62,7 @@ $invited = (isset($_GET['uid'])) ? filter_var($_GET['uid'], FILTER_SANITIZE_NUMB
 
                 <p><?php echo BEFORE_REGISTER; ?></p>
 
-                <form name="snd" method="post" action="anmelden.php">
+                <form name="snd" method="post" action="registration.php">
                     <input type="hidden" name="invited" value="<?php echo $invited; ?>"/>
                     <input type="hidden" name="ft" value="a1"/>
 

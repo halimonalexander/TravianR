@@ -16,6 +16,16 @@ class MYSQLi_DB
         return $this->connection;
     }
 
+    public function startTransaction(): void
+    {
+        $this->connection->begin_transaction();
+    }
+
+    public function commit(): void
+    {
+        $this->connection->commit();
+    }
+
     function register($username, $password, $email, $tribe, $act)
     {
         $time = time();
@@ -457,7 +467,7 @@ class MYSQLi_DB
             $count_while++;
         }
         $result = $this->mysqli_fetch_all($result);
-        $base = rand(0, ($num_rows - 1));
+        $base = random_int(0, ($num_rows - 1));
         return $result[$base]['id'];
     }
 

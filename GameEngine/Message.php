@@ -332,15 +332,11 @@ class Message
     {
         global $session, $database;
 
-        // Vulnerability closed by Shadow
-
         $q = "SELECT * FROM " . TB_PREFIX . "mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
-        $res = mysql_query($q) . " query  " . $q);
+        $res = mysql_query($q);
         $flood = mysql_num_rows($res);
         if ($flood > 5)
             return; //flood
-
-        // Vulnerability closed by Shadow
 
         $allmembersQ = mysql_query("SELECT id FROM " . TB_PREFIX . "users WHERE alliance='" . $session->alliance . "'");
         $userally = $database->getUserField($session->uid, "alliance", 0);
@@ -422,15 +418,11 @@ class Message
         global $session, $database;
         $user = $database->getUserField($recieve, "id", 1);
 
-        // Vulnerability closed by Shadow
-
         $q = "SELECT * FROM " . TB_PREFIX . "mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
-        $res = mysql_query($q) . " query  " . $q);
-        $flood = mysql_num_rows($res);
+        $res = mysqli_query($q);
+        $flood = mysqli_num_rows($res);
         if ($flood > 5)
             return; //flood
-
-        // Vulnerability closed by Shadow
 
         if (WORD_CENSOR) {
             $topic = $this->wordCensor($topic);
@@ -505,9 +497,8 @@ class Message
 
     }
 
-    public function sendWelcome($uid, $username)
+    public function sendWelcome(MYSQLi_DB $database, $uid, $username)
     {
-        global $database;
         $welcomemsg = file_get_contents("GameEngine/Admin/welcome.php");
         $welcomemsg = preg_replace("'%USER%'", $username, $welcomemsg);
         $welcomemsg = preg_replace("'%START%'", date("y.m.d", COMMENCE), $welcomemsg);
@@ -619,5 +610,3 @@ class Message
     }
 
 }
-
-;
