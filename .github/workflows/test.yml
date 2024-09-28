@@ -1,0 +1,63 @@
+name: Run Tests and Check Coverage
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing_db
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup PHP and dependencies
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: xdebug
+          extensions: mbstring, exif, pcntl, bcmath, mysql
+          ini-values: post_max_size=256M, max_execution_time=180
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Copy .env
+        run: cp .env.example .env
+
+      - name: Generate application key
+        run: php artisan key:generate
+
+      # Run tests and generate coverage report
+      - name: Run Tests with Coverage
+        run: |
+          php artisan migrate --env=testing --force
+          vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: testing_db
+          DB_USERNAME: root
+          DB_PASSWORD: password
+
+      # Check test coverage percentage
+      - name: Ensure Coverage is >= 80%
+        run: |
+          total=$(grep -Po '(?<=<metrics statements=\")\d+(\.\d+)?(?=\")' coverage.xml)
+          if (( $(echo "$total < 80" |bc -l) )); then
+            echo "Test coverage is below 80% (actual: $total%)"
+            exit 1
+          fi
