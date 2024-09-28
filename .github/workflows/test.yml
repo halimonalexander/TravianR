@@ -53,7 +53,9 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: password
 
-      # Check test coverage percentage
+      - name: Print Coverage Report
+        run: cat coverage.xml
+
       - name: Ensure Coverage is >= 50%
         run: |
           total=$(grep -Po '(?<=<metrics statements=\")\d+(\.\d+)?(?=\")' coverage.xml)
@@ -61,3 +63,10 @@ jobs:
             echo "Test coverage is below 50% (actual: $total%)"
             exit 1
           fi
+          echo "Test coverage is $total%"
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: coverage
