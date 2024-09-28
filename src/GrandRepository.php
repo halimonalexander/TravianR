@@ -72,24 +72,6 @@ class GrandRepository
         $this->connection->query($q);
     }
 
-    public function getRegisteredPlayersCount(): int
-    {
-        $q = "SELECT count(*) as q FROM users WHERE tribe NOT IN (0,4,5)";
-        return $this->connection->query($q)->fetch_array()['q'];
-    }
-
-    public function getActivePlayersCount(): int
-    {
-        $q = "SELECT count(*) as q FROM users WHERE " . time() . " - timestamp < (3600*24) AND tribe NOT IN (0,4,5)";
-        return $this->connection->query($q)->fetch_array()['q'];
-    }
-
-    public function getOnlinePlayersCount(): int
-    {
-        $q = "SELECT count(*) as q FROM users WHERE " . time() . " - timestamp < (60*10) AND tribe NOT IN (0,4,5)";
-        return $this->connection->query($q)->fetch_array()['q'];
-    }
-
     function updateResource($vid, $what, $number)
     {
 

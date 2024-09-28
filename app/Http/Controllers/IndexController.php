@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\View\View;
-use Travian\GrandRepository;
 
 class IndexController extends BaseController
 {
-    public function indexPage(GrandRepository $database): View
+    public function indexPage(UserRepository $userRepository): View
     {
         return view('indexPage', [
             'title' => env('SERVER_NAME'),
-            'registeredPlayers' => $database->getRegisteredPlayersCount(),
-            'activePlayers' => $database->getActivePlayersCount(),
-            'onlinePlayers' => $database->getOnlinePlayersCount(),
+            'registeredPlayers' => $userRepository->getRegisteredPlayersCount(),
+            'activePlayers' => $userRepository->getActivePlayersCount(),
+            'onlinePlayers' => $userRepository->getOnlinePlayersCount(),
         ]);
     }
 }

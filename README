@@ -5,3 +5,5 @@
 5. bulk fix for mysqli repository class
 6. fixed guest pages
 7. fixed users registration
+8. added laravel to project
+9. created first laravel migration, model and seeder
