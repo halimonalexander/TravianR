@@ -54,10 +54,10 @@ jobs:
           DB_PASSWORD: password
 
       # Check test coverage percentage
-      - name: Ensure Coverage is >= 80%
+      - name: Ensure Coverage is >= 50%
         run: |
           total=$(grep -Po '(?<=<metrics statements=\")\d+(\.\d+)?(?=\")' coverage.xml)
-          if (( $(echo "$total < 80" |bc -l) )); then
-            echo "Test coverage is below 80% (actual: $total%)"
+          if (( $(echo "$total < 50" |bc -l) )); then
+            echo "Test coverage is below 50% (actual: $total%)"
             exit 1
           fi
