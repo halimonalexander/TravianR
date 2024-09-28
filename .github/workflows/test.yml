@@ -52,27 +52,3 @@ jobs:
           DB_DATABASE: testing_db
           DB_USERNAME: root
           DB_PASSWORD: password
-
-#      - name: Print Coverage Report
-#        run: cat coverage.xml
-
-      - name: Ensure Coverage is >= 0%
-        run: |
-          total=$(grep -Po '(?<=statements=")\d+(\.\d+)?(?=")' coverage.xml)
-
-          if [[ -z "$total" ]]; then
-            echo "Error: Unable to extract coverage from coverage.xml"
-            exit 0
-          fi
-          if (( $(echo "$total < 0" |bc -l) )); then
-            echo "Test coverage is below 0% (actual: $total%)"
-            exit 1
-          fi
-          echo "Test coverage is $total%"
-
-      - name: Upload Coverage Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage.xml
