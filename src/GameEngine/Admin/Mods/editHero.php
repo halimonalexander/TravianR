@@ -14,11 +14,11 @@ if (isset($_POST['id'])) {
 
     $id = $_POST['id'];
 
-    $q = "UPDATE " . TB_PREFIX . "hero SET unit=" . $_POST['hunit'] . ", name='" . $_POST['hname'] . "', level=" . $_POST['hlvl'] . ", points=" . $_POST['exp'] . ", experience=" . $hero_levels[$_POST['hlvl']] . ", health=" . $_POST['hhealth'] . ",
+    $q = "UPDATE hero SET unit=" . $_POST['hunit'] . ", name='" . $_POST['hname'] . "', level=" . $_POST['hlvl'] . ", points=" . $_POST['exp'] . ", experience=" . $hero_levels[$_POST['hlvl']] . ", health=" . $_POST['hhealth'] . ",
 		attack=" . $_POST['hatk'] . ", defence=" . $_POST['hdef'] . ", attackbonus=" . $_POST['hob'] . ", defencebonus=" . $_POST['hdb'] . ", regeneration=" . $_POST['hrege'] . " WHERE uid = " . $id;
     $return = $database->query($q);
     if ($return) {
-        $database->query("Insert into " . TB_PREFIX . "admin_log values (0," . $_SESSION['id'] . ",'Changed hero info'," . time() . ")");
+        $database->query("Insert into admin_log values (0," . $_SESSION['id'] . ",'Changed hero info'," . time() . ")");
         $status = "&cs=1";
     }
 }

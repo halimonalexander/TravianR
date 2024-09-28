@@ -16,9 +16,9 @@ if ($session->access == BANNED) {
         <meta http-equiv="expires" content="0"/>
         <meta http-equiv="imagetoolbar" content="no"/>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <script src="../resources/js/mt-full.js?0faaa" type="text/javascript"></script>
-        <script src="../resources/js/unx.js?0faaa" type="text/javascript"></script>
-        <script src="../resources/js/new.js?0faaa" type="text/javascript"></script>
+        <script src="../public/js/mt-full.js?0faaa" type="text/javascript"></script>
+        <script src="../public/js/unx.js?0faaa" type="text/javascript"></script>
+        <script src="../public/js/new.js?0faaa" type="text/javascript"></script>
         <link href="<?php echo GP_LOCATE; ?>lang/en/compact.css?e21d2" rel="stylesheet" type="text/css"/>
         <link href="<?php echo GP_LOCATE; ?>lang/en/lang.css?e21d2" rel="stylesheet" type="text/css"/>
         <?php
@@ -40,7 +40,7 @@ if ($session->access == BANNED) {
 
     <body class="v35 ie ie8">
     <div class="wrapper">
-        <img style="filter:chroma();" src="../resources/img/x.gif" id="msfilter" alt=""/>
+        <img style="filter:chroma();" src="../public/img/x.gif" id="msfilter" alt=""/>
         <div id="dynamic_header">
         </div>
         <?php include("Templates/header.php"); ?>

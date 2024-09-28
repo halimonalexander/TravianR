@@ -4,7 +4,7 @@ if ($_SESSION['access'] < ADMIN) die("Access Denied: You are not Admin!");
 include("../GameEngine/config.php");
 $id = $_SESSION['id'];
 
-$sql = mysql_query("SELECT * FROM " . TB_PREFIX . "medal");
+$sql = mysql_query("SELECT * FROM medal");
 $nummedals = mysql_num_rows($sql);
 ?>
 
@@ -32,9 +32,9 @@ $nummedals = mysql_num_rows($sql);
     </thead>
     <tbody>
     <?php
-    $sql = mysql_query("SELECT * FROM " . TB_PREFIX . "medal");
+    $sql = mysql_query("SELECT * FROM medal");
     $tot = mysql_num_rows($sql);
-    $sql = mysql_query("SELECT week FROM " . TB_PREFIX . "medal ORDER BY week DESC LIMIT 1");
+    $sql = mysql_query("SELECT week FROM medal ORDER BY week DESC LIMIT 1");
     if (mysql_num_rows($sql) > 0) {
         $week = mysql_result($sql, 0);
         echo "<tr><td><center>$week</center></td><td><center>$tot</center></td></tr>";
@@ -70,7 +70,7 @@ $nummedals = mysql_num_rows($sql);
         for ($j = 0; $j < $week; $j++) {
             $newweek = $j + 1;
 
-            $sql = mysql_query("SELECT * FROM " . TB_PREFIX . "medal WHERE week = $newweek");
+            $sql = mysql_query("SELECT * FROM medal WHERE week = $newweek");
             $tot = mysql_num_rows($sql);
 
             echo "<tr><td>$newweek</td><td>$tot</td><td><input type=\"image\" name=\"medalweek\" value=\"" . $newweek . "\" style=\"background-image: url('../gpack/travian_default/img/a/del.gif'); height: 12px; width: 12px;\" src=\"../gpack/travian_default/img/a/x.gif\"></td>";
@@ -104,7 +104,7 @@ $nummedals = mysql_num_rows($sql);
     </thead>
     <tbody>
     <?php
-    $query = "SELECT * FROM " . TB_PREFIX . "medal ORDER BY id DESC";
+    $query = "SELECT * FROM medal ORDER BY id DESC";
     $result = mysql_query($query);
     while ($row = mysql_fetch_array($result)) {
         $i = $i + 1;
@@ -154,7 +154,7 @@ $nummedals = mysql_num_rows($sql);
         $bb = $row['id'];
         $playerid = $row['userid'];
 
-        $unq = "SELECT username FROM " . TB_PREFIX . "users where id = $playerid";
+        $unq = "SELECT username FROM users where id = $playerid";
         $user = mysql_result(mysql_query($unq), 0);
         $username = $user;
 

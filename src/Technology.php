@@ -152,13 +152,13 @@ class Technology
           $controlloTruppeInRinforzo = $database->getEnforceControllTroops($village->wid);
              for($i=1;$i<=50;$i++) {
              if($controlloTruppeInRinforzo['u'.$i] >= "30000000")
-             mysql_query("UPDATE ".TB_PREFIX."enforcement set u".$i." = '0' where vref = $village->wid");
+             mysql_query("UPDATE enforcement set u".$i." = '0' where vref = $village->wid");
              }
         //FIX BY Shadow and made by NIKO28
         $controlloTruppe = $database->getUnit($village->wid);
            for($i=1;$i<=50;$i++) {
            if($controlloTruppe['u'.$i] >= "10000000")
-           mysql_query("UPDATE ".TB_PREFIX."units set u".$i." = '0' where vref = $village->wid");
+           mysql_query("UPDATE units set u".$i." = '0' where vref = $village->wid");
            }
         */
         // END FIX
@@ -188,7 +188,7 @@ class Technology
         global $village, $$unit;
         $unitarray = $$unit;
         $res = array();
-        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM " . TB_PREFIX . "vdata WHERE wref = " . $village->wid)));
+        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM vdata WHERE wref = " . $village->wid)));
         if ($res['wood'] > $res['maxstore']) {
             $res['wood'] = $res['maxstore'];
         }
@@ -223,7 +223,7 @@ class Technology
         global $village, $$unit;
         $unitarray = $$unit;
         $res = array();
-        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM " . TB_PREFIX . "vdata WHERE wref = " . $village->wid)));
+        $res = mysql_fetch_assoc(mysql_query("SELECT maxstore, maxcrop, wood, clay, iron, crop FROM vdata WHERE wref = " . $village->wid)));
         $totalres = $res['wood'] + $res['clay'] + $res['iron'] + $res['crop'];
         $totalresunit = ($unitarray['wood'] * ($great ? 3 : 1)) + ($unitarray['clay'] * ($great ? 3 : 1)) + ($unitarray['iron'] * ($great ? 3 : 1)) + ($unitarray['crop'] * ($great ? 3 : 1));
         $max = round($totalres / $totalresunit);
@@ -882,7 +882,7 @@ class Technology
     public function finishTech()
     {
         global $database, $village;
-        $q = "UPDATE " . TB_PREFIX . "research SET timestamp=" . (time() - 1) . " WHERE vref = " . $village->wid;
+        $q = "UPDATE research SET timestamp=" . (time() - 1) . " WHERE vref = " . $village->wid;
         $result = $database->query($q);
         return mysql_affected_rows();
     }

@@ -74,9 +74,9 @@ $automation->isWinner();
     <meta http-equiv="expires" content="0"/>
     <meta http-equiv="imagetoolbar" content="no"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script src="../resources/js/mt-full.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/unx.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/new.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/mt-full.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/unx.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/new.js?0faaa" type="text/javascript"></script>
     <link href="<?php
 
     echo GP_LOCATE;
@@ -109,7 +109,7 @@ $automation->isWinner();
 
 <body class="v35 ie ie8">
 <div class="wrapper">
-    <img style="filter:chroma();" src="../resources/img/x.gif" id="msfilter" alt=""/>
+    <img style="filter:chroma();" src="../public/img/x.gif" id="msfilter" alt=""/>
     <div id="dynamic_header">
     </div>
     <?php
@@ -177,7 +177,7 @@ $automation->isWinner();
                             }
 
                             if ($prisoner['t11'] > 0) {
-                                $p_qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $p_owner . "";
+                                $p_qh = "SELECT * FROM hero WHERE uid = " . $p_owner . "";
                                 $p_resulth = mysql_query($p_qh);
                                 $p_hero_f = mysql_fetch_array($p_resulth);
                                 $p_hero_unit = $p_hero_f['unit'];
@@ -206,7 +206,7 @@ $automation->isWinner();
                             $troops = $prisoner['t1'] + $prisoner['t2'] + $prisoner['t3'] + $prisoner['t4'] + $prisoner['t5'] + $prisoner['t6'] + $prisoner['t7'] + $prisoner['t8'] + $prisoner['t9'] + $prisoner['t10'] + $prisoner['t11'];
                             if ($prisoner['t11'] > 0) {
                                 $p_owner = $database->getVillageField($prisoner['from'], "owner");
-                                mysql_query("UPDATE " . TB_PREFIX . "hero SET `dead` = '1', `health` = '0' WHERE `uid` = '" . $p_owner . "'");
+                                mysql_query("UPDATE hero SET `dead` = '1', `health` = '0' WHERE `uid` = '" . $p_owner . "'");
                             }
                             $database->modifyUnit($prisoner['wref'], array("99o"), array($troops), array(0));
                             $database->deletePrisoners($prisoner['id']);

@@ -397,18 +397,6 @@ if ($_SESSION['access'] < 9) die(ACCESS_DENIED_ADMIN);
         <td>DB Name</td>
         <td><?php echo SQL_DB; ?></td>
     </tr>
-    <tr>
-        <td>Table Prefix</td>
-        <td><?php echo TB_PREFIX; ?></td>
-    </tr>
-    <tr>
-        <td>DB Type</td>
-        <td><?php if (DB_TYPE == 0) {
-                echo "MYSQL";
-            } else if (DB_TYPE == 1) {
-                echo "MYSQLi";
-            } ?></td>
-    </tr>
 </table>
 
 <table id="member">

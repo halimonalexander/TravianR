@@ -10,7 +10,7 @@ mysql_select_db(SQL_DB);
 $session = $_POST['admid'];
 $id = $_POST['id'];
 
-$sql = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $session . "");
+$sql = mysql_query("SELECT * FROM users WHERE id = " . $session . "");
 $access = mysql_fetch_array($sql);
 $sessionaccess = $access['access'];
 
@@ -19,8 +19,8 @@ if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not
 $dur = $_POST['protect'] * 86400;
 $protection = (time() + $dur);
 
-mysql_query("UPDATE " . TB_PREFIX . "users SET 
-	protect = '" . $protection . "' 
+mysql_query("UPDATE users SET
+	protect = '" . $protection . "'
 	WHERE id = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");

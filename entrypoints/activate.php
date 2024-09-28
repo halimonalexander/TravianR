@@ -16,10 +16,10 @@ $account = new Account();
     <meta http-equiv="cache-control" content="max-age=0"/>
     <meta http-equiv="imagetoolbar" content="no"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script src="../resources/js/mt-core.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/mt-more.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/unx.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/new.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/mt-core.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/mt-more.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/unx.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/new.js?0faaa" type="text/javascript"></script>
     <link href="<?php echo GP_LOCATE; ?>lang/en/compact.css?f4b7c" rel="stylesheet" type="text/css"/>
     <link href="<?php echo GP_LOCATE; ?>lang/en/lang.css?f4b7c" rel="stylesheet" type="text/css"/>
     <link href="<?php echo GP_LOCATE ?>travian.css?f4b7c" rel="stylesheet" type="text/css"/>

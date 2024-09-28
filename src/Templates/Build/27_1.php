@@ -86,7 +86,7 @@ Treasury <b>' . $reqlvl . '</b>, Effect <b>' . $effect . '</b>
         <tbody>
         <?php
 
-        if (mysql_num_rows(mysql_query("SELECT * FROM " . TB_PREFIX . "artefacts")) == 0) {
+        if (mysql_num_rows(mysql_query("SELECT * FROM artefacts")) == 0) {
             echo '<td colspan="4" class="none">' . NO_ARTIFACTS_AREA . '</td>';
         } else {
 
@@ -105,10 +105,10 @@ Treasury <b>' . $reqlvl . '</b>, Effect <b>' . $effect . '</b>
 
             unset($reqlvl);
             unset($effect);
-            $arts = mysql_query("SELECT * FROM " . TB_PREFIX . "artefacts");
+            $arts = mysql_query("SELECT * FROM artefacts");
             $rows = array();
             while ($row = mysql_fetch_array($arts)) {
-                $query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'wdata` WHERE `id` = ' . $row['vref']);
+                $query = mysql_query('SELECT * FROM `wdata` WHERE `id` = ' . $row['vref']);
                 $coor2 = mysql_fetch_assoc($query);
 
 

@@ -64,7 +64,7 @@ if ($check1 == "" && $check2 == "") {
         <div style="top: 0px; left: 0px;" id="map_bg">
             <?php
             $array_tribe = array('-', TRIBE1, TRIBE2, TRIBE3, TRIBE4, TRIBE5, TRIBE6);
-            $q = "SELECT v.wref, v.owner, v.name, v.capital, v.pop,u.username, u.tribe, u.access, w.x, w.y FROM " . TB_PREFIX . "vdata AS v LEFT JOIN " . TB_PREFIX . "users AS u ON v.owner=u.id LEFT JOIN " . TB_PREFIX . "wdata AS w ON v.wref=w.id " . $criteria;
+            $q = "SELECT v.wref, v.owner, v.name, v.capital, v.pop,u.username, u.tribe, u.access, w.x, w.y FROM vdata AS v LEFT JOIN users AS u ON v.owner=u.id LEFT JOIN wdata AS w ON v.wref=w.id " . $criteria;
             $player_info = $database->query_return($q);
             foreach ($player_info as $p_array) {
                 $p_name = $p_array['username'];

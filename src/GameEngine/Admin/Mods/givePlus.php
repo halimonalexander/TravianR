@@ -9,19 +9,19 @@ mysql_select_db(SQL_DB);
 
 $session = $_POST['admid'];
 
-$sql = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $session . "");
+$sql = mysql_query("SELECT * FROM users WHERE id = " . $session . "");
 $access = mysql_fetch_array($sql);
 $sessionaccess = $access['access'];
 
 if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not Admin!</font></h1>");
 
-$sql = "SELECT id FROM " . TB_PREFIX . "users ORDER BY ID DESC LIMIT 1";
+$sql = "SELECT id FROM users ORDER BY ID DESC LIMIT 1";
 $loops = mysql_result(mysql_query($sql), 0);
 
 $plusdur = $_POST['plus'] * 86400;
 
 for ($i = 0; $i < $loops + 1; $i++) {
-    $query = "SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $i . "";
+    $query = "SELECT * FROM users WHERE id = " . $i . "";
     $result = mysql_query($query);
     while ($row = mysql_fetch_assoc($result)) {
         if ($row['plus'] < time()) {
@@ -31,8 +31,8 @@ for ($i = 0; $i < $loops + 1; $i++) {
             $plusbefore = $row['plus'];
             $addplus = $plusbefore + $plusdur;
         }
-        mysql_query("UPDATE " . TB_PREFIX . "users SET
-			plus = '" . $addplus . "' 
+        mysql_query("UPDATE users SET
+			plus = '" . $addplus . "'
 			WHERE id = '" . $row['id'] . "'");
     }
 }

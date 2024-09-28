@@ -12,22 +12,22 @@ if (isset($_GET['newdid'])) {
 ## Get Rankings for Ranking Section
 ## Top 3 Population
 $q = "
-	SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username," . TB_PREFIX . "users.alliance alliance, (
-	SELECT SUM( " . TB_PREFIX . "vdata.pop )
-	FROM " . TB_PREFIX . "vdata
-	WHERE " . TB_PREFIX . "vdata.owner = userid
+	SELECT users.id userid, users.username username,users.alliance alliance, (
+	SELECT SUM( vdata.pop )
+	FROM vdata
+	WHERE vdata.owner = userid
 	)totalpop, (
-		SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-	FROM " . TB_PREFIX . "vdata
-	WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+		SELECT COUNT( vdata.wref )
+	FROM vdata
+	WHERE vdata.owner = userid AND type != 99
 	)totalvillages, (
-	SELECT " . TB_PREFIX . "alidata.tag
-	FROM " . TB_PREFIX . "alidata, " . TB_PREFIX . "users
-	WHERE " . TB_PREFIX . "alidata.id = " . TB_PREFIX . "users.alliance
-	AND " . TB_PREFIX . "users.id = userid
+	SELECT alidata.tag
+	FROM alidata, users
+	WHERE alidata.id = users.alliance
+	AND users.id = userid
 	)allitag
-	FROM " . TB_PREFIX . "users
-	WHERE " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
+	FROM users
+	WHERE users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
 	ORDER BY totalpop DESC, totalvillages DESC, username ASC";
 
 $result = (mysql_query($q));
@@ -44,18 +44,18 @@ foreach ($datas as $result) {
 }
 ## Top Attacker
 $q = "
-	SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username, " . TB_PREFIX . "users.apall,  (
-	SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-	FROM " . TB_PREFIX . "vdata
-	WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+	SELECT users.id userid, users.username username, users.apall,  (
+	SELECT COUNT( vdata.wref )
+	FROM vdata
+	WHERE vdata.owner = userid AND type != 99
 	)totalvillages, (
-	SELECT SUM( " . TB_PREFIX . "vdata.pop )
-	FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid
+	SELECT SUM( vdata.pop )
+	FROM vdata
+			WHERE vdata.owner = userid
 	)pop
-	FROM " . TB_PREFIX . "users
-	WHERE " . TB_PREFIX . "users.apall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND " . TB_PREFIX . "users.tribe <= 3
-	ORDER BY " . TB_PREFIX . "users.apall DESC, pop DESC, username ASC";
+	FROM users
+	WHERE users.apall >=0 AND users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND users.tribe <= 3
+	ORDER BY users.apall DESC, pop DESC, username ASC";
 
 $result = mysql_query($q));
 while ($row = mysql_fetch_assoc($result)) {
@@ -70,18 +70,18 @@ foreach ($attacker as $key => $row) {
 }
 ## Top Defender
 $q = "
-	SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username, " . TB_PREFIX . "users.dpall,  (
-	SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-	FROM " . TB_PREFIX . "vdata
-	WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+	SELECT users.id userid, users.username username, users.dpall,  (
+	SELECT COUNT( vdata.wref )
+	FROM vdata
+	WHERE vdata.owner = userid AND type != 99
 	)totalvillages, (
-	SELECT SUM( " . TB_PREFIX . "vdata.pop )
-	FROM " . TB_PREFIX . "vdata
-	WHERE " . TB_PREFIX . "vdata.owner = userid
+	SELECT SUM( vdata.pop )
+	FROM vdata
+	WHERE vdata.owner = userid
 	)pop
-	FROM " . TB_PREFIX . "users
-	WHERE " . TB_PREFIX . "users.dpall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
-	ORDER BY " . TB_PREFIX . "users.dpall DESC, pop DESC, username ASC";
+	FROM users
+	WHERE users.dpall >=0 AND users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
+	ORDER BY users.dpall DESC, pop DESC, username ASC";
 $result = mysql_query($q));
 while ($row = mysql_fetch_assoc($result)) {
     $defender[] = $row;
@@ -95,28 +95,28 @@ foreach ($defender as $key => $row) {
 }
 
 ## Get WW Winner Details
-$sql = mysql_query("SELECT vref FROM " . TB_PREFIX . "fdata WHERE f99 = '100' and f99t = '40'");
+$sql = mysql_query("SELECT vref FROM fdata WHERE f99 = '100' and f99t = '40'");
 $vref = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT name FROM " . TB_PREFIX . "vdata WHERE wref = '$vref'"));
+$sql = mysql_query("SELECT name FROM vdata WHERE wref = '$vref'"));
 $winningvillagename = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT owner FROM " . TB_PREFIX . "vdata WHERE wref = '$vref'"));
+$sql = mysql_query("SELECT owner FROM vdata WHERE wref = '$vref'"));
 $owner = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT username FROM " . TB_PREFIX . "users WHERE id = '$owner'"));
+$sql = mysql_query("SELECT username FROM users WHERE id = '$owner'"));
 $username = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT alliance FROM " . TB_PREFIX . "users WHERE id = '$owner'"));
+$sql = mysql_query("SELECT alliance FROM users WHERE id = '$owner'"));
 $allianceid = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT name, tag FROM " . TB_PREFIX . "alidata WHERE id = '$allianceid'"));
+$sql = mysql_query("SELECT name, tag FROM alidata WHERE id = '$allianceid'"));
 $winningalliance = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT tag FROM " . TB_PREFIX . "alidata WHERE id = '$allianceid'"));
+$sql = mysql_query("SELECT tag FROM alidata WHERE id = '$allianceid'"));
 $winningalliancetag = mysql_result($sql, 0);
 
-$sql = mysql_query("SELECT vref FROM " . TB_PREFIX . "fdata WHERE f99 = '100' and f99t = '40'");
+$sql = mysql_query("SELECT vref FROM fdata WHERE f99 = '100' and f99t = '40'");
 $winner = mysql_num_rows($sql);
 
 if ($winner != 0) {
@@ -167,7 +167,7 @@ if ($winner != 0) {
         <div id="mid">
             <?php include("Templates/menu.php"); ?>
             <div id="content" class="village2" style="font-size: 9pt;">
-                <img src="../resources/gpack/travian_default/img/misc/win.png" align="right" style="padding-top: 40px;">
+                <img src="../public/gpack/travian_default/img/misc/win.png" align="right" style="padding-top: 40px;">
                 <p>
                     <b>Dear <?php echo SERVER_NAME; ?> Players,</b>
                     <br/><br/>

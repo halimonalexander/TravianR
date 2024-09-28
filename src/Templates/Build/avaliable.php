@@ -167,11 +167,11 @@ $greatworkshop1 = $database->getBuildingByType2($village->wid, 42);
         mysql_select_db(SQL_DB);
 
 //loop search village user
-        $query = mysql_query("SELECT * FROM " . TB_PREFIX . "vdata WHERE owner = " . $user . "");
+        $query = mysql_query("SELECT * FROM vdata WHERE owner = " . $user . "");
         while ($villaggi_array = mysql_fetch_array($query)) {
 
             //loop structure village
-            $query1 = mysql_query("SELECT * FROM " . TB_PREFIX . "fdata WHERE vref = " . $villaggi_array['wref'] . "");
+            $query1 = mysql_query("SELECT * FROM fdata WHERE vref = " . $villaggi_array['wref'] . "");
             $strutture = mysql_fetch_array($query1);
 
 //search Castle in array structure village
@@ -291,11 +291,11 @@ $greatworkshop1 = $database->getBuildingByType2($village->wid, 42);
                 mysql_select_db(SQL_DB);
 
 //loop search village user
-                $query = mysql_query("SELECT * FROM " . TB_PREFIX . "vdata WHERE owner = " . $user . "");
+                $query = mysql_query("SELECT * FROM vdata WHERE owner = " . $user . "");
                 while ($villaggi_array = mysql_fetch_array($query)) {
 
                     //loop structure village
-                    $query1 = mysql_query("SELECT * FROM " . TB_PREFIX . "fdata WHERE vref = " . $villaggi_array['wref'] . "");
+                    $query1 = mysql_query("SELECT * FROM fdata WHERE vref = " . $villaggi_array['wref'] . "");
                     $strutture = mysql_fetch_array($query1);
 
 //search Castle in array structure village

@@ -30,14 +30,14 @@ global $database;
         if ($h == 1) { // 24 hours and before 3 days
             $from_time = time() - 86400;
             $to_time = time() - (86400 * 3);
-            $q = "SELECT * FROM " . TB_PREFIX . "users where ($from_time >= timestamp AND $to_time < timestamp) AND id>5";
+            $q = "SELECT * FROM users where ($from_time >= timestamp AND $to_time < timestamp) AND id>5";
         } elseif ($h == 2) {  // 3 days  and before 7 days
             $from_time = time() - (86400 * 3);
             $to_time = time() - (86400 * 7);
-            $q = "SELECT * FROM " . TB_PREFIX . "users where ($from_time >= timestamp AND $to_time < timestamp) AND id>5";
+            $q = "SELECT * FROM users where ($from_time >= timestamp AND $to_time < timestamp) AND id>5";
         } elseif ($h == 3) { //7 days and after
             $from_time = time() - (86400 * 7);
-            $q = "SELECT * FROM " . TB_PREFIX . "users where $from_time > timestamp AND id>5";
+            $q = "SELECT * FROM users where $from_time > timestamp AND id>5";
         }
 
         $result = $database->query($q);

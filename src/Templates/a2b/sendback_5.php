@@ -175,7 +175,7 @@ $toCor = array('x' => $fromcoor['x'], 'y' => $fromcoor['y']);
                 }
             }
             if ($enforce['hero'] > 0) {
-                $qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $to['owner'] . "";
+                $qh = "SELECT * FROM hero WHERE uid = " . $to['owner'] . "";
                 $resulth = mysql_query($qh);
                 $hero_f = mysql_fetch_array($resulth);
                 $hero_unit = $hero_f['unit'];

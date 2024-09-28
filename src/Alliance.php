@@ -343,7 +343,7 @@ class Alliance
                 if ($database->isAllianceOwner($UserData['id'])) {
                     $newowner = $database->getAllMember2($session->alliance);
                     $newleader = $newowner['id'];
-                    $q = "UPDATE " . TB_PREFIX . "alidata set leader = " . $newleader . " where id = " . $session->alliance . "";
+                    $q = "UPDATE alidata set leader = " . $newleader . " where id = " . $session->alliance . "";
                     $database->query($q);
                     $database->updateAlliPermissions($newleader, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                     $this->updateMax($newleader);
@@ -404,7 +404,7 @@ class Alliance
                 if ($database->isAllianceOwner($session->uid)) {
                     $newowner = $database->getAllMember2($session->alliance);
                     $newleader = $newowner['id'];
-                    $q = "UPDATE " . TB_PREFIX . "alidata set leader = " . $newleader . " where id = " . $session->alliance . "";
+                    $q = "UPDATE alidata set leader = " . $newleader . " where id = " . $session->alliance . "";
                     $database->query($q);
                     $database->updateAlliPermissions($newleader, 1, 1, 1, 1, 1, 1, 1, 1, 1);
                     $this->updateMax($newleader);
@@ -461,7 +461,7 @@ class Alliance
     private function updateMax($leader)
     {
         global $bid18, $database;
-        $q = mysql_query("SELECT * FROM " . TB_PREFIX . "alidata where leader = $leader");
+        $q = mysql_query("SELECT * FROM alidata where leader = $leader");
         if (mysql_num_rows($q) > 0) {
             $villages = $database->getVillagesID2($leader);
             $max = 0;
@@ -477,7 +477,7 @@ class Alliance
                     $max = $attri;
                 }
             }
-            $q = "UPDATE " . TB_PREFIX . "alidata set max = $max where leader = $leader";
+            $q = "UPDATE alidata set max = $max where leader = $leader";
             $database->query($q);
         }
     }

@@ -38,7 +38,7 @@ if (isset($id)) {
     }
     $ocounter = array();
     $wood = $clay = $iron = $crop = 0;
-    $q = "SELECT o.*, w.x, w.y FROM " . TB_PREFIX . "odata AS o LEFT JOIN " . TB_PREFIX . "wdata AS w ON o.wref=w.id WHERE conqured = " . $village['wref'];
+    $q = "SELECT o.*, w.x, w.y FROM odata AS o LEFT JOIN wdata AS w ON o.wref=w.id WHERE conqured = " . $village['wref'];
     $result = $database->query_return($q);
     if (count($result) > 0) {
         foreach ($result as $row) {

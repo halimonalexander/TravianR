@@ -2,7 +2,7 @@
     <?php
     $basearray = $database->getMInfo($_GET['d']);
     $uinfo = $database->getVillage($basearray['id']);
-    $oasis1 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'odata` WHERE `wref` = ' . mysql_real_escape_string($_GET['d']));
+    $oasis1 = mysql_query('SELECT * FROM `odata` WHERE `wref` = ' . mysql_real_escape_string($_GET['d']));
     $oasis = mysql_fetch_assoc($oasis1);
     $access = $session->access;
     ?>
@@ -171,7 +171,7 @@
                 }
                 $toWref = $_GET['d'];
                 if ($session->alliance != 0) {
-                    $result = mysql_query("SELECT * FROM " . TB_PREFIX . "ndata WHERE $limit AND ally = " . $session->alliance . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
+                    $result = mysql_query("SELECT * FROM ndata WHERE $limit AND ally = " . $session->alliance . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
                     $query = mysql_num_rows($result);
                     if ($query != 0) {
                         while ($row = mysql_fetch_array($result)) {
@@ -195,7 +195,7 @@
 
                     <?php }
                 } else {
-                    $result = mysql_query("SELECT * FROM " . TB_PREFIX . "ndata WHERE uid = " . $session->uid . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
+                    $result = mysql_query("SELECT * FROM ndata WHERE uid = " . $session->uid . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
                     $query = mysql_num_rows($result);
                     if ($query != 0) {
                         while ($row = mysql_fetch_array($result)) {
@@ -297,7 +297,7 @@
                 }
                 $toWref = $_GET['d'];
                 if ($session->alliance != 0) {
-                    $result = mysql_query("SELECT * FROM " . TB_PREFIX . "ndata WHERE $limit AND ally = " . $session->alliance . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
+                    $result = mysql_query("SELECT * FROM ndata WHERE $limit AND ally = " . $session->alliance . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
                     $query = mysql_num_rows($result);
                     if ($query != 0) {
                         while ($row = mysql_fetch_array($result)) {
@@ -321,7 +321,7 @@
 
                     <?php }
                 } else {
-                    $result = mysql_query("SELECT * FROM " . TB_PREFIX . "ndata WHERE uid = " . $session->uid . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
+                    $result = mysql_query("SELECT * FROM ndata WHERE uid = " . $session->uid . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
                     $query = mysql_num_rows($result);
                     if ($query != 0) {
                         while ($row = mysql_fetch_array($result)) {
@@ -452,7 +452,7 @@
             }
             $toWref = $_GET['d'];
             if ($session->alliance != 0) {
-                $result = mysql_query("SELECT * FROM " . TB_PREFIX . "ndata WHERE $limit AND ally = " . $session->alliance . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
+                $result = mysql_query("SELECT * FROM ndata WHERE $limit AND ally = " . $session->alliance . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
                 $query = mysql_num_rows($result);
                 if ($query != 0) {
                     while ($row = mysql_fetch_array($result)) {
@@ -476,7 +476,7 @@
 
                 <?php }
             } else {
-                $result = mysql_query("SELECT * FROM " . TB_PREFIX . "ndata WHERE $limit AND uid = " . $session->uid . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
+                $result = mysql_query("SELECT * FROM ndata WHERE $limit AND uid = " . $session->uid . " AND toWref = " . $toWref . " ORDER BY time DESC Limit 5");
                 $query = mysql_num_rows($result);
                 if ($query != 0) {
                     while ($row = mysql_fetch_array($result)) {
@@ -556,12 +556,12 @@
             <td class="none">
                 <?php
                 if ($basearray['fieldtype'] == 0) {
-                    $query1 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'odata` WHERE `wref` = ' . mysql_escape_string($_GET['d']));
+                    $query1 = mysql_query('SELECT * FROM `odata` WHERE `wref` = ' . mysql_escape_string($_GET['d']));
                 } else {
-                    $query1 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `wref` = ' . mysql_real_escape_string($_GET['d']));
+                    $query1 = mysql_query('SELECT * FROM `vdata` WHERE `wref` = ' . mysql_real_escape_string($_GET['d']));
                 }
                 $data1 = mysql_fetch_assoc($query1);
-                $query2 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'users` WHERE `id` = ' . $data1['owner']);
+                $query2 = mysql_query('SELECT * FROM `users` WHERE `id` = ' . $data1['owner']);
                 $data2 = mysql_fetch_assoc($query2);
                 if ($data2['access'] == '0' or $data2['access'] == '8' or $data2['access'] == '9') {
                     echo "&raquo; " . SENDTROOP . " (" . BAN . ")";

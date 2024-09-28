@@ -4,8 +4,8 @@ include_once("GameEngine/Data/hero_full.php");
 
 if (isset($_POST['name'])) {
     $_POST['name'] = stripslashes($_POST['name']);
-    mysql_query("UPDATE " . TB_PREFIX . "hero SET `name`='" . ($_POST['name']) . "' where `uid`='" . $session->uid . "'") or die("ERROR:" . mysql_error());
-    $hero = mysql_query("SELECT * FROM " . TB_PREFIX . "hero WHERE `uid` = " . $session->uid . "");
+    mysql_query("UPDATE hero SET `name`='" . ($_POST['name']) . "' where `uid`='" . $session->uid . "'") or die("ERROR:" . mysql_error());
+    $hero = mysql_query("SELECT * FROM hero WHERE `uid` = " . $session->uid . "");
     $hero_info = mysql_fetch_array($hero);
     echo "" . NAME_CHANGED . "";
 }
@@ -35,7 +35,7 @@ $hero = $units->Hero($session->uid);
         <td class="val"><?php echo $hero['atk']; ?></td>
         <td class="xp"><img class="bar" src="img/x.gif" style="width:<?php echo (2 * $hero_info['attack']) + 1; ?>px;"
                             alt="<?php echo $hero['atk']; ?>" title="<?php echo $hero['atk']; ?>"/></td>
-        <td class="up"><span class="none"> 
+        <td class="up"><span class="none">
         <?php
         if ($hero_info['points'] > 0 && $hero_info['attack'] < 100) {
             if ($session->access != BANNED) {
@@ -56,7 +56,7 @@ $hero = $units->Hero($session->uid);
         <td class="xp"><img class="bar" src="img/x.gif" style="width:<?php echo (2 * $hero_info['defence']) + 1; ?>px;"
                             alt="<?php echo ($hero['di']) . "/" . ($hero['dc']); ?>"
                             title="<?php echo ($hero['di']) . "/" . ($hero['dc']); ?>"/></td>
-        <td class="up"><span class="none"> 
+        <td class="up"><span class="none">
         <?php
         if ($hero_info['points'] > 0 && $hero_info['defence'] < 100) {
             if ($session->access != BANNED) {
@@ -77,7 +77,7 @@ $hero = $units->Hero($session->uid);
         <td class="xp"><img class="bar" src="img/x.gif" style="width:<?php echo ($hero['ob'] - 1) * 1000 + 1; ?>px;"
                             alt="<?php echo ($hero['ob'] - 1) * 100; ?>%"
                             title="<?php echo ($hero['ob'] - 1) * 100; ?>%"/></td>
-        <td class="up"><span class="none"> 
+        <td class="up"><span class="none">
         <?php
         if ($hero_info['points'] > 0 && $hero_info['attackbonus'] < 100) {
             if ($session->access != BANNED) {
@@ -99,7 +99,7 @@ $hero = $units->Hero($session->uid);
         <td class="xp"><img class="bar" src="img/x.gif" style="width:<?php echo ($hero['db'] - 1) * 1000 + 1; ?>px;"
                             alt="<?php echo ($hero['db'] - 1) * 100; ?>%"
                             title="<?php echo ($hero['db'] - 1) * 100; ?>%"/></td>
-        <td class="up"><span class="none"> 
+        <td class="up"><span class="none">
         <?php
         if ($hero_info['points'] > 0 && $hero_info['defencebonus'] < 100) {
             if ($session->access != BANNED) {
@@ -122,7 +122,7 @@ $hero = $units->Hero($session->uid);
                             style="width:<?php echo ($hero_info['regeneration'] * 2) + 1; ?>px;"
                             alt="<?php echo($hero_info['regeneration'] * 5 * SPEED); ?>%/Day"
                             title="<?php echo($hero_info['regeneration'] * 5 * SPEED); ?>%/Day"/></td>
-        <td class="up"><span class="none"> 
+        <td class="up"><span class="none">
         <?php
         if ($hero_info['points'] > 0 && $hero_info['regeneration'] < 100) {
             if ($session->access != BANNED) {
@@ -185,48 +185,48 @@ if (isset($_GET['add'])) {
     if ($_GET['add'] == "reset") {
         if ($hero_info['level'] <= 3) {
             if ($hero_info['attack'] != 0 or $hero_info['defence'] != 0 or $hero_info['attackbonus'] != 0 or $hero_info['defencebonus'] != 0 or $hero_info['regeneration'] != 0) {
-                mysql_query("UPDATE " . TB_PREFIX . "hero SET `points` = '" . (($hero_info['level'] * 5) + 5) . "' WHERE `uid` = '" . $session->uid . "'");
-                mysql_query("UPDATE " . TB_PREFIX . "hero SET `attack` = '0' WHERE `uid` = '" . $session->uid . "'");
-                mysql_query("UPDATE " . TB_PREFIX . "hero SET `defence` = '0' WHERE `uid` = '" . $session->uid . "'");
-                mysql_query("UPDATE " . TB_PREFIX . "hero SET `attackbonus` = '0' WHERE `uid` = '" . $session->uid . "'");
-                mysql_query("UPDATE " . TB_PREFIX . "hero SET `defencebonus` = '0' WHERE `uid` = '" . $session->uid . "'");
-                mysql_query("UPDATE " . TB_PREFIX . "hero SET `regeneration` = '0' WHERE `uid` = '" . $session->uid . "'");
+                mysql_query("UPDATE hero SET `points` = '" . (($hero_info['level'] * 5) + 5) . "' WHERE `uid` = '" . $session->uid . "'");
+                mysql_query("UPDATE hero SET `attack` = '0' WHERE `uid` = '" . $session->uid . "'");
+                mysql_query("UPDATE hero SET `defence` = '0' WHERE `uid` = '" . $session->uid . "'");
+                mysql_query("UPDATE hero SET `attackbonus` = '0' WHERE `uid` = '" . $session->uid . "'");
+                mysql_query("UPDATE hero SET `defencebonus` = '0' WHERE `uid` = '" . $session->uid . "'");
+                mysql_query("UPDATE hero SET `regeneration` = '0' WHERE `uid` = '" . $session->uid . "'");
                 header("Location: build.php?id=" . $id . "");
             }
         }
     }
     if ($_GET['add'] == "off" && $hero_info['attack'] < 100) {
         if ($hero_info['points'] > 0) {
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `attack` = `attack` + 1 WHERE `uid` = '" . $session->uid . "'");
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `attack` = `attack` + 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
             header("Location: build.php?id=" . $id . "");
         }
     }
     if ($_GET['add'] == "deff" && $hero_info['defence'] < 100) {
         if ($hero_info['points'] > 0) {
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `defence` = `defence` + 1 WHERE `uid` = '" . $session->uid . "'");
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `defence` = `defence` + 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
             header("Location: build.php?id=" . $id . "");
         }
     }
     if ($_GET['add'] == "obonus" && $hero_info['attackbonus'] < 100) {
         if ($hero_info['points'] > 0) {
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `attackbonus` = `attackbonus` + 1 WHERE `uid` = '" . $session->uid . "'");
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `attackbonus` = `attackbonus` + 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
             header("Location: build.php?id=" . $id . "");
         }
     }
     if ($_GET['add'] == "dbonus" && $hero_info['defencebonus'] < 100) {
         if ($hero_info['points'] > 0) {
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `defencebonus` = `defencebonus` + 1 WHERE `uid` = '" . $session->uid . "'");
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `defencebonus` = `defencebonus` + 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
             header("Location: build.php?id=" . $id . "");
         }
     }
     if ($_GET['add'] == "reg" && $hero_info['regeneration'] < 100) {
         if ($hero_info['points'] > 0) {
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `regeneration` = `regeneration` + 1 WHERE `uid` = '" . $session->uid . "'");
-            mysql_query("UPDATE " . TB_PREFIX . "hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `regeneration` = `regeneration` + 1 WHERE `uid` = '" . $session->uid . "'");
+            mysql_query("UPDATE hero SET `points` = `points` - 1 WHERE `uid` = '" . $session->uid . "'");
             header("Location: build.php?id=" . $id . "");
         }
     }

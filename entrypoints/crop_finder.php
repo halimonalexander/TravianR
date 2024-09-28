@@ -124,10 +124,9 @@ if ($_POST['type'] == 15) {
 
             <?php
 
-            define('PREFIX', TB_PREFIX);
-            $type15 = mysql_query("SELECT id,x,y,occupied FROM " . PREFIX . "wdata WHERE fieldtype = 6");
-            $type9 = mysql_query("SELECT id,x,y,occupied FROM " . PREFIX . "wdata WHERE fieldtype = 1");
-            $type_both = mysql_query("SELECT id,x,y,occupied,fieldtype FROM " . PREFIX . "wdata WHERE fieldtype = 1 OR fieldtype = 6");
+            $type15 = mysql_query("SELECT id,x,y,occupied FROM wdata WHERE fieldtype = 6");
+            $type9 = mysql_query("SELECT id,x,y,occupied FROM wdata WHERE fieldtype = 1");
+            $type_both = mysql_query("SELECT id,x,y,occupied,fieldtype FROM wdata WHERE fieldtype = 1 OR fieldtype = 6");
 
             if (is_numeric($_GET['x']) and is_numeric($_GET['y'])) {
                 $coor['x'] = $_GET['x'];

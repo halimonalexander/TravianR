@@ -7,6 +7,6 @@ if (!isset($_SESSION)) session_start();
 if ($_SESSION['access'] < ADMIN) die("Access Denied: You are not Admin!");
 
 $deleteweek = $_POST['medalweek'];
-mysql_query("DELETE FROM " . TB_PREFIX . "medal WHERE week = " . $deleteweek . "");
+mysql_query("DELETE FROM medal WHERE week = " . $deleteweek . "");
 
 header("Location: ../../../Admin/admin.php?p=delmedal");

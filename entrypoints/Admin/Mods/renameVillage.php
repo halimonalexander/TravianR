@@ -10,7 +10,7 @@ if ($_SESSION['access'] < ADMIN) die("Access Denied: You are not Admin!");
 
 $did = $_POST['did'];
 $name = $_POST['villagename'];
-$sql = "UPDATE " . TB_PREFIX . "vdata SET name = '$name' WHERE wref = $did";
+$sql = "UPDATE vdata SET name = '$name' WHERE wref = $did";
 
 mysql_query($sql);
 

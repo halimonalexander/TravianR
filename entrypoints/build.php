@@ -226,19 +226,19 @@ if ($_GET['mode'] == 'troops' && $_GET['cancel'] == 1) {
         $now = time();
         if (($now - $oldmovement[0]['starttime']) < 90 && $oldmovement[0]['from'] == $village->wid) {
 
-            $qc = "SELECT * FROM " . TB_PREFIX . "movement where proc = 0 and moveid = " . $_GET['moveid'];
+            $qc = "SELECT * FROM movement where proc = 0 and moveid = " . $_GET['moveid'];
             $resultc = $database->query($qc));
 
             if (mysql_num_rows($resultc) == 1) {
 
-                $q = "UPDATE " . TB_PREFIX . "movement set proc  = 1 where proc = 0 and moveid = " . $_GET['moveid'];
+                $q = "UPDATE movement set proc  = 1 where proc = 0 and moveid = " . $_GET['moveid'];
                 $database->query($q);
                 $end = $now + ($now - $oldmovement[0]['starttime']);
                 //echo "6,".$oldmovement[0]['to'].",".$oldmovement[0]['from'].",0,".$now.",".$end;
-                $q2 = "SELECT id FROM " . TB_PREFIX . "send ORDER BY id DESC";
+                $q2 = "SELECT id FROM send ORDER BY id DESC";
                 $lastid = mysql_fetch_array(mysql_query($q2));
                 $newid = $lastid['id'] + 1;
-                $q2 = "INSERT INTO " . TB_PREFIX . "send values ($newid,0,0,0,0,0)";
+                $q2 = "INSERT INTO send values ($newid,0,0,0,0,0)";
                 $database->query($q2);
                 $database->addMovement(4, $oldmovement[0]['to'], $oldmovement[0]['from'], $oldmovement[0]['ref'], $now, $end);
 
@@ -267,9 +267,9 @@ if (isset($_GET['id'])) {
     <meta http-equiv="imagetoolbar" content="no"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
-    <script src="../resources/js/mt-full.js?ebe79" type="text/javascript"></script>
-    <script src="../resources/js/unx.js?ebe79" type="text/javascript"></script>
-    <script src="../resources/js/new.js?ebe79" type="text/javascript"></script>
+    <script src="../public/js/mt-full.js?ebe79" type="text/javascript"></script>
+    <script src="../public/js/unx.js?ebe79" type="text/javascript"></script>
+    <script src="../public/js/new.js?ebe79" type="text/javascript"></script>
     <link href="<?php echo GP_LOCATE; ?>lang/en/lang.css?f4b7c" rel="stylesheet" type="text/css"/>
     <link href="<?php echo GP_LOCATE; ?>lang/en/compact.css?f4b7c" rel="stylesheet" type="text/css"/>
     <?php
@@ -292,7 +292,7 @@ if (isset($_GET['id'])) {
 
 <body class="v35 ie ie8">
 <div class="wrapper">
-    <img style="filter:chroma();" src="../resources/img/x.gif" id="msfilter" alt=""/>
+    <img style="filter:chroma();" src="../public/img/x.gif" id="msfilter" alt=""/>
     <div id="dynamic_header">
     </div>
     <?php include("Templates/header.php"); ?>

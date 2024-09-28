@@ -75,8 +75,6 @@ $text = preg_replace("'%SSERVER%'", SQL_SERVER, $text);
 $text = preg_replace("'%SUSER%'", SQL_USER, $text);
 $text = preg_replace("'%SPASS%'", SQL_PASS, $text);
 $text = preg_replace("'%SDB%'", SQL_DB, $text);
-$text = preg_replace("'%PREFIX%'", TB_PREFIX, $text);
-$text = preg_replace("'%CONNECTT%'", DB_TYPE, $text);
 $text = preg_replace("'%LIMIT_MAILBOX%'", $LIMIT_MAILBOX, $text);
 $text = preg_replace("'%MAX_MAILS%'", MAX_MAIL, $text);
 $text = preg_replace("'%ARANK%'", $INCLUDE_ADMIN, $text);
@@ -91,7 +89,7 @@ $text = preg_replace("'%SERVER%'", SERVER, $text);
 fwrite($fh, $text);
 fclose($fh);
 
-$database->query("Insert into " . TB_PREFIX . "admin_log values (0," . $id . ",'Changed server setting'," . time() . ")");
+$database->query("Insert into admin_log values (0," . $id . ",'Changed server setting'," . time() . ")");
 
 header("Location: ../../../Admin/admin.php?p=config");
 

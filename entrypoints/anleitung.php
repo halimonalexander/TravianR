@@ -9,12 +9,12 @@ include("GameEngine/Lang/" . LANG . ".php");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title><?php echo SERVER_NAME; ?></title>
-    <link rel="stylesheet" type="text/css" href="../resources/img/tutorial/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../resources/img/tutorial/flaggs.css"/>
+    <link rel="stylesheet" type="text/css" href="../public/img/tutorial/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../public/img/tutorial/flaggs.css"/>
     <meta name="content-language" content="en"/>
     <meta http-equiv="imagetoolbar" content="no"/>
-    <script src="../resources/js/mt-core.js" type="text/javascript"></script>
-    <script src="../resources/js/new.js" type="text/javascript"></script>
+    <script src="../public/js/mt-core.js" type="text/javascript"></script>
+    <script src="../public/js/new.js" type="text/javascript"></script>
     <style type="text/css" media="screen">
 
     </style>
@@ -30,7 +30,7 @@ include("GameEngine/Lang/" . LANG . ".php");
 
     <div id="navigation">
 
-        <a href="index.php" class="home"><img src="../resources/img/x.gif" alt="Travian"/></a>
+        <a href="index.php" class="home"><img src="../public/img/x.gif" alt="Travian"/></a>
 
         <table class="menu">
 
@@ -108,7 +108,7 @@ include("GameEngine/Lang/" . LANG . ".php");
 
         <div class="overlay_content">
 
-            <a href="index.php" class="closer"><img class="dynamic_img" alt="Close" src="../resources/img/un/x.gif"/></a>
+            <a href="index.php" class="closer"><img class="dynamic_img" alt="Close" src="../public/img/un/x.gif"/></a>
 
             <h2>Anleitung</h2>
 

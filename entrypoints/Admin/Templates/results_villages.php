@@ -55,7 +55,7 @@ $result = $admin->search_village($_POST['s']);
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5" style="background-image: url(../../../resources/gpack/travian_default/img/f/c4.gif);">
+						<td colspan="5" style="background-image: url(../../../public/gpack/travian_default/img/f/c4.gif);">
 							<center>
 								<font color="red">' . count($result) . '</font> Villages Found "<font color="red">' . $_POST['s'] . '</font>"
 							</center>
@@ -69,7 +69,7 @@ $result = $admin->search_village($_POST['s']);
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="5" style="background-image: url(../../../resources/gpack/travian_default/img/f/c4.gif);">
+						<td colspan="5" style="background-image: url(../../../public/gpack/travian_default/img/f/c4.gif);">
 							<center>
 								<font color="#9F9F90">No Villages Called</font> <font color="red">' . $_POST['s'] . '</font>
 							</center>

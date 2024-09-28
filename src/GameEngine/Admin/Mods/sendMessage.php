@@ -10,13 +10,13 @@ mysql_select_db(SQL_DB);
 $session = $_POST['admid'];
 
 
-$sql = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $session . "");
+$sql = mysql_query("SELECT * FROM users WHERE id = " . $session . "");
 $access = mysql_fetch_array($sql);
 $sessionaccess = $access['access'];
 
 if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not Admin!</font></h1>");
 
-$query = "INSERT INTO " . TB_PREFIX . "mdata (target, owner, topic, message, viewed, time) VALUES ('$uid', 1, '$topic', '$message', 0, '$time')";
+$query = "INSERT INTO mdata (target, owner, topic, message, viewed, time) VALUES ('$uid', 1, '$topic', '$message', 0, '$time')";
 
 mysql_query($query);
 

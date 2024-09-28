@@ -15,7 +15,7 @@ class Ranking
     public function getUserRank($id)
     {
         $ranking = $this->getRank();
-        $users = "SELECT * FROM " . TB_PREFIX . "users WHERE access < " . (INCLUDE_ADMIN ? "10" : "8") . "";
+        $users = "SELECT * FROM users WHERE access < " . (INCLUDE_ADMIN ? "10" : "8") . "";
         $users2 = mysql_num_rows(mysql_query($users));
         $users3 = $users2 + 1;
         if (count($ranking) > 0) {
@@ -223,47 +223,47 @@ class Ranking
         if ($database->countUser() > 0) {
             $holder = array();
             if (SHOW_NATARS == True) {
-                $q = "SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username, " . TB_PREFIX . "users.oldrank oldrank, " . TB_PREFIX . "users.alliance alliance, (
+                $q = "SELECT users.id userid, users.username username, users.oldrank oldrank, users.alliance alliance, (
 
-			SELECT SUM( " . TB_PREFIX . "vdata.pop )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid
+			SELECT SUM( vdata.pop )
+			FROM vdata
+			WHERE vdata.owner = userid
 			)totalpop, (
 
-			SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+			SELECT COUNT( vdata.wref )
+			FROM vdata
+			WHERE vdata.owner = userid AND type != 99
 			)totalvillages, (
 
-			SELECT " . TB_PREFIX . "alidata.tag
-			FROM " . TB_PREFIX . "alidata, " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "alidata.id = " . TB_PREFIX . "users.alliance
-			AND " . TB_PREFIX . "users.id = userid
+			SELECT alidata.tag
+			FROM alidata, users
+			WHERE alidata.id = users.alliance
+			AND users.id = userid
 			)allitag
-			FROM " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
-			AND " . TB_PREFIX . "users.tribe <= 5 ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
+			FROM users
+			WHERE users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
+			AND users.tribe <= 5 ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
             } else {
-                $q = "SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username, " . TB_PREFIX . "users.oldrank oldrank, " . TB_PREFIX . "users.alliance alliance, (
+                $q = "SELECT users.id userid, users.username username, users.oldrank oldrank, users.alliance alliance, (
 
-			SELECT SUM( " . TB_PREFIX . "vdata.pop )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid
+			SELECT SUM( vdata.pop )
+			FROM vdata
+			WHERE vdata.owner = userid
 			)totalpop, (
 
-			SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+			SELECT COUNT( vdata.wref )
+			FROM vdata
+			WHERE vdata.owner = userid AND type != 99
 			)totalvillages, (
 
-			SELECT " . TB_PREFIX . "alidata.tag
-			FROM " . TB_PREFIX . "alidata, " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "alidata.id = " . TB_PREFIX . "users.alliance
-			AND " . TB_PREFIX . "users.id = userid
+			SELECT alidata.tag
+			FROM alidata, users
+			WHERE alidata.id = users.alliance
+			AND users.id = userid
 			)allitag
-			FROM " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
-			AND " . TB_PREFIX . "users.tribe <= 3 ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
+			FROM users
+			WHERE users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
+			AND users.tribe <= 3 ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
             }
 
             $result = mysql_query($q);
@@ -299,25 +299,25 @@ class Ranking
         //$value['totalvillage'] = count($database->getVillagesID($value['id']));
         //$value['totalpop'] = $database->getVSumField($value['id'],"pop");
         //$value['aname'] = $database->getAllianceName($value['alliance']);
-        $q = "SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.tribe tribe, " . TB_PREFIX . "users.username username," . TB_PREFIX . "users.alliance alliance, (
+        $q = "SELECT users.id userid, users.tribe tribe, users.username username,users.alliance alliance, (
 
-			SELECT SUM( " . TB_PREFIX . "vdata.pop )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid
+			SELECT SUM( vdata.pop )
+			FROM vdata
+			WHERE vdata.owner = userid
 			)totalpop, (
 
-			SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+			SELECT COUNT( vdata.wref )
+			FROM vdata
+			WHERE vdata.owner = userid AND type != 99
 			)totalvillages, (
 
-			SELECT " . TB_PREFIX . "alidata.tag
-			FROM " . TB_PREFIX . "alidata, " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "alidata.id = " . TB_PREFIX . "users.alliance
-			AND " . TB_PREFIX . "users.id = userid
+			SELECT alidata.tag
+			FROM alidata, users
+			WHERE alidata.id = users.alliance
+			AND users.id = userid
 			)allitag
-			FROM " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "users.tribe = $race AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
+			FROM users
+			WHERE users.tribe = $race AND users.access < " . (INCLUDE_ADMIN ? "10" : "8") . "
 			ORDER BY totalpop DESC, totalvillages DESC, userid DESC";
 
 
@@ -336,7 +336,7 @@ class Ranking
                 $value['aname'] = $result['allitag'];
                 $value['totalpop'] = $result['totalpop'];
                 $value['totalvillage'] = $result['totalvillages'];
-                //SELECT (SELECT SUM(".TB_PREFIX."vdata.pop) FROM ".TB_PREFIX."vdata WHERE ".TB_PREFIX."vdata.owner = 2)  totalpop, (SELECT COUNT(".TB_PREFIX."vdata.wref) FROM ".TB_PREFIX."vdata WHERE ".TB_PREFIX."vdata.owner = 2) totalvillages, (SELECT ".TB_PREFIX."alidata.tag FROM ".TB_PREFIX."alidata WHERE ".TB_PREFIX."alidata.id = ".TB_PREFIX."users.alliance AND ".TB_PREFIX."users.id = 2);
+                //SELECT (SELECT SUM(vdata.pop) FROM vdata WHERE vdata.owner = 2)  totalpop, (SELECT COUNT(vdata.wref) FROM vdata WHERE vdata.owner = 2) totalvillages, (SELECT alidata.tag FROM alidata WHERE alidata.id = users.alliance AND users.id = 2);
                 array_push($holder, $value);
             }
         } else {
@@ -364,20 +364,20 @@ class Ranking
 
         //$value['totalvillage'] = count($database->getVillagesID($value['id']));
         //$value['totalpop'] = $database->getVSumField($value['id'],"pop");
-        $q = "SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username, " . TB_PREFIX . "users.apall,  (
+        $q = "SELECT users.id userid, users.username username, users.apall,  (
 
-			SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+			SELECT COUNT( vdata.wref )
+			FROM vdata
+			WHERE vdata.owner = userid AND type != 99
 			)totalvillages, (
 
-			SELECT SUM( " . TB_PREFIX . "vdata.pop )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid
+			SELECT SUM( vdata.pop )
+			FROM vdata
+			WHERE vdata.owner = userid
 			)pop
-			FROM " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "users.apall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND " . TB_PREFIX . "users.tribe <= 3
-			ORDER BY " . TB_PREFIX . "users.apall DESC, pop DESC, userid DESC";
+			FROM users
+			WHERE users.apall >=0 AND users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND users.tribe <= 3
+			ORDER BY users.apall DESC, pop DESC, userid DESC";
         $result = mysql_query($q);
         while ($row = mysql_Fetch_assoc($result)) {
             $datas[] = $row;
@@ -407,20 +407,20 @@ class Ranking
         //global $database, $multisort;
         //$array = $database->getRanking();
         $holder = array();
-        $q = "SELECT " . TB_PREFIX . "users.id userid, " . TB_PREFIX . "users.username username, " . TB_PREFIX . "users.dpall,  (
+        $q = "SELECT users.id userid, users.username username, users.dpall,  (
 
-			SELECT COUNT( " . TB_PREFIX . "vdata.wref )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid AND type != 99
+			SELECT COUNT( vdata.wref )
+			FROM vdata
+			WHERE vdata.owner = userid AND type != 99
 			)totalvillages, (
 
-			SELECT SUM( " . TB_PREFIX . "vdata.pop )
-			FROM " . TB_PREFIX . "vdata
-			WHERE " . TB_PREFIX . "vdata.owner = userid
+			SELECT SUM( vdata.pop )
+			FROM vdata
+			WHERE vdata.owner = userid
 			)pop
-			FROM " . TB_PREFIX . "users
-			WHERE " . TB_PREFIX . "users.dpall >=0 AND " . TB_PREFIX . "users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND " . TB_PREFIX . "users.tribe <= 3
-			ORDER BY " . TB_PREFIX . "users.dpall DESC, pop DESC, userid DESC";
+			FROM users
+			WHERE users.dpall >=0 AND users.access < " . (INCLUDE_ADMIN ? "10" : "8") . " AND users.tribe <= 3
+			ORDER BY users.dpall DESC, pop DESC, userid DESC";
         $result = mysql_query($q);
         while ($row = mysql_Fetch_assoc($result)) {
             $datas[] = $row;

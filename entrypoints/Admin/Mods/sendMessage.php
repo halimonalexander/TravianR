@@ -11,7 +11,7 @@ $topic = $_POST['topic'];
 $message = $_POST['message'];
 $time = time();
 
-$query = "INSERT INTO " . TB_PREFIX . "mdata (target, owner, topic, message, viewed, time) VALUES ('$uid', 1, '$topic', '$message', 0, '$time')";
+$query = "INSERT INTO mdata (target, owner, topic, message, viewed, time) VALUES ('$uid', 1, '$topic', '$message', 0, '$time')";
 
 mysql_query($query);
 

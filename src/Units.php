@@ -248,10 +248,10 @@ class Units
         }
         //set oasis to default
         if (count($getenforce1) > 0) {
-            $q = "DELETE FROM " . TB_PREFIX . "ndata WHERE toWref=" . $getenforce1[0]['vref'];
+            $q = "DELETE FROM ndata WHERE toWref=" . $getenforce1[0]['vref'];
             $database->query($q);
             $database->populateOasisUnits($getenforce1[0]['vref'], $getenforce1[0]['high']);
-            $q = "UPDATE " . TB_PREFIX . "odata SET conqured=0,wood=800,iron=800,clay=800,maxstore=800,crop=800,maxcrop=800,lastupdated=" . time() . ",lastupdated2=" . time() . ",loyalty=100,owner=2,name='Unoccupied Oasis' WHERE conqured=$wref";
+            $q = "UPDATE odata SET conqured=0,wood=800,iron=800,clay=800,maxstore=800,crop=800,maxcrop=800,lastupdated=" . time() . ",lastupdated2=" . time() . ",loyalty=100,owner=2,name='Unoccupied Oasis' WHERE conqured=$wref";
             $database->query($q);
         }
     }
@@ -296,7 +296,7 @@ class Units
             }
         }
         if (intval($enforce['hero']) > 0) {
-            $q = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $from['owner'] . "";
+            $q = "SELECT * FROM hero WHERE uid = " . $from['owner'] . "";
             $result = mysql_query($q);
             $hero_f = mysql_fetch_array($result);
             $hero_unit = $hero_f['unit'];
@@ -404,13 +404,13 @@ class Units
                     array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
                 );
 
-                $query1 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `wref` = ' . mysql_escape_string($data['to_vid']));
+                $query1 = mysql_query('SELECT * FROM `vdata` WHERE `wref` = ' . mysql_escape_string($data['to_vid']));
                 $data1 = mysql_fetch_assoc($query1);
-                $query2 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'users` WHERE `id` = ' . $data1['owner']);
+                $query2 = mysql_query('SELECT * FROM `users` WHERE `id` = ' . $data1['owner']);
                 $data2 = mysql_fetch_assoc($query2);
-                $query11 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `wref` = ' . mysql_escape_string($village->wid));
+                $query11 = mysql_query('SELECT * FROM `vdata` WHERE `wref` = ' . mysql_escape_string($village->wid));
                 $data11 = mysql_fetch_assoc($query11);
-                $query21 = mysql_query('SELECT * FROM `' . TB_PREFIX . 'users` WHERE `id` = ' . $data11['owner']);
+                $query21 = mysql_query('SELECT * FROM `users` WHERE `id` = ' . $data11['owner']);
                 $data21 = mysql_fetch_assoc($query21);
 
 
@@ -472,7 +472,7 @@ class Units
                 // If is a WW village you can target on WW , if is not a WW village catapults will target randomly.
                 // Like it says : Exceptions are the WW which can always be targeted and the treasure chamber which can always be targeted, except with the unique artifact.
                 // Fixed by Advocaite and Shadow
-                $q = mysql_query("SELECT vref FROM " . TB_PREFIX . "fdata WHERE f99t = '40' AND vref = " . $data['to_vid'] . "");
+                $q = mysql_query("SELECT vref FROM fdata WHERE f99t = '40' AND vref = " . $data['to_vid'] . "");
                 $isThere = mysql_num_rows($q);
                 if ($isThere > 0) {
                     $iswwvilla = 1;
@@ -542,7 +542,7 @@ class Units
                 if ($checkexist or $checkoexist) {
                     $database->addMovement(3, $village->wid, $data['to_vid'], $reference, time(), ($time + time()));
                     if (($database->hasBeginnerProtection($village->wid) == 1) && ($checkexist)) {
-                        mysql_query("UPDATE " . TB_PREFIX . "users SET protect = 0 WHERE id = $session->uid");
+                        mysql_query("UPDATE users SET protect = 0 WHERE id = $session->uid");
                     }
                 }
 
@@ -653,7 +653,7 @@ class Units
                     }
                     if (isset($post['t11'])) {
                         if ($post['t11'] != '' && $post['t11'] > 0) {
-                            $qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $from['owner'] . "";
+                            $qh = "SELECT * FROM hero WHERE uid = " . $from['owner'] . "";
                             $resulth = mysql_query($qh);
                             $hero_f = mysql_fetch_array($resulth);
                             $hero_unit = $hero_f['unit'];

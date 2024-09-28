@@ -217,7 +217,7 @@ class Message
         global $database, $session;
         for ($i = 1; $i <= 10; $i++) {
             if (isset($post['n' . $i])) {
-                $message1 = mysql_query("SELECT * FROM " . TB_PREFIX . "mdata where id = " . $post['n' . $i] . "");
+                $message1 = mysql_query("SELECT * FROM mdata where id = " . $post['n' . $i] . "");
                 $message = mysql_fetch_array($message1);
                 if ($message['target'] == $session->uid && $message['owner'] == $session->uid) {
                     $database->getMessage($post['n' . $i], 8);
@@ -335,15 +335,15 @@ class Message
     {
         global $session, $database;
 
-        $q = "SELECT * FROM " . TB_PREFIX . "mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
+        $q = "SELECT * FROM mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
         $res = mysql_query($q);
         $flood = mysql_num_rows($res);
         if ($flood > 5)
             return; //flood
 
-        $allmembersQ = mysql_query("SELECT id FROM " . TB_PREFIX . "users WHERE alliance='" . $session->alliance . "'");
+        $allmembersQ = mysql_query("SELECT id FROM users WHERE alliance='" . $session->alliance . "'");
         $userally = $database->getUserField($session->uid, "alliance", 0);
-        $permission = mysql_fetch_array(mysql_query("SELECT opt7 FROM " . TB_PREFIX . "ali_permission WHERE uid='" . $session->uid . "'"));
+        $permission = mysql_fetch_array(mysql_query("SELECT opt7 FROM ali_permission WHERE uid='" . $session->uid . "'"));
         if (WORD_CENSOR) {
             $topic = $this->wordCensor($topic);
             $text = $this->wordCensor($text);
@@ -421,7 +421,7 @@ class Message
         global $session, $database;
         $user = $database->getUserField($recieve, "id", 1);
 
-        $q = "SELECT * FROM " . TB_PREFIX . "mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
+        $q = "SELECT * FROM mdata WHERE owner='" . $session->uid . "' AND time > " . time() . " - 60";
         $res = mysqli_query($q);
         $flood = mysqli_num_rows($res);
         if ($flood > 5)

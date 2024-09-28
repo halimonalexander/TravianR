@@ -49,7 +49,7 @@ if (isset($id)) {
         </div>
 
         <?php
-        $sql = "SELECT * FROM " . TB_PREFIX . "banlist WHERE uid = " . $id . "";
+        $sql = "SELECT * FROM banlist WHERE uid = " . $id . "";
         $numbans = mysql_num_rows(mysql_query($sql));
         ?>
         <table id="member" cellpadding="1" cellspacing="1">

@@ -904,7 +904,7 @@ class Building
                             $finish = 1;
                             $resource = $this->resourceRequired($jobs['field'], $jobs['type']);
                             if ($jobs['master'] == 0) {
-                                $q = "UPDATE " . TB_PREFIX . "fdata set f" . $jobs['field'] . " = " . $jobs['level'] . ", f" . $jobs['field'] . "t = " . $jobs['type'] . " where vref = " . $jobs['wid'];
+                                $q = "UPDATE fdata set f" . $jobs['field'] . " = " . $jobs['level'] . ", f" . $jobs['field'] . "t = " . $jobs['type'] . " where vref = " . $jobs['wid'];
                             } else {
                                 $villwood = $database->getVillageField($jobs['wid'], 'wood');
                                 $villclay = $database->getVillageField($jobs['wid'], 'clay');
@@ -920,18 +920,18 @@ class Building
                                     $newgold = $session->gold - 1;
                                     $database->updateUserField($session->uid, "gold", $newgold, 1);
                                     $enought_res = 1;
-                                    $q = "UPDATE " . TB_PREFIX . "fdata set f" . $jobs['field'] . " = " . $jobs['level'] . ", f" . $jobs['field'] . "t = " . $jobs['type'] . " where vref = " . $jobs['wid'];
+                                    $q = "UPDATE fdata set f" . $jobs['field'] . " = " . $jobs['level'] . ", f" . $jobs['field'] . "t = " . $jobs['type'] . " where vref = " . $jobs['wid'];
                                 }
                             }
                             if ($database->query($q) && ($enought_res == 1 or $jobs['master'] == 0)) {
                                 $database->modifyPop($jobs['wid'], $resource['pop'], 0);
                                 $database->addCP($jobs['wid'], $resource['cp']);
-                                $q = "DELETE FROM " . TB_PREFIX . "bdata where id = " . $jobs['id'];
+                                $q = "DELETE FROM bdata where id = " . $jobs['id'];
                                 $database->query($q);
                                 if ($jobs['type'] == 18) {
                                     $owner = $database->getVillageField($jobs['wid'], "owner");
                                     $max = $bid18[$level]['attri'];
-                                    $q = "UPDATE " . TB_PREFIX . "alidata set max = $max where leader = $owner";
+                                    $q = "UPDATE alidata set max = $max where leader = $owner";
                                     $database->query($q);
                                 }
                             }
@@ -952,8 +952,8 @@ class Building
                 $stillbuildingarray = $database->getJobs($village->wid);
                 if (count($stillbuildingarray) == 1) {
                     if ($stillbuildingarray[0]['loopcon'] == 1) {
-                        //$q = "UPDATE ".TB_PREFIX."bdata SET loopcon=0,timestamp=".(time()+$stillbuildingarray[0]['timestamp']-$innertimestamp)." WHERE id=".$stillbuildingarray[0]['id'];
-                        $q = "UPDATE " . TB_PREFIX . "bdata SET loopcon=0 WHERE id=" . $stillbuildingarray[0]['id'];
+                        //$q = "UPDATE bdata SET loopcon=0,timestamp=".(time()+$stillbuildingarray[0]['timestamp']-$innertimestamp)." WHERE id=".$stillbuildingarray[0]['id'];
+                        $q = "UPDATE bdata SET loopcon=0 WHERE id=" . $stillbuildingarray[0]['id'];
                         $database->query($q);
                     }
                 }

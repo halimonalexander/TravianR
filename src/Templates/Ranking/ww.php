@@ -1,10 +1,10 @@
 <?php
 if (WW == True) {
-    $result = mysql_query("select " . TB_PREFIX . "users.id, " . TB_PREFIX . "users.username," . TB_PREFIX . "users.alliance, " . TB_PREFIX . "fdata.wwname, " . TB_PREFIX . "fdata.f99, " . TB_PREFIX . "vdata.name, " . TB_PREFIX . "fdata.vref  
-                        FROM " . TB_PREFIX . "users  
-                        INNER JOIN " . TB_PREFIX . "vdata ON " . TB_PREFIX . "users.id = " . TB_PREFIX . "vdata.owner 
-                        INNER JOIN " . TB_PREFIX . "fdata ON " . TB_PREFIX . "fdata.vref = " . TB_PREFIX . "vdata.wref 
-                        WHERE " . TB_PREFIX . "fdata.f99t = 40 ORDER BY " . TB_PREFIX . "fdata.f99 Desc, id Desc LIMIT 20");
+    $result = mysql_query("select users.id, users.username,users.alliance, fdata.wwname, fdata.f99, vdata.name, fdata.vref
+                        FROM users
+                        INNER JOIN vdata ON users.id = vdata.owner
+                        INNER JOIN fdata ON fdata.vref = vdata.wref
+                        WHERE fdata.f99t = 40 ORDER BY fdata.f99 Desc, id Desc LIMIT 20");
     ?>
     <table cellpadding="1" cellspacing="1" id="villages" class="row_table_data">
     <thead>
@@ -25,7 +25,7 @@ if (WW == True) {
     $cont = 1;
     while ($row = mysql_fetch_array($result)) {
         $ally = $database->getAlliance($row[alliance]);
-        $query = @mysql_query('SELECT * FROM `' . TB_PREFIX . 'ww_attacks` WHERE `vid` = ' . $row['vref'] . ' ORDER BY `attack_time` ASC LIMIT 1');
+        $query = @mysql_query('SELECT * FROM `ww_attacks` WHERE `vid` = ' . $row['vref'] . ' ORDER BY `attack_time` ASC LIMIT 1');
         $row2 = @mysql_fetch_assoc($query);
         ?>
         <tr>

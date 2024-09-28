@@ -16,7 +16,7 @@
     </thead>
     <tbody>
     <?php
-    $sql = "SELECT * FROM " . TB_PREFIX . "activate";
+    $sql = "SELECT * FROM activate";
     $result = mysql_query($sql);
     while ($row = mysql_fetch_assoc($result)) {
         $i++;

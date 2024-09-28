@@ -1,6 +1,6 @@
 ﻿<?php
 $time = time();
-$ban = mysql_query("SELECT * FROM " . TB_PREFIX . "banlist WHERE `uid` = '" . $session->uid . "' and active = 1");
+$ban = mysql_query("SELECT * FROM banlist WHERE `uid` = '" . $session->uid . "' and active = 1");
 $ban1 = mysql_fetch_array($ban);
 ?>
 

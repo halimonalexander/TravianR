@@ -10,12 +10,12 @@ mysql_select_db(SQL_DB);
 $userid = $_POST['userid'];
 $session = $_POST['admid'];
 
-$sql = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $session . "");
+$sql = mysql_query("SELECT * FROM users WHERE id = " . $session . "");
 $access = mysql_fetch_array($sql);
 $sessionaccess = $access['access'];
 
 if ($sessionaccess != 9) die("<h1><font color=\"red\">Access Denied: You are not Admin!</font></h1>");
 
-mysql_query("UPDATE " . TB_PREFIX . "medal set del = 1 WHERE userid = " . $userid . "");
+mysql_query("UPDATE medal set del = 1 WHERE userid = " . $userid . "");
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $userid . "");

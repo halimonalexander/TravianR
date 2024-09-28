@@ -98,7 +98,7 @@ if (isset($_POST['action']) == 'addSlot' && $_POST['lid']) {
                                 <select name="lid">
                                     <?php
 
-                                    $sql = mysql_query("SELECT * FROM " . TB_PREFIX . "farmlist WHERE owner = $session->uid ORDER BY name ASC");
+                                    $sql = mysql_query("SELECT * FROM farmlist WHERE owner = $session->uid ORDER BY name ASC");
                                     while ($row = mysql_fetch_array($sql)) {
                                         $lid = $row["id"];
                                         $lname = $row["name"];
@@ -137,7 +137,7 @@ if (isset($_POST['action']) == 'addSlot' && $_POST['lid']) {
                                     <label class="lastTargets">Last targets:</label>
                                     <select name="target_id">
                                         <?php
-                                        $getwref = "SELECT * FROM " . TB_PREFIX . "raidlist WHERE lid = " . $_GET['lid'] . "";
+                                        $getwref = "SELECT * FROM raidlist WHERE lid = " . $_GET['lid'] . "";
                                         $arraywref = $database->query_return($getwref);
                                         echo '<option value="">Select village</option>';
                                         if (mysql_num_rows(mysql_query($getwref)) != 0) {

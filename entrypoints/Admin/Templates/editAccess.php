@@ -3,9 +3,9 @@
 if ($_SESSION['access'] < ADMIN) die("Access Denied: You are not Admin!");
 $id = $_SESSION['id'];
 if (isset($_GET['uid'])) {
-    $sql = mysql_query("SELECT access FROM " . TB_PREFIX . "users WHERE id = " . $_GET['uid'] . "");
+    $sql = mysql_query("SELECT access FROM users WHERE id = " . $_GET['uid'] . "");
     $curaccess = mysql_result($sql, 0);
-    $player = mysql_fetch_assoc(mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $id . ""));
+    $player = mysql_fetch_assoc(mysql_query("SELECT * FROM users WHERE id = " . $id . ""));
     ?>
 
     <form action="../GameEngine/Admin/Mods/editAccess.php" method="POST">

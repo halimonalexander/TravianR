@@ -21,7 +21,7 @@ if (isset($_GET['s'])) {
 
 if (isset($_GET['fid'])) {
     $fid = preg_replace("/[^0-9]/", "", $_GET['fid']);
-    $forum = mysql_query("SELECT * FROM " . TB_PREFIX . "forum_cat WHERE id = " . $fid . "");
+    $forum = mysql_query("SELECT * FROM forum_cat WHERE id = " . $fid . "");
     $forum_type = mysql_fetch_array($forum);
     if ($forum_type['forum_name'] != "" && $forum_type['forum_area'] == 0) {
         if ($forum_type['alliance'] != $session->alliance) {
@@ -30,7 +30,7 @@ if (isset($_GET['fid'])) {
     }
 } else if (isset($_GET['fid2'])) {
     $fid = preg_replace("/[^0-9]/", "", $_GET['fid2']);
-    $forum = mysql_query("SELECT * FROM " . TB_PREFIX . "forum_cat WHERE id = " . $fid . "");
+    $forum = mysql_query("SELECT * FROM forum_cat WHERE id = " . $fid . "");
     if (!empty($forum)) {
         $forum_type = mysql_fetch_array($forum);
         if ($forum_type['forum_name'] != "" && $forum_type['forum_area'] != 1) {
@@ -69,9 +69,9 @@ if (isset($_GET['aid']) or isset($_GET['fid']) or isset($_GET['fid2']) or $sessi
         <meta http-equiv="expires" content="0"/>
         <meta http-equiv="imagetoolbar" content="no"/>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <script src="../resources/js/mt-full.js?0faaa" type="text/javascript"></script>
-        <script src="../resources/js/unx.js?0faaa" type="text/javascript"></script>
-        <script src="../resources/js/new.js?0faaa" type="text/javascript"></script>
+        <script src="../public/js/mt-full.js?0faaa" type="text/javascript"></script>
+        <script src="../public/js/unx.js?0faaa" type="text/javascript"></script>
+        <script src="../public/js/new.js?0faaa" type="text/javascript"></script>
         <link href="<?php
 
         echo GP_LOCATE;
@@ -148,7 +148,7 @@ if (isset($_GET['aid']) or isset($_GET['fid']) or isset($_GET['fid2']) or $sessi
 
     <body class="v35 ie ie8">
     <div class="wrapper">
-        <img style="filter:chroma();" src="../resources/img/x.gif" id="msfilter" alt=""/>
+        <img style="filter:chroma();" src="../public/img/x.gif" id="msfilter" alt=""/>
         <div id="dynamic_header">
         </div>
         <?php

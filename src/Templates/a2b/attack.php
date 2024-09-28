@@ -499,7 +499,7 @@ $end = ($tribe * 10);
                                 $speeds[] = ${'u' . (($session->tribe - 1) * 10 + $i)}['speed'];
                             else {
                                 //$uid
-                                $q = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = $uid";
+                                $q = "SELECT * FROM hero WHERE uid = $uid";
                                 $result = mysql_query($q);
                                 $hero_f = mysql_fetch_array($result);
                                 $hero_unit = $hero_f['unit'];

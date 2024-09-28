@@ -10,7 +10,7 @@ mysql_select_db(SQL_DB);
 $session = $_POST['admid'];
 $id = $_POST['id'];
 
-$sql = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $session . "");
+$sql = mysql_query("SELECT * FROM users WHERE id = " . $session . "");
 $access = mysql_fetch_array($sql);
 $sessionaccess = $access['access'];
 
@@ -22,7 +22,7 @@ $b2dur = $_POST['clay'] * 86400;
 $b3dur = $_POST['iron'] * 86400;
 $b4dur = $_POST['crop'] * 86400;
 
-$sql1 = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $id . "");
+$sql1 = mysql_query("SELECT * FROM users WHERE id = " . $id . "");
 $user = mysql_fetch_array($sql1);
 
 if ($user['plus'] < time()) {
@@ -91,12 +91,12 @@ if ($user['b4'] < time()) {
     }
 }
 
-mysql_query("UPDATE " . TB_PREFIX . "users SET 
+mysql_query("UPDATE users SET
 	plus = '" . $plus . "',
-	b1 = '" . $wood . "', 
+	b1 = '" . $wood . "',
 	b2 = '" . $clay . "',
 	b3 = '" . $iron . "',
-	b4 = '" . $crop . "' 
+	b4 = '" . $crop . "'
 	WHERE id = $id"));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");

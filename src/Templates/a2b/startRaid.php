@@ -4,10 +4,10 @@ $slots = $_POST['slot'];
 $lid = $_POST['lid'];
 $tribe = $_POST['tribe'];
 $getFLData = $database->getFLData($lid);
-$sql = "SELECT * FROM " . TB_PREFIX . "raidlist WHERE lid = " . $lid . " order by id asc";
+$sql = "SELECT * FROM raidlist WHERE lid = " . $lid . " order by id asc";
 $array = $database->query_return($sql);
 foreach ($array as $row) {
-    $sql1 = mysql_fetch_array(mysql_query("SELECT * FROM " . TB_PREFIX . "units WHERE vref = " . $getFLData['wref']));
+    $sql1 = mysql_fetch_array(mysql_query("SELECT * FROM units WHERE vref = " . $getFLData['wref']));
     $sid = $row['id'];
     $wref = $row['towref'];
     $t1 = $row['t1'];

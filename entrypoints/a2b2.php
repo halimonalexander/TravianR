@@ -23,9 +23,9 @@ $automation->isWinner();
     <meta http-equiv="expires" content="0"/>
     <meta http-equiv="imagetoolbar" content="no"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script src="../resources/js/mt-full.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/unx.js?0faaa" type="text/javascript"></script>
-    <script src="../resources/js/new.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/mt-full.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/unx.js?0faaa" type="text/javascript"></script>
+    <script src="../public/js/new.js?0faaa" type="text/javascript"></script>
     <link href="<?php echo GP_LOCATE; ?>lang/en/lang.css?f4b7c" rel="stylesheet" type="text/css"/>
     <link href="<?php echo GP_LOCATE; ?>lang/en/compact.css?f4b7c" rel="stylesheet" type="text/css"/>
     <?php
@@ -46,7 +46,7 @@ $automation->isWinner();
 </head>
 <body class="v35 ie ie8">
 <div class="wrapper">
-    <img style="filter:chroma();" src="../resources/img/x.gif" id="msfilter" alt=""/>
+    <img style="filter:chroma();" src="../public/img/x.gif" id="msfilter" alt=""/>
     <div id="dynamic_header">
     </div>
     <?php include("Templates/header.php"); ?>
@@ -58,11 +58,11 @@ $automation->isWinner();
             <?
             if ($amount == 199) {
 // Statement retrieve Gold Package A
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds = mysql_fetch_array($MyGold);
                 $goldnow = $golds['6'] + 60;
-                mysql_query("UPDATE " . TB_PREFIX . "users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                mysql_query("UPDATE users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds1 = mysql_fetch_array($MyGold);
                 ?><p>Thank you for your purchase here at <?php echo SERVER_NAME ?></p><p>Below you see the entry record.
                     Out of it, you can observe your old as well as your new account balance.</p>
@@ -74,9 +74,9 @@ $automation->isWinner();
                     </tr>
                     <tr>
                         <td align="center">Description</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td align="center">Action</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td>Date</td>
                     </tr>
                     </thead>
@@ -139,11 +139,11 @@ $automation->isWinner();
             }
             if ($amount == 499) {
 // Statement retrieve Gold Package B
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds = mysql_fetch_array($MyGold);
                 $goldnow = $golds['6'] + 120;
-                mysql_query("UPDATE " . TB_PREFIX . "users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                mysql_query("UPDATE users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds1 = mysql_fetch_array($MyGold);
                 ?><p>Thank you for your purchase here at <?php echo SERVER_NAME ?>.</p><p>Below you see the entry
                     record. Out of it, you can observe your old as well as your new account balance.</p>
@@ -155,9 +155,9 @@ $automation->isWinner();
                     </tr>
                     <tr>
                         <td align="center">Description</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td align="center">Action</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td>Date</td>
                     </tr>
                     </thead>
@@ -219,11 +219,11 @@ $automation->isWinner();
             }
             if ($amount == 999) {
 // Statement retrieve Gold Package C
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds = mysql_fetch_array($MyGold);
                 $goldnow = $golds['6'] + 360;
-                mysql_query("UPDATE " . TB_PREFIX . "users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                mysql_query("UPDATE users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds1 = mysql_fetch_array($MyGold);
                 ?><p>Thank you for your purchase here at <?php echo SERVER_NAME ?>.</p><p>Below you see the entry
                     record. Out of it, you can observe your old as well as your new account balance.</p>
@@ -235,9 +235,9 @@ $automation->isWinner();
                     </tr>
                     <tr>
                         <td align="center">Description</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td align="center">Action</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td>Date</td>
                     </tr>
                     </thead>
@@ -299,11 +299,11 @@ $automation->isWinner();
             }
             if ($amount == 1999) {
 // Statement retrieve Gold Package D
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds = mysql_fetch_array($MyGold);
                 $goldnow = $golds['6'] + 1000;
-                mysql_query("UPDATE " . TB_PREFIX . "users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                mysql_query("UPDATE users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds1 = mysql_fetch_array($MyGold);
                 ?><p>Thank you for your purchase here at <?php echo SERVER_NAME ?>.</p><p>Below you see the entry
                     record. Out of it, you can observe your old as well as your new account balance.</p>
@@ -315,9 +315,9 @@ $automation->isWinner();
                     </tr>
                     <tr>
                         <td align="center">Description</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td align="center">Action</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td>Date</td>
                     </tr>
                     </thead>
@@ -379,11 +379,11 @@ $automation->isWinner();
             }
             if ($amount == 4999) {
 // Statement retrieve Gold Package E
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds = mysql_fetch_array($MyGold);
                 $goldnow = $golds['6'] + 2000;
-                mysql_query("UPDATE " . TB_PREFIX . "users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                mysql_query("UPDATE users set gold = '" . $goldnow . "' where `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds1 = mysql_fetch_array($MyGold);
                 ?><p>Thank you for your purchase here at <?php echo SERVER_NAME ?>.</p><p>Below you see the entry
                     record. Out of it, you can observe your old as well as your new account balance.</p>
@@ -395,9 +395,9 @@ $automation->isWinner();
                     </tr>
                     <tr>
                         <td align="center">Description</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td align="center">Action</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td>Date</td>
                     </tr>
                     </thead>
@@ -457,7 +457,7 @@ $automation->isWinner();
                 <?
             }
             if ($amount == 0) {
-                $MyGold = mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE `id`='" . $session->uid . "'"));
+                $MyGold = mysql_query("SELECT * FROM users WHERE `id`='" . $session->uid . "'"));
                 $golds = mysql_fetch_array($MyGold);
                 ?>
 
@@ -470,9 +470,9 @@ $automation->isWinner();
                     </tr>
                     <tr>
                         <td align="center">Description</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td align="center">Action</td>
-                        <td align="center"><img src="../resources/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
+                        <td align="center"><img src="../public/img/x.gif" class="gold" alt="Gold" title="Gold"/></td>
                         <td>Date</td>
                     </tr>
                     </thead>

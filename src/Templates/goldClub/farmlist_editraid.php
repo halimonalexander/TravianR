@@ -115,7 +115,7 @@ if ($FLData['owner'] == $session->uid) {
                             <td>
                                 <select onchange="getTargetsByLid();" id="lid" name="lid">
                                     <?php
-                                    $sql = mysql_query("SELECT * FROM " . TB_PREFIX . "farmlist WHERE owner = $session->uid ORDER BY name ASC");
+                                    $sql = mysql_query("SELECT * FROM farmlist WHERE owner = $session->uid ORDER BY name ASC");
                                     while ($row = mysql_fetch_array($sql)) {
                                         $lid = $row["id"];
                                         $lname = $row["name"];
@@ -155,7 +155,7 @@ if ($FLData['owner'] == $session->uid) {
                                     <label class="lastTargets">Last targets:</label>
                                     <select name="target_id">
                                         <?php
-                                        $getwref = "SELECT * FROM " . TB_PREFIX . "raidlist WHERE lid = $lid2";
+                                        $getwref = "SELECT * FROM raidlist WHERE lid = $lid2";
                                         $arraywref = $database->query_return($getwref);
                                         echo '<option value="">Select village</option>';
                                         if (mysql_num_rows(mysql_query($getwref)) != 0) {

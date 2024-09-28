@@ -110,7 +110,6 @@ class Process
     public function createDatabaseStructure(Database $database): void
     {
         $sqls = file_get_contents(__DIR__ . "/data/db_structure.sql");
-        $sqls = preg_replace("'%PREFIX%'", TB_PREFIX, $sqls);
 
         $result = $database->multi_query($sqls);
 
@@ -161,7 +160,7 @@ class Process
             "t" . random_int(0, 9);
 
         //into database
-        $sql = "INSERT INTO " . TB_PREFIX . "wdata VALUES (0,'" . $cellType . "','" . $aosisType . "','" . $x . "','" . $y . "',0,'" . $image . "')";
+        $sql = "INSERT INTO wdata VALUES (0,'" . $cellType . "','" . $aosisType . "','" . $x . "','" . $y . "',0,'" . $image . "')";
         $database->query($sql);
     }
 
@@ -214,7 +213,7 @@ class Process
         }
 
         $password = $_POST['mhpw'];
-        $database->query("UPDATE " . TB_PREFIX . "users SET password = '" . md5($password) . "' WHERE username = 'Multihunter'");
+        $database->query("UPDATE users SET password = '" . md5($password) . "' WHERE username = 'Multihunter'");
         $uid = 5;
 
         $wid = $grandModel->getVilWref(0, 0);

@@ -140,7 +140,7 @@ if ($session->access != BANNED) {
                                     }
                                     ?>
                                     <?php echo $survey['option' . $i] . " "; ?><img
-                                    src="<?php echo GP_LOCATE; ?>/resources/img/f/c4.gif"
+                                    src="<?php echo GP_LOCATE; ?>/public/img/f/c4.gif"
                                     width="<?php echo $width; ?>" /><?php echo " " . $survey['vote' . $i]; ?></br>
                                     <?php
                                 }

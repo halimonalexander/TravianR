@@ -46,23 +46,23 @@ class Session
         $_SESSION['checker'] = $generator->generateRandStr(3);
         $_SESSION['mchecker'] = $generator->generateRandStr(5);
         $_SESSION['qst'] = $database->getUserField($_SESSION['username'], "quest", 1);
-        $result = mysql_query("SELECT village_select FROM `" . TB_PREFIX . "users` WHERE `username`='" . $_SESSION['username'] . "'");
+        $result = mysql_query("SELECT village_select FROM `users` WHERE `username`='" . $_SESSION['username'] . "'");
         $dbarray = mysql_fetch_assoc($result);
         $selected_village = $dbarray['village_select'];
         if (!isset($_SESSION['wid'])) {
             if ($selected_village != '') {
-                $query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `wref` = ' . $selected_village);
+                $query = mysql_query('SELECT * FROM `vdata` WHERE `wref` = ' . $selected_village);
             } else {
-                $query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `owner` = ' . $database->getUserField($_SESSION['username'], "id", 1) . ' LIMIT 1');
+                $query = mysql_query('SELECT * FROM `vdata` WHERE `owner` = ' . $database->getUserField($_SESSION['username'], "id", 1) . ' LIMIT 1');
             }
             $data = mysql_fetch_assoc($query);
             $_SESSION['wid'] = $data['wref'];
         } else
             if ($_SESSION['wid'] == '') {
                 if ($selected_village != '') {
-                    $query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `wref` = ' . $selected_village);
+                    $query = mysql_query('SELECT * FROM `vdata` WHERE `wref` = ' . $selected_village);
                 } else {
-                    $query = mysql_query('SELECT * FROM `' . TB_PREFIX . 'vdata` WHERE `owner` = ' . $database->getUserField($_SESSION['username'], "id", 1) . ' LIMIT 1');
+                    $query = mysql_query('SELECT * FROM `vdata` WHERE `owner` = ' . $database->getUserField($_SESSION['username'], "id", 1) . ' LIMIT 1');
                 }
                 $data = mysql_fetch_assoc($query);
                 $_SESSION['wid'] = $data['wref'];
@@ -122,15 +122,15 @@ class Session
         global $database;
         $hero = 0;
         foreach ($this->villages as $myvill) {
-            $q1 = "SELECT SUM(hero) from " . TB_PREFIX . "enforcement where `from` = " . $myvill;       // check if hero is send as reinforcement
+            $q1 = "SELECT SUM(hero) from enforcement where `from` = " . $myvill;       // check if hero is send as reinforcement
             $result1 = mysql_query($q1, $database->connection);
             $he1 = mysql_fetch_array($result1);
             $hero += $he1[0];
-            $q2 = "SELECT SUM(hero) from " . TB_PREFIX . "units where `vref` = " . $myvill;   // check if hero is on my account (all villages)
+            $q2 = "SELECT SUM(hero) from units where `vref` = " . $myvill;   // check if hero is on my account (all villages)
             $result2 = mysql_query($q2, $database->connection);
             $he2 = mysql_fetch_array($result2);
             $hero += $he2[0];
-            $q3 = "SELECT SUM(t11) from " . TB_PREFIX . "prisoners where `from` = " . $myvill;   // check if hero is prisoner
+            $q3 = "SELECT SUM(t11) from prisoners where `from` = " . $myvill;   // check if hero is prisoner
             $result3 = mysql_query($q3, $database->connection);
             $he3 = mysql_fetch_array($result3);
             $hero += $he3[0];

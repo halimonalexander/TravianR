@@ -9,7 +9,7 @@ mysql_select_db(SQL_DB);
 $id = $_POST['id'];
 $admid = $_POST['admid'];
 
-//$sql = mysql_query("SELECT * FROM ".TB_PREFIX."users WHERE id = ".$admid."");
+//$sql = mysql_query("SELECT * FROM users WHERE id = ".$admid."");
 //$access = mysql_fetch_array($sql);
 //$sessionaccess = $access['access'];
 if (!isset($_SESSION)) {
@@ -22,18 +22,18 @@ $access = $_POST['access'];
 $dur = $_POST['protect'] * 86400;
 $protection = (time() + $dur);
 
-mysql_query("UPDATE " . TB_PREFIX . "users SET 
+mysql_query("UPDATE users SET
 	access = " . $access . ",
-	gold = " . $_POST['gold'] . ",	
+	gold = " . $_POST['gold'] . ",
 	sit1 = '" . $_POST['sitter1'] . "',
 	sit2 = '" . $_POST['sitter2'] . "',
 	protect = '" . $protection . "',
 	cp = " . $_POST['cp'] . ",
-	ap = '" . $_POST['off'] . "', 
-	dp = '" . $_POST['def'] . "', 
-	RR = '" . $_POST['res'] . "', 
-	apall = '" . $_POST['ooff'] . "', 
-	dpall = '" . $_POST['odef'] . "' 
+	ap = '" . $_POST['off'] . "',
+	dp = '" . $_POST['def'] . "',
+	RR = '" . $_POST['res'] . "',
+	apall = '" . $_POST['ooff'] . "',
+	dpall = '" . $_POST['odef'] . "'
 	WHERE id = " . $id . ""));
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $id . "");

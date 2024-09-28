@@ -8,7 +8,7 @@ if (isset($_GET['ok'])) {
 }
 if (isset($_GET['newdid'])) {
     $_SESSION['wid'] = $_GET['newdid'];
-    $database->query("UPDATE " . TB_PREFIX . "users SET village_select=" . $_GET['newdid'] . " WHERE id=" . $session->uid);
+    $database->query("UPDATE users SET village_select=" . $_GET['newdid'] . " WHERE id=" . $session->uid);
     header("Location: " . $_SERVER['PHP_SELF']);
 } else {
     $building->procBuild($_GET);

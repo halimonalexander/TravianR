@@ -8,6 +8,6 @@ if ($_SESSION['access'] < ADMIN) die("Access Denied: You are not Admin!");
 
 
 $userid = $_POST['userid'];
-mysql_query("DELETE FROM " . TB_PREFIX . "medal WHERE userid = " . $userid . "");
+mysql_query("DELETE FROM medal WHERE userid = " . $userid . "");
 
 header("Location: ../../../Admin/admin.php?p=player&uid=" . $userid . "");

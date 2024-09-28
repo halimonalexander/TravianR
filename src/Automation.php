@@ -20,7 +20,7 @@ class Automation
     public function isWinner()
     {
         $hasWinner = $this->connection
-                ->query("SELECT vref FROM " . TB_PREFIX . "fdata WHERE f99 = '100' and f99t = '40'")
+                ->query("SELECT vref FROM fdata WHERE f99 = '100' and f99t = '40'")
                 ->num_rows > 0;
         if ($hasWinner) {
             header('Location: /winner.php');
@@ -186,7 +186,7 @@ class Automation
             }
         }
         $this->recountCP($vid);
-        $q = "UPDATE " . TB_PREFIX . "vdata set pop = $popTot where wref = $vid";
+        $q = "UPDATE vdata set pop = $popTot where wref = $vid";
         $this->connection->query($q);
         $owner = $database->getVillageField($vid, "owner");
         $this->procClimbers($owner);
@@ -209,7 +209,7 @@ class Automation
             }
         }
 
-        $q = "UPDATE " . TB_PREFIX . "vdata set cp = $popTot where wref = $vid";
+        $q = "UPDATE vdata set cp = $popTot where wref = $vid";
         $this->connection->query($q);
 
         return $popTot;
@@ -327,7 +327,7 @@ class Automation
         fclose($ourFileHandle);
         global $database;
         $array = array();
-        $q = "SELECT * FROM " . TB_PREFIX . "vdata WHERE loyalty<>100";
+        $q = "SELECT * FROM vdata WHERE loyalty<>100";
         $array = $database->query_return($q);
         if (!empty($array)) {
             foreach ($array as $loyalty) {
@@ -339,12 +339,12 @@ class Automation
                     $value = 0;
                 }
                 $newloyalty = min(100, $loyalty['loyalty'] + $value * (time() - $loyalty['lastupdate2']) / (60 * 60));
-                $q = "UPDATE " . TB_PREFIX . "vdata SET loyalty = $newloyalty, lastupdate2=" . time() . " WHERE wref = '" . $loyalty['wref'] . "'";
+                $q = "UPDATE vdata SET loyalty = $newloyalty, lastupdate2=" . time() . " WHERE wref = '" . $loyalty['wref'] . "'";
                 $database->query($q);
             }
         }
         $array = array();
-        $q = "SELECT * FROM " . TB_PREFIX . "odata WHERE loyalty<>100";
+        $q = "SELECT * FROM odata WHERE loyalty<>100";
         $array = $database->query_return($q);
         if (!empty($array)) {
             foreach ($array as $loyalty) {
@@ -356,7 +356,7 @@ class Automation
                     $value = 0;
                 }
                 $newloyalty = min(100, $loyalty['loyalty'] + $value * (time() - $loyalty['lastupdated']) / (60 * 60));
-                $q = "UPDATE " . TB_PREFIX . "odata SET loyalty = $newloyalty, lastupdated=" . time() . " WHERE wref = '" . $loyalty['wref'] . "'";
+                $q = "UPDATE odata SET loyalty = $newloyalty, lastupdated=" . time() . " WHERE wref = '" . $loyalty['wref'] . "'";
                 $database->query($q);
             }
         }
@@ -432,33 +432,33 @@ class Automation
             foreach ($needDelete as $need) {
                 $needVillage = $database->getVillagesID($need['uid']);
                 foreach ($needVillage as $village) {
-                    $q = "DELETE FROM " . TB_PREFIX . "abdata where vref = " . $village;
+                    $q = "DELETE FROM abdata where vref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "bdata where wid = " . $village;
+                    $q = "DELETE FROM bdata where wid = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "enforcement where `from` = " . $village;
+                    $q = "DELETE FROM enforcement where `from` = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "fdata where vref = " . $village;
+                    $q = "DELETE FROM fdata where vref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "market where vref = " . $village;
+                    $q = "DELETE FROM market where vref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "odata where wref = " . $village;
+                    $q = "DELETE FROM odata where wref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "research where vref = " . $village;
+                    $q = "DELETE FROM research where vref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "tdata where vref = " . $village;
+                    $q = "DELETE FROM tdata where vref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "training where vref =" . $village;
+                    $q = "DELETE FROM training where vref =" . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "units where vref =" . $village;
+                    $q = "DELETE FROM units where vref =" . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "farmlist where wref =" . $village;
+                    $q = "DELETE FROM farmlist where wref =" . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "raidlist where towref = " . $village;
+                    $q = "DELETE FROM raidlist where towref = " . $village;
                     $database->query($q);
-                    $q = "DELETE FROM " . TB_PREFIX . "vdata where wref = " . $village;
+                    $q = "DELETE FROM vdata where wref = " . $village;
                     $database->query($q);
-                    $q = "UPDATE " . TB_PREFIX . "wdata set occupied = 0 where id = " . $village;
+                    $q = "UPDATE wdata set occupied = 0 where id = " . $village;
                     $database->query($q);
                     $getmovement = $database->getMovement(3, $village, 1);
                     foreach ($getmovement as $movedata) {
@@ -467,7 +467,7 @@ class Automation
                         $database->addMovement(4, $movedata['to'], $movedata['from'], $movedata['ref'], $time, $time + $time2);
                         $database->setMovementProc($movedata['moveid']);
                     }
-                    $q = "DELETE FROM " . TB_PREFIX . "movement where proc = 0 AND ((`to` = $village AND sort_type=4) OR (`from` = $village AND sort_type=3))";
+                    $q = "DELETE FROM movement where proc = 0 AND ((`to` = $village AND sort_type=4) OR (`from` = $village AND sort_type=3))";
                     $database->query($q);
                     $getprisoners = $database->getPrisoners($village);
                     foreach ($getprisoners as $pris) {
@@ -502,12 +502,12 @@ class Automation
                         $post['t11'] = $enforce['hero'];
                         $reference = $database->addAttack($enforce['from'], $post['t1'], $post['t2'], $post['t3'], $post['t4'], $post['t5'], $post['t6'], $post['t7'], $post['t8'], $post['t9'], $post['t10'], $post['t11'], 2, 0, 0, 0, 0);
                         $database->addMovement(4, $enforce['vref'], $enforce['from'], $reference, $time, $time + $time2);
-                        $q = "DELETE FROM " . TB_PREFIX . "enforcement where id = " . $enforce['id'];
+                        $q = "DELETE FROM enforcement where id = " . $enforce['id'];
                         $database->query($q);
                     }
                 }
                 for ($i = 0; $i < 20; $i++) {
-                    $q = "SELECT * FROM " . TB_PREFIX . "users where friend" . $i . " = " . $need['uid'] . " or friend" . $i . "wait = " . $need['uid'] . "";
+                    $q = "SELECT * FROM users where friend" . $i . " = " . $need['uid'] . " or friend" . $i . "wait = " . $need['uid'] . "";
                     $array = $database->query_return($q);
                     foreach ($array as $friend) {
                         $database->deleteFriend($friend['id'], "friend" . $i);
@@ -519,21 +519,21 @@ class Automation
                     $alliance = $database->getUserAllianceID($need['uid']);
                     $newowner = $database->getAllMember2($alliance);
                     $newleader = $newowner['id'];
-                    $q = "UPDATE " . TB_PREFIX . "alidata set leader = " . $newleader . " where id = " . $alliance . "";
+                    $q = "UPDATE alidata set leader = " . $newleader . " where id = " . $alliance . "";
                     $database->query($q);
                     $database->updateAlliPermissions($newleader, $alliance, "Leader", 1, 1, 1, 1, 1, 1, 1);
                     $this->updateMax($newleader);
                 }
                 $database->deleteAlliance($alliance);
-                $q = "DELETE FROM " . TB_PREFIX . "hero where uid = " . $need['uid'];
+                $q = "DELETE FROM hero where uid = " . $need['uid'];
                 $database->query($q);
-                $q = "DELETE FROM " . TB_PREFIX . "mdata where target = " . $need['uid'] . " or owner = " . $need['uid'];
+                $q = "DELETE FROM mdata where target = " . $need['uid'] . " or owner = " . $need['uid'];
                 $database->query($q);
-                $q = "DELETE FROM " . TB_PREFIX . "ndata where uid = " . $need['uid'];
+                $q = "DELETE FROM ndata where uid = " . $need['uid'];
                 $database->query($q);
-                $q = "DELETE FROM " . TB_PREFIX . "users where id = " . $need['uid'];
+                $q = "DELETE FROM users where id = " . $need['uid'];
                 $database->query($q);
-                $q = "DELETE FROM " . TB_PREFIX . "deleting where uid = " . $need['uid'];
+                $q = "DELETE FROM deleting where uid = " . $need['uid'];
                 $database->query($q);
             }
         }
@@ -547,7 +547,7 @@ class Automation
         global $database;
         if (AUTO_DEL_INACTIVE) {
             $time = time() + UN_ACT_TIME;
-            $q = "DELETE from " . TB_PREFIX . "users where timestamp >= $time and act != ''";
+            $q = "DELETE from users where timestamp >= $time and act != ''";
             $database->query($q);
         }
     }
@@ -557,7 +557,7 @@ class Automation
         global $database;
         if (TRACK_USR) {
             $timeout = time() - USER_TIMEOUT * 60;
-            $q = "DELETE FROM " . TB_PREFIX . "active WHERE timestamp < $timeout";
+            $q = "DELETE FROM active WHERE timestamp < $timeout";
             $database->query($q);
         }
     }
@@ -566,7 +566,7 @@ class Automation
     {
         global $database;
         if (!ALLOW_BURST) {
-            $q = "SELECT * FROM " . TB_PREFIX . "odata WHERE maxstore < 800 OR maxcrop < 800";
+            $q = "SELECT * FROM odata WHERE maxstore < 800 OR maxcrop < 800";
             $array = $database->query_return($q);
             foreach ($array as $getoasis) {
                 if ($getoasis['maxstore'] < 800) {
@@ -579,10 +579,10 @@ class Automation
                 } else {
                     $maxcrop = $getoasis['maxcrop'];
                 }
-                $q = "UPDATE " . TB_PREFIX . "odata set maxstore = $maxstore, maxcrop = $maxcrop where wref = " . $getoasis['wref'] . "";
+                $q = "UPDATE odata set maxstore = $maxstore, maxcrop = $maxcrop where wref = " . $getoasis['wref'] . "";
                 $database->query($q);
             }
-            $q = "SELECT * FROM " . TB_PREFIX . "odata WHERE wood < 0 OR clay < 0 OR iron < 0 OR crop < 0";
+            $q = "SELECT * FROM odata WHERE wood < 0 OR clay < 0 OR iron < 0 OR crop < 0";
             $array = $database->query_return($q);
             foreach ($array as $getoasis) {
                 if ($getoasis['wood'] < 0) {
@@ -605,7 +605,7 @@ class Automation
                 } else {
                     $crop = $getoasis['crop'];
                 }
-                $q = "UPDATE " . TB_PREFIX . "odata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = " . $getoasis['wref'] . "";
+                $q = "UPDATE odata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = " . $getoasis['wref'] . "";
                 $database->query($q);
             }
         }
@@ -615,7 +615,7 @@ class Automation
     {
         global $database;
         if (!ALLOW_BURST) {
-            $q = "SELECT * FROM " . TB_PREFIX . "vdata WHERE maxstore < 800 OR maxcrop < 800";
+            $q = "SELECT * FROM vdata WHERE maxstore < 800 OR maxcrop < 800";
             $array = $database->query_return($q);
             foreach ($array as $getvillage) {
                 if ($getvillage['maxstore'] < 800) {
@@ -628,10 +628,10 @@ class Automation
                 } else {
                     $maxcrop = $getvillage['maxcrop'];
                 }
-                $q = "UPDATE " . TB_PREFIX . "vdata set maxstore = $maxstore, maxcrop = $maxcrop where wref = " . $getvillage['wref'] . "";
+                $q = "UPDATE vdata set maxstore = $maxstore, maxcrop = $maxcrop where wref = " . $getvillage['wref'] . "";
                 $database->query($q);
             }
-            $q = "SELECT * FROM " . TB_PREFIX . "vdata WHERE wood > maxstore OR clay > maxstore OR iron > maxstore OR crop > maxcrop";
+            $q = "SELECT * FROM vdata WHERE wood > maxstore OR clay > maxstore OR iron > maxstore OR crop > maxcrop";
             $array = $database->query_return($q);
             foreach ($array as $getvillage) {
                 if ($getvillage['wood'] > $getvillage['maxstore']) {
@@ -654,10 +654,10 @@ class Automation
                 } else {
                     $crop = $getvillage['crop'];
                 }
-                $q = "UPDATE " . TB_PREFIX . "vdata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = " . $getvillage['wref'] . "";
+                $q = "UPDATE vdata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = " . $getvillage['wref'] . "";
                 $database->query($q);
             }
-            $q = "SELECT * FROM " . TB_PREFIX . "vdata WHERE wood < 0 OR clay < 0 OR iron < 0 OR crop < 0";
+            $q = "SELECT * FROM vdata WHERE wood < 0 OR clay < 0 OR iron < 0 OR crop < 0";
             $array = $database->query_return($q);
             foreach ($array as $getvillage) {
                 if ($getvillage['wood'] < 0) {
@@ -680,7 +680,7 @@ class Automation
                 } else {
                     $crop = $getvillage['crop'];
                 }
-                $q = "UPDATE " . TB_PREFIX . "vdata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = " . $getvillage['wref'] . "";
+                $q = "UPDATE vdata set wood = $wood, clay = $clay, iron = $iron, crop = $crop where wref = " . $getvillage['wref'] . "";
                 $database->query($q);
             }
         }
@@ -702,7 +702,7 @@ class Automation
         $time = time() - 600; // recount every 10minutes
 
         $array = array();
-        $q = "SELECT id, lastupdate FROM " . TB_PREFIX . "users WHERE lastupdate < $time";
+        $q = "SELECT id, lastupdate FROM users WHERE lastupdate < $time";
         $array = $database->query_return($q);
 
         foreach ($array as $indi) {
@@ -710,7 +710,7 @@ class Automation
                 $cp = $database->getVSumField($indi['id'], 'cp') * (time() - $indi['lastupdate']) / $dur_day;
 
                 $newupdate = time();
-                $q = "UPDATE " . TB_PREFIX . "users set cp = cp + $cp, lastupdate = $newupdate where id = '" . $indi['id'] . "'";
+                $q = "UPDATE users set cp = cp + $cp, lastupdate = $newupdate where id = '" . $indi['id'] . "'";
                 $database->query($q);
             }
         }
@@ -727,15 +727,15 @@ class Automation
         global $database, $bid18, $bid10, $bid11, $bid38, $bid39;
         $time = time();
         $array = array();
-        $q = "SELECT * FROM " . TB_PREFIX . "bdata where timestamp < $time and master = 0";
+        $q = "SELECT * FROM bdata where timestamp < $time and master = 0";
         $array = $database->query_return($q);
         foreach ($array as $indi) {
             $level = $database->getFieldLevel($indi['wid'], $indi['field']);
             if (($level + 1) == $indi['level']) {
-                $q = "UPDATE " . TB_PREFIX . "fdata set f" . $indi['field'] . " = " . $indi['level'] . ", f" . $indi['field'] . "t = " . $indi['type'] . " where vref = " . $indi['wid'];
+                $q = "UPDATE fdata set f" . $indi['field'] . " = " . $indi['level'] . ", f" . $indi['field'] . "t = " . $indi['type'] . " where vref = " . $indi['wid'];
             } else {
                 $indi['level'] = ($level + 1);
-                $q = "UPDATE " . TB_PREFIX . "fdata set f" . $indi['field'] . " = " . $indi['level'] . ", f" . $indi['field'] . "t = " . $indi['type'] . " where vref = " . $indi['wid'];
+                $q = "UPDATE fdata set f" . $indi['field'] . " = " . $indi['level'] . ", f" . $indi['field'] . "t = " . $indi['type'] . " where vref = " . $indi['wid'];
             }
             if ($database->query($q)) {
                 $level = $database->getFieldLevel($indi['wid'], $indi['field']);
@@ -807,21 +807,21 @@ class Automation
                     $this->startNatarAttack($indi['level'], $indi['wid'], $indi['timestamp']);
                 }
                 if ($indi['type'] == 40 && $indi['level'] == 100) { //now can't be more than one winners if ww to level 100 is build by 2 users or more on same time
-                    $this->connection->query("TRUNCATE " . TB_PREFIX . "bdata");
+                    $this->connection->query("TRUNCATE bdata");
                 }
                 if ($database->getUserField($database->getVillageField($indi['wid'], "owner"), "tribe", 0) != 1) {
-                    $q4 = "UPDATE " . TB_PREFIX . "bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = " . $indi['wid'];
+                    $q4 = "UPDATE bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = " . $indi['wid'];
                     $database->query($q4);
                 } else {
                     if ($indi['field'] > 18) {
-                        $q4 = "UPDATE " . TB_PREFIX . "bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = " . $indi['wid'] . " and field > 18";
+                        $q4 = "UPDATE bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = " . $indi['wid'] . " and field > 18";
                         $database->query($q4);
                     } else {
-                        $q4 = "UPDATE " . TB_PREFIX . "bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = " . $indi['wid'] . " and field < 19";
+                        $q4 = "UPDATE bdata set loopcon = 0 where loopcon = 1 and master = 0 and wid = " . $indi['wid'] . " and field < 19";
                         $database->query($q4);
                     }
                 }
-                $q = "DELETE FROM " . TB_PREFIX . "bdata where id = " . $indi['id'];
+                $q = "DELETE FROM bdata where id = " . $indi['id'];
                 $database->query($q);
             }
             $crop = $database->getCropProdstarv($indi['wid']);
@@ -976,15 +976,15 @@ class Automation
         }
 
         // get the capital village from the natars
-        $query = $this->connection->query('SELECT `wref` FROM `' . TB_PREFIX . 'vdata` WHERE `owner` = 3 and `capital` = 1 LIMIT 1');
+        $query = $this->connection->query('SELECT `wref` FROM `vdata` WHERE `owner` = 3 and `capital` = 1 LIMIT 1');
         $row = mysqli_fetch_assoc($query);
 
         // start the attacks
         $endtime = $time + round((60 * 60 * 24) / INCREASE_SPEED);
 
         // -.-
-        $this->connection->query('INSERT INTO `' . TB_PREFIX . 'ww_attacks` (`vid`, `attack_time`) VALUES (' . $vid . ', ' . $endtime . ')');
-        $this->connection->query('INSERT INTO `' . TB_PREFIX . 'ww_attacks` (`vid`, `attack_time`) VALUES (' . $vid . ', ' . ($endtime + 1) . ')');
+        $this->connection->query('INSERT INTO `ww_attacks` (`vid`, `attack_time`) VALUES (' . $vid . ', ' . $endtime . ')');
+        $this->connection->query('INSERT INTO `ww_attacks` (`vid`, `attack_time`) VALUES (' . $vid . ', ' . ($endtime + 1) . ')');
 
         // wave 1
         $ref = $database->addAttack($row['wref'], 0, $units[0][0], $units[0][1], 0, $units[0][2], $units[0][3], $units[0][4], $units[0][5], 0, 0, 0, 3, 0, 0, 0, 0, 20, 20, 0, 20, 20, 20, 20);
@@ -997,10 +997,10 @@ class Automation
 
     private function checkWWAttacks()
     {
-        $result = $this->connection->query('SELECT * FROM `' . TB_PREFIX . 'ww_attacks` WHERE `attack_time` <= ' . time());
+        $result = $this->connection->query('SELECT * FROM `ww_attacks` WHERE `attack_time` <= ' . time());
         while ($row = $result->fetch_assoc()) {
             // delete the attack
-            $query3 = $this->connection->query('DELETE FROM `' . TB_PREFIX . 'ww_attacks` WHERE `vid` = ' . $row['vid'] . ' AND `attack_time` = ' . $row['attack_time']);
+            $query3 = $this->connection->query('DELETE FROM `ww_attacks` WHERE `vid` = ' . $row['vid'] . ' AND `attack_time` = ' . $row['attack_time']);
         }
     }
 
@@ -1018,7 +1018,7 @@ class Automation
     {
         global $database;
         $time = time();
-        $q = "DELETE from " . TB_PREFIX . "route where timeleft < $time";
+        $q = "DELETE from route where timeleft < $time";
         $database->query($q);
     }
 
@@ -1026,7 +1026,7 @@ class Automation
     {
         global $database;
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "route where timestamp < $time";
+        $q = "SELECT * FROM route where timestamp < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
             $database->modifyResource($data['from'], $data['wood'], $data['clay'], $data['iron'], $data['crop'], 0);
@@ -1045,7 +1045,7 @@ class Automation
         $ourFileHandle = fopen("GameEngine/Prevention/market.txt", 'w');
         fclose($ourFileHandle);
         $time = microtime(true);
-        $q = "SELECT * FROM " . TB_PREFIX . "movement, " . TB_PREFIX . "send where " . TB_PREFIX . "movement.ref = " . TB_PREFIX . "send.id and " . TB_PREFIX . "movement.proc = 0 and sort_type = 0 and endtime < $time";
+        $q = "SELECT * FROM movement, send where movement.ref = send.id and movement.proc = 0 and sort_type = 0 and endtime < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
 
@@ -1073,7 +1073,7 @@ class Automation
             $database->addMovement(2, $data['to'], $data['from'], $data['merchant'], time(), $endtime, $data['send'], $data['wood'], $data['clay'], $data['iron'], $data['crop']);
             $database->setMovementProc($data['moveid']);
         }
-        $q1 = "SELECT * FROM " . TB_PREFIX . "movement where proc = 0 and sort_type = 2 and endtime < $time";
+        $q1 = "SELECT * FROM movement where proc = 0 and sort_type = 2 and endtime < $time";
         $dataarray1 = $database->query_return($q1);
         foreach ($dataarray1 as $data1) {
             $database->setMovementProc($data1['moveid']);
@@ -1132,7 +1132,7 @@ class Automation
         $ourFileHandle = fopen("GameEngine/Prevention/sendunits.txt", 'w');
         fclose($ourFileHandle);
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "movement, " . TB_PREFIX . "attacks where " . TB_PREFIX . "movement.ref = " . TB_PREFIX . "attacks.id and " . TB_PREFIX . "movement.proc = '0' and " . TB_PREFIX . "movement.sort_type = '3' and " . TB_PREFIX . "attacks.attack_type != '2' and endtime < $time ORDER BY endtime ASC";
+        $q = "SELECT * FROM movement, attacks where movement.ref = attacks.id and movement.proc = '0' and movement.sort_type = '3' and attacks.attack_type != '2' and endtime < $time ORDER BY endtime ASC";
         $dataarray = $database->query_return($q);
         $totalattackdead = 0;
         $data_num = 0;
@@ -1611,7 +1611,7 @@ class Automation
                 $alldead = array();
                 $heroAttackDead = $dead11;
                 //kill own defence
-                $q = "SELECT * FROM " . TB_PREFIX . "units WHERE vref='" . $data['to'] . "'";
+                $q = "SELECT * FROM units WHERE vref='" . $data['to'] . "'";
                 $unitlist = $database->query_return($q);
                 $start = ($targettribe - 1) * 10 + 1;
                 $end = ($targettribe * 10);
@@ -1976,7 +1976,7 @@ class Automation
                     }
                 }
                 if ($herosend_att > 0) {
-                    $qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $from['owner'] . "";
+                    $qh = "SELECT * FROM hero WHERE uid = " . $from['owner'] . "";
                     $resulth = $this->connection->query($qh);
                     $hero_f = mysql_fetch_array($resulth);
                     $hero_unit = $hero_f['unit'];
@@ -2042,7 +2042,7 @@ class Automation
                             $basearray = $data['to'];
 
                             if ($data['ctar2'] == 0) {
-                                $bdo2 = $this->connection->query("select * from " . TB_PREFIX . "fdata where vref = $basearray");
+                                $bdo2 = $this->connection->query("select * from fdata where vref = $basearray");
                                 $bdo = mysql_fetch_array($bdo2);
 
                                 $rand = $data['ctar1'];
@@ -2095,19 +2095,19 @@ class Automation
                                     }
                                     $buildarray = $GLOBALS["bid" . $tbgid];
                                     if ($tbgid == 10 || $tbgid == 38) {
-                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                         $t_sql = mysql_fetch_array($tsql);
                                         $tmaxstore = $t_sql['maxstore'] - $buildarray[$tblevel]['attri'];
                                         if ($tmaxstore < 800) $tmaxstore = 800;
-                                        $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`='" . $tmaxstore . "'*32 WHERE wref=" . $data['to'];
+                                        $q = "UPDATE vdata SET `maxstore`='" . $tmaxstore . "'*32 WHERE wref=" . $data['to'];
                                         $database->query($q);
                                     }
                                     if ($tbgid == 11 || $tbgid == 39) {
-                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                         $t_sql = mysql_fetch_array($tsql);
                                         $tmaxcrop = $t_sql['maxcrop'] - $buildarray[$tblevel]['attri'];
                                         if ($tmaxcrop < 800) $tmaxcrop = 800;
-                                        $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`='" . $tmaxcrop . "'*32 WHERE wref=" . $data['to'];
+                                        $q = "UPDATE vdata SET `maxcrop`='" . $tmaxcrop . "'*32 WHERE wref=" . $data['to'];
                                         $database->query($q);
                                     }
                                     if ($tbgid == 18) {
@@ -2133,19 +2133,19 @@ class Automation
                                         $info_cata = " damaged from level <b>" . $tblevel . "</b> to level <b>" . $totallvl . "</b>.";
                                         $buildarray = $GLOBALS["bid" . $tbgid];
                                         if ($tbgid == 10 || $tbgid == 38) {
-                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                             $t_sql = mysql_fetch_array($tsql);
                                             $tmaxstore = $t_sql['maxstore'] + $buildarray[$totallvl]['attri'] - $buildarray[$tblevel]['attri'];
                                             if ($tmaxstore < 800) $tmaxstore = 800;
-                                            $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
+                                            $q = "UPDATE vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
                                             $database->query($q);
                                         }
                                         if ($tbgid == 11 || $tbgid == 39) {
-                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                             $t_sql = mysql_fetch_array($tsql);
                                             $tmaxcrop = $t_sql['maxcrop'] + $buildarray[$totallvl]['attri'] - $buildarray[$tblevel]['attri'];
                                             if ($tmaxcrop < 800) $tmaxcrop = 800;
-                                            $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
+                                            $q = "UPDATE vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
                                             $database->query($q);
                                         }
                                         if ($tbgid == 18) {
@@ -2157,7 +2157,7 @@ class Automation
                                     $database->setVillageLevel($data['to'], "f" . $tbid . "", $totallvl);
                                 }
                             } else {
-                                $bdo2 = $this->connection->query("select * from " . TB_PREFIX . "fdata where vref = $basearray");
+                                $bdo2 = $this->connection->query("select * from fdata where vref = $basearray");
                                 $bdo = mysql_fetch_array($bdo2);
                                 $rand = $data['ctar1'];
                                 if ($rand != 0) {
@@ -2208,19 +2208,19 @@ class Automation
                                     }
                                     $buildarray = $GLOBALS["bid" . $tbgid];
                                     if ($tbgid == 10 || $tbgid == 38) {
-                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                         $t_sql = mysql_fetch_array($tsql);
                                         $tmaxstore = $t_sql['maxstore'] - $buildarray[$tblevel]['attri'];
                                         if ($tmaxstore < 800) $tmaxstore = 800 * 32;
-                                        $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
+                                        $q = "UPDATE vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
                                         $database->query($q);
                                     }
                                     if ($tbgid == 11 || $tbgid == 39) {
-                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                         $t_sql = mysql_fetch_array($tsql);
                                         $tmaxcrop = $t_sql['maxcrop'] - $buildarray[$tblevel]['attri'];
                                         if ($tmaxcrop < 800) $tmaxcrop = 800 * 32;
-                                        $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
+                                        $q = "UPDATE vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
                                         $database->query($q);
                                     }
                                     if ($tbgid == 18) {
@@ -2248,19 +2248,19 @@ class Automation
                                         $info_cata = " damaged from level <b>" . $tblevel . "</b> to level <b>" . $totallvl . "</b>.";
                                         $buildarray = $GLOBALS["bid" . $tbgid];
                                         if ($tbgid == 10 || $tbgid == 38) {
-                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                             $t_sql = mysql_fetch_array($tsql);
                                             $tmaxstore = $t_sql['maxstore'] + $buildarray[$totallvl]['attri'] - $buildarray[$tblevel]['attri'];
                                             if ($tmaxstore < 800) $tmaxstore = 800;
-                                            $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
+                                            $q = "UPDATE vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
                                             $database->query($q);
                                         }
                                         if ($tbgid == 11 || $tbgid == 39) {
-                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                             $t_sql = mysql_fetch_array($tsql);
                                             $tmaxcrop = $t_sql['maxcrop'] + $buildarray[$totallvl]['attri'] - $buildarray[$tblevel]['attri'];
                                             if ($tmaxcrop < 800) $tmaxcrop = 800;
-                                            $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
+                                            $q = "UPDATE vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
                                             $database->query($q);
                                         }
                                         if ($tbgid == 18) {
@@ -2271,7 +2271,7 @@ class Automation
                                     $info_cat = "" . $catp_pic . "," . $this->procResType($tbgid, $can_destroy, $isoasis) . $info_cata;
                                     $database->setVillageLevel($data['to'], "f" . $tbid . "", $totallvl);
                                 }
-                                $bdo2 = $this->connection->query("select * from " . TB_PREFIX . "fdata where vref = $basearray");
+                                $bdo2 = $this->connection->query("select * from fdata where vref = $basearray");
                                 $bdo = mysql_fetch_array($bdo2);
                                 $rand = $data['ctar2'];
                                 if ($rand != 99) {
@@ -2323,19 +2323,19 @@ class Automation
                                     }
                                     $buildarray = $GLOBALS["bid" . $tbgid];
                                     if ($tbgid == 10 || $tbgid == 38) {
-                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                         $t_sql = mysql_fetch_array($tsql);
                                         $tmaxstore = $t_sql['maxstore'] - $buildarray[$tblevel]['attri'];
                                         if ($tmaxstore < 800) $tmaxstore = 800;
-                                        $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
+                                        $q = "UPDATE vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
                                         $database->query($q);
                                     }
                                     if ($tbgid == 11 || $tbgid == 39) {
-                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                        $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                         $t_sql = mysql_fetch_array($tsql);
                                         $tmaxcrop = $t_sql['maxcrop'] - $buildarray[$tblevel]['attri'];
                                         if ($tmaxcrop < 800) $tmaxcrop = 800;
-                                        $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
+                                        $q = "UPDATE vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
                                         $database->query($q);
                                     }
                                     if ($tbgid == 18) {
@@ -2362,19 +2362,19 @@ class Automation
                                         $info_cata = " damaged from level <b>" . $tblevel . "</b> to level <b>" . $totallvl . "</b>.";
                                         $buildarray = $GLOBALS["bid" . $tbgid];
                                         if ($tbgid == 10 || $tbgid == 38) {
-                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                             $t_sql = mysql_fetch_array($tsql);
                                             $tmaxstore = $t_sql['maxstore'] + $buildarray[$totallvl]['attri'] - $buildarray[$tblevel]['attri'];
                                             if ($tmaxstore < 800) $tmaxstore = 800;
-                                            $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
+                                            $q = "UPDATE vdata SET `maxstore`='" . $tmaxstore . "' WHERE wref=" . $data['to'];
                                             $database->query($q);
                                         }
                                         if ($tbgid == 11 || $tbgid == 39) {
-                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from " . TB_PREFIX . "vdata where wref=" . $data['to'] . "");
+                                            $tsql = $this->connection->query("select `maxstore`,`maxcrop` from vdata where wref=" . $data['to'] . "");
                                             $t_sql = mysql_fetch_array($tsql);
                                             $tmaxcrop = $t_sql['maxcrop'] + $buildarray[$totallvl]['attri'] - $buildarray[$tblevel]['attri'];
                                             if ($tmaxcrop < 800) $tmaxcrop = 800;
-                                            $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
+                                            $q = "UPDATE vdata SET `maxcrop`='" . $tmaxcrop . "' WHERE wref=" . $data['to'];
                                             $database->query($q);
                                         }
                                         if ($tbgid == 18) {
@@ -2487,15 +2487,15 @@ class Automation
                                             $database->setVillageField($data['to'], loyalty, 0);
                                             $database->setVillageField($data['to'], owner, $database->getVillageField($data['from'], "owner"));
                                             //delete upgrades in armory and blacksmith
-                                            $q = "DELETE FROM " . TB_PREFIX . "abdata WHERE vref = " . $data['to'] . "";
+                                            $q = "DELETE FROM abdata WHERE vref = " . $data['to'] . "";
                                             $database->query($q);
                                             $database->addABTech($data['to']);
                                             //delete researches in academy
-                                            $q = "DELETE FROM " . TB_PREFIX . "tdata WHERE vref = " . $data['to'] . "";
+                                            $q = "DELETE FROM tdata WHERE vref = " . $data['to'] . "";
                                             $database->query($q);
                                             $database->addTech($data['to']);
                                             //delete reinforcement
-                                            $q = "DELETE FROM " . TB_PREFIX . "enforcement WHERE `from` = " . $data['to'] . "";
+                                            $q = "DELETE FROM enforcement WHERE `from` = " . $data['to'] . "";
                                             $database->query($q);
                                             // check buildings
                                             $pop1 = $database->getVillageField($data['from'], "pop");
@@ -2763,7 +2763,7 @@ class Automation
                                         }
 
                                         if ($prisoner['t11'] > 0) {
-                                            $p_qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $p_owner . "";
+                                            $p_qh = "SELECT * FROM hero WHERE uid = " . $p_owner . "";
                                             $p_resulth = $database->query($p_qh);
                                             $p_hero_f = mysql_fetch_array($p_resulth);
                                             $p_hero_unit = $p_hero_f['unit'];
@@ -2936,7 +2936,7 @@ class Automation
                     }
                 }
                 if ($herosend_att > 0) {
-                    $qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $from['owner'] . "";
+                    $qh = "SELECT * FROM hero WHERE uid = " . $from['owner'] . "";
                     $resulth = $this->connection->query($qh);
                     $hero_f = mysql_fetch_array($resulth);
                     $hero_unit = $hero_f['unit'];
@@ -3066,29 +3066,29 @@ class Automation
     {
         global $database, $units;
         $database->clearExpansionSlot($wref);
-        $q = "DELETE FROM " . TB_PREFIX . "abdata where vref = $wref";
+        $q = "DELETE FROM abdata where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "bdata where wid = $wref";
+        $q = "DELETE FROM bdata where wid = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "market where vref = $wref";
+        $q = "DELETE FROM market where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "odata where wref = $wref";
+        $q = "DELETE FROM odata where wref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "research where vref = $wref";
+        $q = "DELETE FROM research where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "tdata where vref = $wref";
+        $q = "DELETE FROM tdata where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "fdata where vref = $wref";
+        $q = "DELETE FROM fdata where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "training where vref = $wref";
+        $q = "DELETE FROM training where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "units where vref = $wref";
+        $q = "DELETE FROM units where vref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "farmlist where wref = $wref";
+        $q = "DELETE FROM farmlist where wref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "raidlist where towref = $wref";
+        $q = "DELETE FROM raidlist where towref = $wref";
         $database->query($q);
-        $q = "DELETE FROM " . TB_PREFIX . "movement where proc = 0 AND ((`to` = $wref AND sort_type=4) OR (`from` = $wref AND sort_type=3))";
+        $q = "DELETE FROM movement where proc = 0 AND ((`to` = $wref AND sort_type=4) OR (`from` = $wref AND sort_type=3))";
         $database->query($q);
 
         $getmovement = $database->getMovement(3, $wref, 1);
@@ -3098,17 +3098,17 @@ class Automation
             $database->setMovementProc($movedata['moveid']);
             $database->addMovement(4, $movedata['to'], $movedata['from'], $movedata['ref'], $time, $time + $time2);
         }
-        $q = "DELETE FROM " . TB_PREFIX . "enforcement WHERE `from` = $wref";
+        $q = "DELETE FROM enforcement WHERE `from` = $wref";
         $database->query($q);
 
         //check    return enforcement from del village
         $units->returnTroops($wref);
 
-        $q = "DELETE FROM " . TB_PREFIX . "vdata WHERE `wref` = $wref";
+        $q = "DELETE FROM vdata WHERE `wref` = $wref";
         $database->query($q);
 
         if (mysql_affected_rows() > 0) {
-            $q = "UPDATE " . TB_PREFIX . "wdata set occupied = 0 where id = $wref";
+            $q = "UPDATE wdata set occupied = 0 where id = $wref";
             $database->query($q);
 
             $getprisoners = $database->getPrisoners($wref);
@@ -3221,7 +3221,7 @@ class Automation
             }
             if (isset($post['t11'])) {
                 if ($post['t11'] != '' && $post['t11'] > 0) {
-                    $qh = "SELECT * FROM " . TB_PREFIX . "hero WHERE uid = " . $from['owner'] . "";
+                    $qh = "SELECT * FROM hero WHERE uid = " . $from['owner'] . "";
                     $resulth = $this->connection->query($qh);
                     $hero_f = mysql_fetch_array($resulth);
                     $hero_unit = $hero_f['unit'];
@@ -3275,7 +3275,7 @@ class Automation
         $time = time();
         $ourFileHandle = fopen("GameEngine/Prevention/sendreinfunits.txt", 'w');
         fclose($ourFileHandle);
-        $q = "SELECT * FROM " . TB_PREFIX . "movement, " . TB_PREFIX . "attacks where " . TB_PREFIX . "movement.ref = " . TB_PREFIX . "attacks.id and " . TB_PREFIX . "movement.proc = '0' and " . TB_PREFIX . "movement.sort_type = '3' and " . TB_PREFIX . "attacks.attack_type = '2' and endtime < $time";
+        $q = "SELECT * FROM movement, attacks where movement.ref = attacks.id and movement.proc = '0' and movement.sort_type = '3' and attacks.attack_type = '2' and endtime < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
             $isoasis = $database->isVillageOases($data['to']);
@@ -3351,7 +3351,7 @@ class Automation
                             $t_units .= "u" . $i . "=u" . $i . " + " . $data['t' . $j] . (($j > 9) ? '' : ', ');
                             $j++;
                         }
-                        $q = "UPDATE " . TB_PREFIX . "enforcement set $t_units where id =" . $check['id'];
+                        $q = "UPDATE enforcement set $t_units where id =" . $check['id'];
                         $database->query($q);
                         $database->modifyEnforce($check['id'], 'hero', $data['t11'], 1);
                     }
@@ -3393,7 +3393,7 @@ class Automation
                 $e_units .= 'u' . $i . '=0 AND ';
             }
             $e_units .= 'hero=0';
-            $q = "DELETE FROM " . TB_PREFIX . "enforcement WHERE " . $e_units . " AND (vref=" . $data['to'] . " OR `from`=" . $data['to'] . ")";
+            $q = "DELETE FROM enforcement WHERE " . $e_units . " AND (vref=" . $data['to'] . " OR `from`=" . $data['to'] . ")";
             $database->query($q);
         }
 
@@ -3413,7 +3413,7 @@ class Automation
         fclose($ourFileHandle);
         $reload = false;
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "movement, " . TB_PREFIX . "attacks where " . TB_PREFIX . "movement.ref = " . TB_PREFIX . "attacks.id and " . TB_PREFIX . "movement.proc = '0' and " . TB_PREFIX . "movement.sort_type = '4' and endtime < $time";
+        $q = "SELECT * FROM movement, attacks where movement.ref = attacks.id and movement.proc = '0' and movement.sort_type = '4' and endtime < $time";
         $dataarray = $database->query_return($q);
 
         foreach ($dataarray as $data) {
@@ -3454,7 +3454,7 @@ class Automation
 
         // Recieve the bounty on type 6.
 
-        $q = "SELECT * FROM " . TB_PREFIX . "movement, " . TB_PREFIX . "send where " . TB_PREFIX . "movement.ref = " . TB_PREFIX . "send.id and " . TB_PREFIX . "movement.proc = 0 and sort_type = 6 and endtime < $time";
+        $q = "SELECT * FROM movement, send where movement.ref = send.id and movement.proc = 0 and sort_type = 6 and endtime < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
 
@@ -3491,7 +3491,7 @@ class Automation
 
         // Settlers
 
-        $q = "SELECT * FROM " . TB_PREFIX . "movement where ref = 0 and proc = '0' and sort_type = '4' and endtime < $time";
+        $q = "SELECT * FROM movement where ref = 0 and proc = '0' and sort_type = '4' and endtime < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
 
@@ -3516,7 +3516,7 @@ class Automation
         $ourFileHandle = fopen("GameEngine/Prevention/settlers.txt", 'w');
         fclose($ourFileHandle);
         $time = microtime(true);
-        $q = "SELECT * FROM " . TB_PREFIX . "movement where proc = 0 and sort_type = 5 and endtime < $time";
+        $q = "SELECT * FROM movement where proc = 0 and sort_type = 5 and endtime < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
             $ownerID = $database->getUserField($database->getVillageField($data['from'], "owner"), "id", 0);
@@ -3569,21 +3569,21 @@ class Automation
         $ourFileHandle = fopen("GameEngine/Prevention/research.txt", 'w');
         fclose($ourFileHandle);
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "research where timestamp < $time";
+        $q = "SELECT * FROM research where timestamp < $time";
         $dataarray = $database->query_return($q);
         foreach ($dataarray as $data) {
             $sort_type = substr($data['tech'], 0, 1);
             switch ($sort_type) {
                 case "t":
-                    $q = "UPDATE " . TB_PREFIX . "tdata set " . $data['tech'] . " = 1 where vref = " . $data['vref'];
+                    $q = "UPDATE tdata set " . $data['tech'] . " = 1 where vref = " . $data['vref'];
                     break;
                 case "a":
                 case "b":
-                    $q = "UPDATE " . TB_PREFIX . "abdata set " . $data['tech'] . " = " . $data['tech'] . " + 1 where vref = " . $data['vref'];
+                    $q = "UPDATE abdata set " . $data['tech'] . " = " . $data['tech'] . " + 1 where vref = " . $data['vref'];
                     break;
             }
             $database->query($q);
-            $q = "DELETE FROM " . TB_PREFIX . "research where id = " . $data['id'];
+            $q = "DELETE FROM research where id = " . $data['id'];
             $database->query($q);
         }
         if (file_exists("GameEngine/Prevention/research.txt")) {
@@ -4223,15 +4223,15 @@ class Automation
                 $level = $database->getFieldLevel($vil['vref'], $vil['buildnumber']);
                 $buildarray = $GLOBALS["bid" . $type];
                 if ($type == 10 || $type == 38) {
-                    $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`=`maxstore`-" . $buildarray[$level]['attri'] . " WHERE wref=" . $vil['vref'];
+                    $q = "UPDATE vdata SET `maxstore`=`maxstore`-" . $buildarray[$level]['attri'] . " WHERE wref=" . $vil['vref'];
                     $database->query($q);
-                    $q = "UPDATE " . TB_PREFIX . "vdata SET `maxstore`=800 WHERE `maxstore`<= 800 AND wref=" . $vil['vref'];
+                    $q = "UPDATE vdata SET `maxstore`=800 WHERE `maxstore`<= 800 AND wref=" . $vil['vref'];
                     $database->query($q);
                 }
                 if ($type == 11 || $type == 39) {
-                    $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`=`maxcrop`-" . $buildarray[$level]['attri'] . " WHERE wref=" . $vil['vref'];
+                    $q = "UPDATE vdata SET `maxcrop`=`maxcrop`-" . $buildarray[$level]['attri'] . " WHERE wref=" . $vil['vref'];
                     $database->query($q);
-                    $q = "UPDATE " . TB_PREFIX . "vdata SET `maxcrop`=800 WHERE `maxcrop`<=800 AND wref=" . $vil['vref'];
+                    $q = "UPDATE vdata SET `maxcrop`=800 WHERE `maxcrop`<=800 AND wref=" . $vil['vref'];
                     $database->query($q);
                 }
                 if ($type == 18) {
@@ -4243,7 +4243,7 @@ class Automation
                     $clear = "";
                 }
                 if ($village->natar == 1 && $type == 40) $clear = ""; //fix by ronix
-                $q = "UPDATE " . TB_PREFIX . "fdata SET f" . $vil['buildnumber'] . "=" . ($level - 1) . $clear . " WHERE vref=" . $vil['vref'];
+                $q = "UPDATE fdata SET f" . $vil['buildnumber'] . "=" . ($level - 1) . $clear . " WHERE vref=" . $vil['vref'];
                 $database->query($q);
                 $pop = $this->getPop($type, $level - 1);
                 $database->modifyPop($vil['vref'], $pop[0], 1);
@@ -4286,20 +4286,20 @@ class Automation
                 $herolevel = $hdata['level'];
                 for ($i = $herolevel + 1; $i < 100; $i++) {
                     if ($hdata['experience'] >= $hero_levels[$i]) {
-                        $this->connection->query("UPDATE " . TB_PREFIX . "hero SET level = $i WHERE heroid = '" . $hdata['heroid'] . "'");
+                        $this->connection->query("UPDATE hero SET level = $i WHERE heroid = '" . $hdata['heroid'] . "'");
                         if ($i < 99) {
-                            $this->connection->query("UPDATE " . TB_PREFIX . "hero SET points = points + 5 WHERE heroid = '" . $hdata['heroid'] . "'");
+                            $this->connection->query("UPDATE hero SET points = points + 5 WHERE heroid = '" . $hdata['heroid'] . "'");
                         }
                     }
                 }
                 $villunits = $database->getUnit($hdata['wref']);
                 if ($villunits['hero'] == 0 && $hdata['trainingtime'] < time() && $hdata['inrevive'] == 1) {
-                    $this->connection->query("UPDATE " . TB_PREFIX . "units SET hero = 1 WHERE vref = " . $hdata['wref'] . "");
-                    $this->connection->query("UPDATE " . TB_PREFIX . "hero SET `dead` = '0', `inrevive` = '0', `health` = '100', `lastupdate` = " . $hdata['trainingtime'] . " WHERE `uid` = '" . $hdata['uid'] . "'");
+                    $this->connection->query("UPDATE units SET hero = 1 WHERE vref = " . $hdata['wref'] . "");
+                    $this->connection->query("UPDATE hero SET `dead` = '0', `inrevive` = '0', `health` = '100', `lastupdate` = " . $hdata['trainingtime'] . " WHERE `uid` = '" . $hdata['uid'] . "'");
                 }
                 if ($villunits['hero'] == 0 && $hdata['trainingtime'] < time() && $hdata['intraining'] == 1) {
-                    $this->connection->query("UPDATE " . TB_PREFIX . "units SET hero = 1 WHERE vref = " . $hdata['wref'] . "");
-                    $this->connection->query("UPDATE " . TB_PREFIX . "hero SET `intraining` = '0', `lastupdate` = " . $hdata['trainingtime'] . " WHERE `uid` = '" . $hdata['uid'] . "'");
+                    $this->connection->query("UPDATE units SET hero = 1 WHERE vref = " . $hdata['wref'] . "");
+                    $this->connection->query("UPDATE hero SET `intraining` = '0', `lastupdate` = " . $hdata['trainingtime'] . " WHERE `uid` = '" . $hdata['uid'] . "'");
                 }
             }
         }
@@ -4315,7 +4315,7 @@ class Automation
     {
         global $bid10, $bid38, $bid11, $bid39;
 
-        $result = $this->connection->query('SELECT * FROM `' . TB_PREFIX . 'fdata`');
+        $result = $this->connection->query('SELECT * FROM `fdata`');
         while ($row = mysqli_fetch_assoc($result)) {
             $ress = $crop = 0;
             for ($i = 19; $i < 40; ++$i) {
@@ -4345,7 +4345,7 @@ class Automation
                 $crop = 800 * STORAGE_MULTIPLIER;
             }
 
-            $this->connection->query('UPDATE `' . TB_PREFIX . 'vdata` SET `maxstore` = ' . $ress . ', `maxcrop` = ' . $crop . ' WHERE `wref` = ' . $row['vref']);
+            $this->connection->query('UPDATE `vdata` SET `maxstore` = ' . $ress . ', `maxcrop` = ' . $crop . ' WHERE `wref` = ' . $row['vref']);
         }
     }
 
@@ -4353,7 +4353,7 @@ class Automation
     {
         global $database;
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "odata WHERE wood < 800 OR clay < 800 OR iron < 800 OR crop < 800";
+        $q = "SELECT * FROM odata WHERE wood < 800 OR clay < 800 OR iron < 800 OR crop < 800";
         $array = $database->query_return($q);
         foreach ($array as $getoasis) {
             $oasiswood = $getoasis['wood'] + (8 * SPEED / 3600) * (time() - $getoasis['lastupdated']);
@@ -4372,7 +4372,7 @@ class Automation
             if ($oasiscrop > $getoasis['maxcrop']) {
                 $oasiscrop = $getoasis['maxcrop'];
             }
-            $q = "UPDATE " . TB_PREFIX . "odata set wood = $oasiswood, clay = $oasisclay, iron = $oasisiron, crop = $oasiscrop where wref = " . $getoasis['wref'] . "";
+            $q = "UPDATE odata set wood = $oasiswood, clay = $oasisclay, iron = $oasisiron, crop = $oasiscrop where wref = " . $getoasis['wref'] . "";
             $database->query($q);
             $database->updateOasis($getoasis['wref']);
         }
@@ -4381,10 +4381,10 @@ class Automation
     private function checkInvitedPlayes()
     {
         global $database;
-        $q = "SELECT * FROM " . TB_PREFIX . "users WHERE invited != 0";
+        $q = "SELECT * FROM users WHERE invited != 0";
         $array = $database->query_return($q);
         foreach ($array as $user) {
-            $numusers = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users WHERE id = " . $user['invited']);
+            $numusers = $this->connection->query("SELECT * FROM users WHERE id = " . $user['invited']);
             if (mysqli_num_rows($numusers) > 0) {
                 $varray = count($database->getProfileVillages($user['id']));
                 if ($varray > 1) {
@@ -4401,11 +4401,11 @@ class Automation
     {
         global $database;
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "general WHERE shown = 1";
+        $q = "SELECT * FROM general WHERE shown = 1";
         $array = $database->query_return($q);
         foreach ($array as $general) {
             if (time() - (86400 * 8) > $general['time']) {
-                $this->connection->query("UPDATE " . TB_PREFIX . "general SET shown = 0 WHERE id = " . $general['id'] . "");
+                $this->connection->query("UPDATE general SET shown = 0 WHERE id = " . $general['id'] . "");
             }
         }
     }
@@ -4413,7 +4413,7 @@ class Automation
     private function MasterBuilder()
     {
         global $database;
-        $q = "SELECT * FROM " . TB_PREFIX . "bdata WHERE master = 1";
+        $q = "SELECT * FROM bdata WHERE master = 1";
         $array = $database->query_return($q);
         foreach ($array as $master) {
             $owner = $database->getVillageField($master['wid'], 'owner');
@@ -4516,7 +4516,7 @@ class Automation
 
 
             // get enforce other player from oasis
-            $q = "SELECT e.*,o.conqured,o.wref,o.high, o.owner as ownero, v.owner as ownerv FROM " . TB_PREFIX . "enforcement as e LEFT JOIN " . TB_PREFIX . "odata as o ON e.vref=o.wref LEFT JOIN " . TB_PREFIX . "vdata as v ON e.from=v.wref where o.conqured=" . $starv['wref'] . " AND o.owner<>v.owner";
+            $q = "SELECT e.*,o.conqured,o.wref,o.high, o.owner as ownero, v.owner as ownerv FROM enforcement as e LEFT JOIN odata as o ON e.vref=o.wref LEFT JOIN vdata as v ON e.from=v.wref where o.conqured=" . $starv['wref'] . " AND o.owner<>v.owner";
             $enforceoasis = $database->query_return($q);
             $maxcount = 0;
             $totalunits = 0;
@@ -4539,7 +4539,7 @@ class Automation
                 }
             } else {
                 //own troops from oasis
-                $q = "SELECT e.*,o.conqured,o.wref,o.high, o.owner as ownero, v.owner as ownerv FROM " . TB_PREFIX . "enforcement as e LEFT JOIN " . TB_PREFIX . "odata as o ON e.vref=o.wref LEFT JOIN " . TB_PREFIX . "vdata as v ON e.from=v.wref where o.conqured=" . $starv['wref'] . " AND o.owner=v.owner";
+                $q = "SELECT e.*,o.conqured,o.wref,o.high, o.owner as ownero, v.owner as ownerv FROM enforcement as e LEFT JOIN odata as o ON e.vref=o.wref LEFT JOIN vdata as v ON e.from=v.wref where o.conqured=" . $starv['wref'] . " AND o.owner=v.owner";
                 $enforceoasis = $database->query_return($q);
                 if (count($enforceoasis) > 0) {
                     foreach ($enforceoasis as $enforce) {
@@ -4559,7 +4559,7 @@ class Automation
                     }
                 } else {
                     //get enforce other player from village
-                    $q = "SELECT e.*, v.owner as ownerv, v1.owner as owner1 FROM " . TB_PREFIX . "enforcement as e LEFT JOIN " . TB_PREFIX . "vdata as v ON e.from=v.wref LEFT JOIN " . TB_PREFIX . "vdata as v1 ON e.vref=v1.wref where e.vref=" . $starv['wref'] . " AND v.owner<>v1.owner";
+                    $q = "SELECT e.*, v.owner as ownerv, v1.owner as owner1 FROM enforcement as e LEFT JOIN vdata as v ON e.from=v.wref LEFT JOIN vdata as v1 ON e.vref=v1.wref where e.vref=" . $starv['wref'] . " AND v.owner<>v1.owner";
                     $enforcearray = $database->query_return($q);
                     if (count($enforcearray) > 0) {
                         foreach ($enforcearray as $enforce) {
@@ -4579,7 +4579,7 @@ class Automation
                         }
                     } else {
                         //get own reinforcement from other village
-                        $q = "SELECT e.*, v.owner as ownerv, v1.owner as owner1 FROM " . TB_PREFIX . "enforcement as e LEFT JOIN " . TB_PREFIX . "vdata as v ON e.from=v.wref LEFT JOIN " . TB_PREFIX . "vdata as v1 ON e.vref=v1.wref where e.vref=" . $starv['wref'] . " AND v.owner=v1.owner";
+                        $q = "SELECT e.*, v.owner as ownerv, v1.owner as owner1 FROM enforcement as e LEFT JOIN vdata as v ON e.from=v.wref LEFT JOIN vdata as v1 ON e.vref=v1.wref where e.vref=" . $starv['wref'] . " AND v.owner=v1.owner";
                         $enforcearray = $database->query_return($q);
                         if (count($enforcearray) > 0) {
                             foreach ($enforcearray as $enforce) {
@@ -4720,7 +4720,7 @@ class Automation
         $ranking->procRankArray();
         $climbers = $ranking->getRank();
         if (count($ranking->getRank()) > 0) {
-            $q = "SELECT * FROM " . TB_PREFIX . "medal order by week DESC LIMIT 0, 1";
+            $q = "SELECT * FROM medal order by week DESC LIMIT 0, 1";
             $result = $this->connection->query($q);
             if (mysqli_num_rows($result)) {
                 $row = mysqli_fetch_assoc($result);
@@ -4728,7 +4728,7 @@ class Automation
             } else {
                 $week = '1';
             }
-            $q = "SELECT * FROM " . TB_PREFIX . "users where oldrank = 0 and id > 5";
+            $q = "SELECT * FROM users where oldrank = 0 and id > 5";
             $array = $database->query_return($q);
             foreach ($array as $user) {
                 $newrank = $ranking->getUserRank($user['id']);
@@ -4770,7 +4770,7 @@ class Automation
         $ranking->procRankArray();
         $climbers = $ranking->getRank();
         if (count($ranking->getRank()) > 0) {
-            $q = "SELECT * FROM " . TB_PREFIX . "medal order by week DESC LIMIT 0, 1";
+            $q = "SELECT * FROM medal order by week DESC LIMIT 0, 1";
             $result = $this->connection->query($q);
             if (mysqli_num_rows($result)) {
                 $row = mysqli_fetch_assoc($result);
@@ -4853,11 +4853,11 @@ class Automation
     {
         global $database;
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "banlist WHERE active = 1 and end < $time";
+        $q = "SELECT * FROM banlist WHERE active = 1 and end < $time";
         $array = $database->query_return($q);
         foreach ($array as $banlist) {
-            $this->connection->query("UPDATE " . TB_PREFIX . "banlist SET active = 0 WHERE id = " . $banlist['id'] . "");
-            $this->connection->query("UPDATE " . TB_PREFIX . "users SET access = 2 WHERE id = " . $banlist['uid'] . "");
+            $this->connection->query("UPDATE banlist SET active = 0 WHERE id = " . $banlist['id'] . "");
+            $this->connection->query("UPDATE users SET access = 2 WHERE id = " . $banlist['uid'] . "");
         }
     }
 
@@ -4866,7 +4866,7 @@ class Automation
         global $database;
         $time = time();
         $time2 = NATURE_REGTIME;
-        $q = "SELECT * FROM " . TB_PREFIX . "odata where conqured = 0 and lastupdated2 + $time2 < $time";
+        $q = "SELECT * FROM odata where conqured = 0 and lastupdated2 + $time2 < $time";
         $array = $database->query_return($q);
         foreach ($array as $oasis) {
             $database->populateOasisUnits($oasis['wref'], $oasis['high']);
@@ -4877,7 +4877,7 @@ class Automation
     private function updateMax($leader)
     {
         global $bid18, $database;
-        $q = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata where leader = $leader");
+        $q = $this->connection->query("SELECT * FROM alidata where leader = $leader");
         if (mysqli_num_rows($q) > 0) {
             $villages = $database->getVillagesID2($leader);
             $max = 0;
@@ -4893,7 +4893,7 @@ class Automation
                     $max = $attri;
                 }
             }
-            $q = "UPDATE " . TB_PREFIX . "alidata set max = $max where leader = $leader";
+            $q = "UPDATE alidata set max = $max where leader = $leader";
             $database->query($q);
         }
     }
@@ -4903,13 +4903,13 @@ class Automation
         global $database, $session;
         $herodata = $database->getHero($session->uid, 1);
         if ($herodata[0]['dead'] == 1) {
-            $this->connection->query("UPDATE " . TB_PREFIX . "units SET hero = 0 WHERE vref = " . $session->villages[0] . "");
+            $this->connection->query("UPDATE units SET hero = 0 WHERE vref = " . $session->villages[0] . "");
         }
         if ($herodata[0]['trainingtime'] <= time()) {
             if ($herodata[0]['trainingtime'] != 0) {
                 if ($herodata[0]['dead'] == 0) {
-                    $this->connection->query("UPDATE " . TB_PREFIX . "hero SET trainingtime = '0' WHERE uid = " . $session->uid . "");
-                    $this->connection->query("UPDATE " . TB_PREFIX . "units SET hero = 1 WHERE vref = " . $session->villages[0] . "");
+                    $this->connection->query("UPDATE hero SET trainingtime = '0' WHERE uid = " . $session->uid . "");
+                    $this->connection->query("UPDATE units SET hero = 1 WHERE vref = " . $session->villages[0] . "");
                 }
             }
         }
@@ -4927,14 +4927,14 @@ class Automation
         //we may give away ribbons
 
         $giveMedal = false;
-        $q = "SELECT * FROM " . TB_PREFIX . "config";
+        $q = "SELECT * FROM config";
         $result = $this->connection->query($q);
         if ($result) {
             $row = mysqli_fetch_assoc($result);
             $stime = strtotime(START_DATE) - strtotime(date('m/d/Y')) + strtotime(START_TIME);
             if ($row['lastgavemedal'] == 0 && $stime < time()) {
                 $newtime = time() + MEDALINTERVAL;
-                $q = "UPDATE " . TB_PREFIX . "config SET lastgavemedal=" . $newtime;
+                $q = "UPDATE config SET lastgavemedal=" . $newtime;
                 $database->query($q);
                 $row['lastgavemedal'] = time() + MEDALINTERVAL;
             }
@@ -4946,7 +4946,7 @@ class Automation
 
             //determine which week we are
 
-            $q = "SELECT * FROM " . TB_PREFIX . "medal order by week DESC LIMIT 0, 1";
+            $q = "SELECT * FROM medal order by week DESC LIMIT 0, 1";
             $result = $this->connection->query($q);
             if (mysqli_num_rows($result)) {
                 $row = mysqli_fetch_assoc($result);
@@ -4957,7 +4957,7 @@ class Automation
 
             //Do same for ally week
 
-            $q = "SELECT * FROM " . TB_PREFIX . "allimedal order by week DESC LIMIT 0, 1";
+            $q = "SELECT * FROM allimedal order by week DESC LIMIT 0, 1";
             $result = $this->connection->query($q);
             if (mysqli_num_rows($result)) {
                 $row = mysqli_fetch_assoc($result);
@@ -4968,66 +4968,66 @@ class Automation
 
 
             //Attackers of the week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY ap DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY ap DESC, id DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "t2_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '1', '" . ($i) . "', '" . $week . "', '" . $row['ap'] . "', '" . $img . "')";
+                $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '1', '" . ($i) . "', '" . $week . "', '" . $row['ap'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Defender of the week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY dp DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY dp DESC, id DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "t3_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '2', '" . ($i) . "', '" . $week . "', '" . $row['dp'] . "', '" . $img . "')";
+                $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '2', '" . ($i) . "', '" . $week . "', '" . $row['dp'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Climbers of the week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY Rc DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY Rc DESC, id DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "t1_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '3', '" . ($i) . "', '" . $week . "', '" . $row['Rc'] . "', '" . $img . "')";
+                $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '3', '" . ($i) . "', '" . $week . "', '" . $row['Rc'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Rank climbers of the week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY clp DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY clp DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "t6_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '10', '" . ($i) . "', '" . $week . "', '" . $row['clp'] . "', '" . $img . "')";
+                $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '10', '" . ($i) . "', '" . $week . "', '" . $row['clp'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Robbers of the week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY RR DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY RR DESC, id DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "t4_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '4', '" . ($i) . "', '" . $week . "', '" . $row['RR'] . "', '" . $img . "')";
+                $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '4', '" . ($i) . "', '" . $week . "', '" . $row['RR'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Part of the bonus for top 10 attack + defense out
             //Top10 attackers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY ap DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY ap DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
                 //Top 10 defenders
-                $result2 = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY dp DESC, id DESC Limit 10");
+                $result2 = $this->connection->query("SELECT * FROM users ORDER BY dp DESC, id DESC Limit 10");
                 while ($row2 = mysql_fetch_array($result2)) {
                     if ($row['id'] == $row2['id']) {
 
-                        $query3 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 5";
+                        $query3 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 5";
                         $result3 = $this->connection->query($query3);
                         $row3 = mysql_fetch_row($result3);
 
@@ -5045,7 +5045,7 @@ class Automation
                                     $tekst = "three times ";
                                     break;
                             }
-                            $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '5', '0', '" . $week . "', '" . $tekst . "', '" . $img . "')";
+                            $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '5', '0', '" . $week . "', '" . $tekst . "', '" . $img . "')";
                             $resul = $this->connection->query($quer);
                         }
                     }
@@ -5054,10 +5054,10 @@ class Automation
 
             //you stand for 3rd / 5th / 10th time in the top 3 strikers
             //top10 attackers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY ap DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY ap DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 1 AND plaats<=3";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 1 AND plaats<=3";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5065,29 +5065,29 @@ class Automation
                 //2x at present as it is so ribbon 3rd (bronze)
                 if ($row1[0] == '3') {
                     $img = "t120_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '6', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '6', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x at present as it is so 5th medal (silver)
                 if ($row1[0] == '5') {
                     $img = "t121_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '6', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '6', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t122_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '6', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '6', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
 
             }
             //you stand for 3rd / 5th / 10th time in the top 10 attackers
             //top10 attackers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY ap DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY ap DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 1 AND plaats<=10";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 1 AND plaats<=10";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5095,29 +5095,29 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t130_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '12', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '12', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t131_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '12', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '12', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t132_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '12', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '12', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
 
             }
             //je staat voor 3e / 5e / 10e keer in de top 3 verdedigers
             //Pak de top10 verdedigers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY dp DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY dp DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 2 AND plaats<=3";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 2 AND plaats<=3";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5125,29 +5125,29 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t140_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '7', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '7', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t141_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '7', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '7', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t142_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '7', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '7', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
 
             }
             //je staat voor 3e / 5e / 10e keer in de top 3 verdedigers
             //Pak de top10 verdedigers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY dp DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY dp DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 2 AND plaats<=10";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 2 AND plaats<=10";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5155,19 +5155,19 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t150_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '13', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '13', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t151_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '13', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '13', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t152_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '13', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '13', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
 
@@ -5175,10 +5175,10 @@ class Automation
 
             //je staat voor 3e / 5e / 10e keer in de top 3 klimmers
             //Pak de top10 klimmers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY Rc DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY Rc DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 3 AND plaats<=3";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 3 AND plaats<=3";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5186,28 +5186,28 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t100_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '8', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '8', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t101_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '8', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '8', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t102_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '8', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '8', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
             }
             //je staat voor 3e / 5e / 10e keer in de top 3 klimmers
             //Pak de top10 klimmers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY Rc DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY Rc DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 3 AND plaats<=10";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 3 AND plaats<=10";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5215,29 +5215,29 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t110_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '14', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '14', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t111_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '14', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '14', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t112_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '14', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '14', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
             }
 
             //je staat voor 3e / 5e / 10e keer in de top 3 klimmers
             //Pak de top3 rank climbers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY clp DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY clp DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 10 AND plaats<=3";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 10 AND plaats<=3";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5245,28 +5245,28 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t200_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '11', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '11', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t201_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '11', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '11', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t202_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '11', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '11', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
             }
             //je staat voor 3e / 5e / 10e keer in de top 10klimmers
             //Pak de top3 rank climbers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY clp DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY clp DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 10 AND plaats<=10";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 10 AND plaats<=10";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5274,29 +5274,29 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t210_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '16', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '16', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t211_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '16', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '16', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t212_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '16', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '16', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
             }
 
             //je staat voor 3e / 5e / 10e keer in de top 10 overvallers
             //Pak de top10 overvallers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY RR DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY RR DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 4 AND plaats<=3";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 4 AND plaats<=3";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5304,28 +5304,28 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t160_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '9', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '9', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t161_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '9', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '9', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t162_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '9', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '9', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
             }
             //je staat voor 3e / 5e / 10e keer in de top 10 overvallers
             //Pak de top10 overvallers
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "users ORDER BY RR DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM users ORDER BY RR DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
-                $query1 = "SELECT count(*) FROM " . TB_PREFIX . "medal WHERE userid='" . $row['id'] . "' AND categorie = 4 AND plaats<=10";
+                $query1 = "SELECT count(*) FROM medal WHERE userid='" . $row['id'] . "' AND categorie = 4 AND plaats<=10";
                 $result1 = $this->connection->query($query1);
                 $row1 = mysql_fetch_row($result1);
 
@@ -5333,81 +5333,81 @@ class Automation
                 //2x in gestaan, dit is 3e dus lintje (brons)
                 if ($row1[0] == '3') {
                     $img = "t170_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '15', '0', '" . $week . "', 'Three', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '15', '0', '" . $week . "', 'Three', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //4x in gestaan, dit is 5e dus lintje (zilver)
                 if ($row1[0] == '5') {
                     $img = "t171_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '15', '0', '" . $week . "', 'Five', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '15', '0', '" . $week . "', 'Five', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
                 //9x at present as it is so 10th medal (gold)
                 if ($row1[0] == '10') {
                     $img = "t172_1";
-                    $quer = "insert into " . TB_PREFIX . "medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '15', '0', '" . $week . "', 'Ten', '" . $img . "')";
+                    $quer = "insert into medal(userid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '15', '0', '" . $week . "', 'Ten', '" . $img . "')";
                     $resul = $this->connection->query($quer);
                 }
             }
 
             //Put all true dens to 0
-            $query = "SELECT * FROM " . TB_PREFIX . "users ORDER BY id+0 DESC";
+            $query = "SELECT * FROM users ORDER BY id+0 DESC";
             $result = $this->connection->query($query);
             for ($i = 0; $row = mysql_fetch_row($result); $i++) {
-                $this->connection->query("UPDATE " . TB_PREFIX . "users SET ap=0, dp=0,Rc=0,clp=0, RR=0 WHERE id = " . $row[0] . "");
+                $this->connection->query("UPDATE users SET ap=0, dp=0,Rc=0,clp=0, RR=0 WHERE id = " . $row[0] . "");
             }
 
             //Start alliance Medals wooot
 
             //Aanvallers v/d Week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata ORDER BY ap DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM alidata ORDER BY ap DESC, id DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "a2_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '1', '" . ($i) . "', '" . $allyweek . "', '" . $row['ap'] . "', '" . $img . "')";
+                $quer = "insert into allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '1', '" . ($i) . "', '" . $allyweek . "', '" . $row['ap'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Verdediger v/d Week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata ORDER BY dp DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM alidata ORDER BY dp DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "a3_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '2', '" . ($i) . "', '" . $allyweek . "', '" . $row['dp'] . "', '" . $img . "')";
+                $quer = "insert into allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '2', '" . ($i) . "', '" . $allyweek . "', '" . $row['dp'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Overvallers v/d Week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata ORDER BY RR DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM alidata ORDER BY RR DESC, id DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "a4_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '4', '" . ($i) . "', '" . $allyweek . "', '" . $row['RR'] . "', '" . $img . "')";
+                $quer = "insert into allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '4', '" . ($i) . "', '" . $allyweek . "', '" . $row['RR'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
             //Rank climbers of the week
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata ORDER BY clp DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM alidata ORDER BY clp DESC Limit 10");
             $i = 0;
             while ($row = mysql_fetch_array($result)) {
                 $i++;
                 $img = "a1_" . ($i) . "";
-                $quer = "insert into " . TB_PREFIX . "allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '3', '" . ($i) . "', '" . $allyweek . "', '" . $row['clp'] . "', '" . $img . "')";
+                $quer = "insert into allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '3', '" . ($i) . "', '" . $allyweek . "', '" . $row['clp'] . "', '" . $img . "')";
                 $resul = $this->connection->query($quer);
             }
 
-            $result = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata ORDER BY ap DESC, id DESC Limit 10");
+            $result = $this->connection->query("SELECT * FROM alidata ORDER BY ap DESC, id DESC Limit 10");
             while ($row = mysql_fetch_array($result)) {
 
                 //Pak de top10 verdedigers
-                $result2 = $this->connection->query("SELECT * FROM " . TB_PREFIX . "alidata ORDER BY dp DESC, id DESC Limit 10");
+                $result2 = $this->connection->query("SELECT * FROM alidata ORDER BY dp DESC, id DESC Limit 10");
                 while ($row2 = mysql_fetch_array($result2)) {
                     if ($row['id'] == $row2['id']) {
 
-                        $query3 = "SELECT count(*) FROM " . TB_PREFIX . "allimedal WHERE allyid='" . $row['id'] . "' AND categorie = 5";
+                        $query3 = "SELECT count(*) FROM allimedal WHERE allyid='" . $row['id'] . "' AND categorie = 5";
                         $result3 = $this->connection->query($query3);
                         $row3 = mysql_fetch_row($result3);
 
@@ -5425,20 +5425,20 @@ class Automation
                                     $tekst = "three times ";
                                     break;
                             }
-                            $quer = "insert into " . TB_PREFIX . "allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '5', '0', '" . $allyweek . "', '" . $tekst . "', '" . $img . "')";
+                            $quer = "insert into allimedal(allyid, categorie, plaats, week, points, img) values('" . $row['id'] . "', '5', '0', '" . $allyweek . "', '" . $tekst . "', '" . $img . "')";
                             $resul = $this->connection->query($quer);
                         }
                     }
                 }
             }
 
-            $query = "SELECT * FROM " . TB_PREFIX . "alidata ORDER BY id+0 DESC";
+            $query = "SELECT * FROM alidata ORDER BY id+0 DESC";
             $result = $this->connection->query($query);
             for ($i = 0; $row = mysql_fetch_row($result); $i++) {
-                $this->connection->query("UPDATE " . TB_PREFIX . "alidata SET ap=0, dp=0, RR=0, clp=0 WHERE id = " . $row[0] . "");
+                $this->connection->query("UPDATE alidata SET ap=0, dp=0, RR=0, clp=0 WHERE id = " . $row[0] . "");
             }
 
-            $q = "UPDATE " . TB_PREFIX . "config SET lastgavemedal=" . $time;
+            $q = "UPDATE config SET lastgavemedal=" . $time;
             $database->query($q);
         }
     }
@@ -5452,7 +5452,7 @@ class Automation
     {
         global $database;
         $time = time();
-        $q = "SELECT * FROM " . TB_PREFIX . "artefacts where type = 8 and active = 1 and $time - lastupdate >= 86400";
+        $q = "SELECT * FROM artefacts where type = 8 and active = 1 and $time - lastupdate >= 86400";
         $array = $database->query_return($q);
         foreach ($array as $artefact) {
             $kind = rand(1, 7);
@@ -5484,7 +5484,7 @@ class Automation
                     $effect = rand(1, 6);
                     break;
             }
-            $this->connection->query("UPDATE " . TB_PREFIX . "artefacts SET kind = $kind, bad_effect = $bad_effect, effect2 = $effect, lastupdate = $time WHERE id = " . $artefact['id'] . "");
+            $this->connection->query("UPDATE artefacts SET kind = $kind, bad_effect = $bad_effect, effect2 = $effect, lastupdate = $time WHERE id = " . $artefact['id'] . "");
         }
     }
 }

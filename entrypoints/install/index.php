@@ -62,10 +62,10 @@ date_default_timezone_set($t_zone);
     <script src="mt-full.js?0ac36" type="text/javascript"></script>
     <script src="unx.js?0ac36" type="text/javascript"></script>
     <script src="new.js?0ac36" type="text/javascript"></script>
-    <link href="../../resources/gpack/travian_default/lang/en/lang.css?f4b7c" rel="stylesheet" type="text/css"/>
-    <link href="../../resources/gpack/travian_default/lang/en/compact.css?f4b7c" rel="stylesheet" type="text/css"/>
-    <link href="../../resources/gpack/travian_default/travian.css?e21d2" rel="stylesheet" type="text/css"/>
-    <link href="../../resources/gpack/travian_default/lang/en/lang.css?e21d2" rel="stylesheet" type="text/css"/>
+    <link href="../../public/gpack/travian_default/lang/en/lang.css?f4b7c" rel="stylesheet" type="text/css"/>
+    <link href="../../public/gpack/travian_default/lang/en/compact.css?f4b7c" rel="stylesheet" type="text/css"/>
+    <link href="../../public/gpack/travian_default/travian.css?e21d2" rel="stylesheet" type="text/css"/>
+    <link href="../../public/gpack/travian_default/lang/en/lang.css?e21d2" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <script LANGUAGE="JavaScript">

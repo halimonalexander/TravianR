@@ -42,12 +42,12 @@ $up_avl = $latest - $ver;
 <head>
     <link REL="shortcut icon" HREF="favicon.ico"/>
     <title>Admin Panel</title>
-    <link rel=stylesheet type="text/css" href="../../resources/img/admin/admin.css">
-    <link rel=stylesheet type="text/css" href="../../resources/img/admin/acp.css">
-    <link rel=stylesheet type="text/css" href="../../resources/img/img.css">
-    <script src="/resources/js/mt-full.js?423cb" type="text/javascript"></script>
+    <link rel=stylesheet type="text/css" href="../../public/img/admin/admin.css">
+    <link rel=stylesheet type="text/css" href="../../public/img/admin/acp.css">
+    <link rel=stylesheet type="text/css" href="../../public/img/img.css">
+    <script src="/public/js/mt-full.js?423cb" type="text/javascript"></script>
     <script src="ajax.js" type="text/javascript"></script>
-    <script src="../../resources/js/new.js?0faaa" type="text/javascript"></script>
+    <script src="../../public/js/new.js?0faaa" type="text/javascript"></script>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="imagetoolbar" content="no">
 </head>
@@ -142,25 +142,25 @@ $up_avl = $latest - $ver;
 </script>
 <div id="ltop1">
     <div style="position:relative; width:231px; height:100px; float:left;">
-        <img src="../../resources/img/x.gif" width="1" height="1">
+        <img src="../../public/img/x.gif" width="1" height="1">
     </div>
-    <img class="fl2" src="../../resources/img/admin/x1.gif" width="70" height="100" border="0" onmouseover="this.className='fl1'"
-         onmouseout="this.className='fl2'"><img class="fl2" src="../../resources/img/admin/x2.gif" width="70" height="100" border="0"
+    <img class="fl2" src="../../public/img/admin/x1.gif" width="70" height="100" border="0" onmouseover="this.className='fl1'"
+         onmouseout="this.className='fl2'"><img class="fl2" src="../../public/img/admin/x2.gif" width="70" height="100" border="0"
                                                 onmouseover="this.className='fl1'"
                                                 onmouseout="this.className='fl2'"><img class="fl2"
-                                                                                       src="../../resources/img/admin/x3.gif"
+                                                                                       src="../../public/img/admin/x3.gif"
                                                                                        width="70" height="100"
                                                                                        border="0"
                                                                                        onmouseover="this.className='fl1'"
                                                                                        onmouseout="this.className='fl2'"><img
-            class="fl2" src="../../resources/img/admin/x4.gif" width="70" height="100" border="0" onmouseover="this.className='fl1'"
-            onmouseout="this.className='fl2'"><img class="fl2" src="../../resources/img/admin/x5.gif" width="70" height="100"
+            class="fl2" src="../../public/img/admin/x4.gif" width="70" height="100" border="0" onmouseover="this.className='fl1'"
+            onmouseout="this.className='fl2'"><img class="fl2" src="../../public/img/admin/x5.gif" width="70" height="100"
                                                    border="0" onmouseover="this.className='fl1'"
                                                    onmouseout="this.className='fl2'"></div>
 <div id="lmidall">
     <div id="lmidlc">
         <div id="lleft" style="width: 160px;">
-            <a href="<?php echo HOMEPAGE; ?>"><img src="../../resources/img/en/a/travian0.gif" class="logo_plus" width="116"
+            <a href="<?php echo HOMEPAGE; ?>"><img src="../../public/img/en/a/travian0.gif" class="logo_plus" width="116"
                                                    height="60" border="0"></a>
             <table id="navi_table" cellspacing="0" cellpadding="0" style="width: 150px;">
                 <tr>

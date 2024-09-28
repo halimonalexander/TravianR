@@ -1,7 +1,7 @@
 <?php
 $id = $_GET['uid'];
 if (isset($id)) {
-    $player = mysql_fetch_assoc(mysql_query("SELECT * FROM " . TB_PREFIX . "users WHERE id = $id"));
+    $player = mysql_fetch_assoc(mysql_query("SELECT * FROM users WHERE id = $id"));
     ?>
     <table cellpadding="1" cellspacing="1" id="member">
     <thead>
@@ -19,7 +19,7 @@ if (isset($id)) {
     </thead>
     <tbody>
     <?php
-    $sql = "SELECT * FROM " . TB_PREFIX . "login_log WHERE uid = $id";
+    $sql = "SELECT * FROM login_log WHERE uid = $id";
     $result = mysql_query($sql);
     while ($row = mysql_fetch_assoc($result)) {
         $i++;

@@ -149,12 +149,12 @@ DIV.register TABLE#register_race.errmark{margin-bottom:-4px;}
 DIV.register INPUT#register_name.errmark,DIV.register INPUT#register_password.errmark,DIV.register INPUT#register_confirm.errmark,DIV.register INPUT#register_email.errmark{height:22px;}
 DIV.register TABLE#register_agb{height:24px;line-height:12px;margin-top:25px;}
 DIV.register TABLE#register_boxcode{height:24px;}
-DIV.race_1{background-image:url(/resources/img/ani/roemer_stand.gif);}
-DIV.race_2{background-image:url(/resources/img/ani/germane_stand.gif);}
-DIV.race_3{background-image:url(/resources/img/ani/gallier_stand.gif);}
-DIV.female DIV.race_1{background-image:url(/resources/img/ani/roemerin_stand.gif);}
-DIV.female DIV.race_2{background-image:url(/resources/img/ani/germanin_stand.gif);}
-DIV.female DIV.race_3{background-image:url(/resources/img/ani/gallierin_stand.gif);}
+DIV.race_1{background-image:url(/public/img/ani/roemer_stand.gif);}
+DIV.race_2{background-image:url(/public/img/ani/germane_stand.gif);}
+DIV.race_3{background-image:url(/public/img/ani/gallier_stand.gif);}
+DIV.female DIV.race_1{background-image:url(/public/img/ani/roemerin_stand.gif);}
+DIV.female DIV.race_2{background-image:url(/public/img/ani/germanin_stand.gif);}
+DIV.female DIV.race_3{background-image:url(/public/img/ani/gallierin_stand.gif);}
 DIV.dialog DIV.screenshot TABLE{position:relative;width:800px;left:0;}
 DIV.dialog DIV.screenshot TD{color:#fff;text-align:center;font-weight:700;}
 DIV.dialog DIV.screenshot A.navi{display:block;width:53px;height:53px;}
@@ -198,7 +198,7 @@ div#StartseitenDescription div.descFooter{background-image:url(/portal/interface
 DIV#betaSign{color:red;font-size:16px;font-style:italic;font-weight:700;right:240px;position:absolute;text-transform:uppercase;top:115px;}
 .interface_background{background-image:url(/portal/interface/background.jpg);}
 .interface_chars{background-image:url(/portal/interface/chars/chars.jpg);}
-.interface_chars_mouse{background-image:url(/resources/img/portal/interface/chars/mouse.png);}
+.interface_chars_mouse{background-image:url(/public/img/portal/interface/chars/mouse.png);}
 .interface_playfree{background-image:url(/lang/de/portal/interface/playfree.gif);}
 .interface_logo{background-image:url(/lang/de/portal/interface/logo.gif);}
 .interface_trailer{background-image:url(/lang/de/portal/interface/trailer.gif);}

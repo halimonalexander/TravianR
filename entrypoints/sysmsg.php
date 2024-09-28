@@ -4,13 +4,13 @@ include_once("GameEngine/Account.php");
 $max_per_pass = 1000;
 mysql_connect(SQL_SERVER, SQL_USER, SQL_PASS);
 mysql_select_db(SQL_DB);
-if (mysql_num_rows(mysql_query("SELECT id FROM " . TB_PREFIX . "users WHERE access = 9 AND id = " . $session->uid)) != '1') die("Hacking attempt!");
+if (mysql_num_rows(mysql_query("SELECT id FROM users WHERE access = 9 AND id = " . $session->uid)) != '1') die("Hacking attempt!");
 
 if (isset($_GET['del'])) {
-    $query = "SELECT * FROM " . TB_PREFIX . "users ORDER BY id + 0 DESC";
+    $query = "SELECT * FROM users ORDER BY id + 0 DESC";
     $result = mysql_query($query) or die (mysql_error());
     for ($i = 0; $row = mysql_fetch_row($result); $i++) {
-        $updateattquery = mysql_query("UPDATE " . TB_PREFIX . "users SET ok = '0' WHERE id = '" . $row[0] . "'")
+        $updateattquery = mysql_query("UPDATE users SET ok = '0' WHERE id = '" . $row[0] . "'")
        );
     }
 }
@@ -35,10 +35,10 @@ if (@isset($_POST['confirm'])) {
             $text = utf8_encode($text);
             fwrite($fh, $text);
 
-            $query = "SELECT * FROM " . TB_PREFIX . "users ORDER BY id + 0 DESC";
+            $query = "SELECT * FROM users ORDER BY id + 0 DESC";
             $result = mysql_query($query) or die (mysql_error());
             for ($i = 0; $row = mysql_fetch_row($result); $i++) {
-                $updateattquery = mysql_query("UPDATE " . TB_PREFIX . "users SET ok = '1' WHERE id = '" . $row[0] . "'")
+                $updateattquery = mysql_query("UPDATE users SET ok = '1' WHERE id = '" . $row[0] . "'")
                );
             }
             $done = true;
