@@ -7,7 +7,7 @@ use App\Repositories\UserRepository;
 use Tests\Unit\UnitTestCase;
 
 /**
- * @coversDefault \App\Repositories\UserRepository
+ * @coversDefaultClass \App\Repositories\UserRepository
  */
 class UserRepositoryTest extends UnitTestCase
 {
