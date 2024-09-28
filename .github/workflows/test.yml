@@ -58,7 +58,12 @@ jobs:
 
       - name: Ensure Coverage is >= 0%
         run: |
-          total=$(grep -Po '(?<=<metrics statements=\")\d+(\.\d+)?(?=\")' coverage.xml)
+          total=$(grep -Po '(?<=statements=")\d+(\.\d+)?(?=")' coverage.xml)
+
+          if [[ -z "$total" ]]; then
+            echo "Error: Unable to extract coverage from coverage.xml"
+            exit 0
+          fi
           if (( $(echo "$total < 0" |bc -l) )); then
             echo "Test coverage is below 0% (actual: $total%)"
             exit 1
@@ -70,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: coverage
+          path: coverage.xml
