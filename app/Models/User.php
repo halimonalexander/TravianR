@@ -49,9 +49,28 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'tribe',
+        'access',
+        'sit1',
+        'sit2',
+        'alliance',
+        'sessid',
+        'act',
+        'protect',
+        'quest',
+        'quest_time',
+        'gpack',
+        'cp',
+        'rc',
+        'ok',
+        'clp',
+        'oldrank',
+        'regtime',
+        'invited',
+        'maxevasion',
+        'village_select',
     ];
 
     /**

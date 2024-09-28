@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserRepository
 {
@@ -17,7 +18,7 @@ class UserRepository
     {
         return User::query()
             ->whereNotIn('tribe', [0, 4, 5])
-            ->where('updated_at', '>', time() - 24*60*60)
+            ->where('updated_at', '>', Carbon::now()->subHours(24)->toDateTimeString())
             ->count();
     }
 
@@ -25,7 +26,7 @@ class UserRepository
     {
         return User::query()
             ->whereNotIn('tribe', [0, 4, 5])
-            ->where('updated_at', '>', time() - 10*60)
+            ->where('updated_at', '>', Carbon::now()->subMinutes(10)->toDateTimeString())
             ->count();
     }
 }
