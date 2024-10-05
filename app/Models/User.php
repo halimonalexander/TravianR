@@ -3,14 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Tribes;
+use App\Enums\UserAccess;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Travian\Enums\Tribes;
-use Travian\Enums\UserAccess;
 
 /**
  * @property int $id
@@ -23,21 +24,22 @@ use Travian\Enums\UserAccess;
  * @property int $alliance
  * @property string $sessid
  * @property string $act
- * @property int $protect
+ * @property Carbon $protect
  * @property bool $quest
- * @property \Carbon\Carbon $quest_time
+ * @property Carbon $quest_time
  * @property string $gpack
  * @property float $cp
  * @property int $rc
  * @property bool $ok
  * @property int $clp
  * @property int $oldrank
- * @property \Carbon\Carbon $regtime
- * @property \Carbon\Carbon $invited
+ * @property Carbon $invited
  * @property int $maxevasion
  * @property int $village_select
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ *
+ * @method Builder whereUsername(string $username)
  */
 class User extends Authenticatable
 {
@@ -67,7 +69,6 @@ class User extends Authenticatable
         'ok',
         'clp',
         'oldrank',
-        'regtime',
         'invited',
         'maxevasion',
         'village_select',
@@ -87,6 +88,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'tribe' => Tribes::class,
+        'access' => UserAccess::class,
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'quest' => 'int',
@@ -95,6 +98,11 @@ class User extends Authenticatable
         'regtime' => 'int',
         'invited' => 'int',
     ];
+
+    public function getAuthIdentifierName(): string
+    {
+        return 'username';
+    }
 
     public function profile(): HasOne
     {

@@ -470,13 +470,6 @@ if (isset($_GET['c']) && $_GET['c'] == 1) {
                     <option value="error_reporting (0);">No</option>
                 </select></td>
         </tr>
-        <tr>
-            <td><span class="f9 c6">T4 is Coming screen:</span></td>
-            <td><select name="t4_coming">
-                    <option value="true">Yes</option>
-                    <option value="false" selected="selected">No</option>
-                </select></td>
-        </tr>
     </table>
     </p>
     <br/>

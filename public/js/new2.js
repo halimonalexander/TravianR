@@ -47,18 +47,6 @@ window.addEvent('domready', function () {
         this.getParent('div.overlay').fireEvent('hide');
     });
 
-    //Signup Buttons
-    $$('.signup_link').addEvent('click', function (event) {
-        event.stop();
-        $('signup_layer').fireEvent('show');
-    });
-
-    //Login Buttons
-    $$('.login_link').addEvent('click', function (event) {
-        event.stop();
-        $('login_layer').fireEvent('show');
-    });
-
     //Login Buttons
     $$('#screenshot_list li a').each(function (item, index) {
         item.addEvent('click', function (event) {
@@ -138,9 +126,9 @@ Fx.Screenshots = new Class({
         var self = this;
 
         this.elements = elements;
-        this.targetImg = $(image);
-        this.targetHl = $(headline);
-        this.targetDesc = $(comment);
+        this.targetImg = document.getElementById(image);
+        this.targetHl = document.getElementById(headline);
+        this.targetDesc = document.getElementById(comment);
         this.$length = this.elements.length;
     },
 
@@ -162,7 +150,7 @@ Fx.Screenshots = new Class({
     },
 
     render: function (index) {
-        index = this.elements[index] != undefined ? index : 0;
+        index = this.elements[index] !== undefined ? index : 0;
         var elem = this.elements[index];
         this.targetImg.src = elem.img;
         this.targetHl.innerHTML = elem.hl;

@@ -1,16 +1,14 @@
 <?php
 
 return [
-    'index_1' => "Welcome to " . env('SERVER_NAME'),
-    'index_2' => "Manual",
-    'index_3' => "Play now, for free!",
+    'header' => "Welcome to " . env('SERVER_NAME'),
+    'manual' => "Manual",
     'index_4' => "What is " . env('SERVER_NAME'),
     'index_5' => env('SERVER_NAME') . " is a <b>browser game</b> featuring an engaging ancient world with thousands of other real players.</p><p>It`s <strong>free to play</strong> and requires <strong>no downloads</strong>.",
-    'index_6' => "Click here to play " . env('SERVER_NAME'),
-    'index_7' => "Total players",
-    'index_8' => "Players active",
-    'index_9' => "Players online",
-    'index_10' => "About the game",
+    'total_players' => "Total players",
+    'active_players' => "Players active",
+    'online_players' => "Players online",
+    'about_game' => "About the game",
     'index_11' => "You will begin as the chief of a tiny village and will embark on an exciting quest.",
     'index_12' => "Build up villages, wage wars or establish trade routes with your neighbours.",
     'index_13' => "Play with and against thousands of other real players and conquer the the world of Travian.",

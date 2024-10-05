@@ -20,8 +20,12 @@ class UserProfile extends Model
 {
     use HasFactory;
 
+    const CREATED_AT = null;
+
     protected $table = 'user_profile';
     protected $primaryKey = 'user_id';
+
+    public $incrementing = false;
 
     public function user(): BelongsTo
     {

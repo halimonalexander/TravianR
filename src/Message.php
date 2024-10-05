@@ -500,20 +500,6 @@ class Message
 
     }
 
-    public function sendWelcome(MYSQLi_DB $database, $uid, $username)
-    {
-        $welcomemsg = file_get_contents("GameEngine/Admin/welcome.php");
-        $welcomemsg = preg_replace("'%USER%'", $username, $welcomemsg);
-        $welcomemsg = preg_replace("'%START%'", date("y.m.d", COMMENCE), $welcomemsg);
-        $welcomemsg = preg_replace("'%TIME%'", date("H:i", COMMENCE), $welcomemsg);
-        $welcomemsg = preg_replace("'%PLAYERS%'", $database->countUser(), $welcomemsg);
-        $welcomemsg = preg_replace("'%ALLI%'", $database->countAlli(), $welcomemsg);
-        $welcomemsg = preg_replace("'%SERVER_NAME%'", SERVER_NAME, $welcomemsg);
-        $welcomemsg = preg_replace("'%PROTECTION%'", (PROTECTION / 3600), $welcomemsg);
-        $welcomemsg = "[message]" . $welcomemsg . "[/message]";
-        return $database->sendMessage($uid, 1, WEL_TOPIC, addslashes($welcomemsg), 0, 0, 0, 0, 0);
-    }
-
     private function wordCensor($text)
     {
         $censorarray = explode(",", CENSORED);

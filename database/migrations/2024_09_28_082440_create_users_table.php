@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('alliance')->default(0);
             $table->string('sessid', 100)->nullable();
             $table->string('act', 10)->nullable();
-            $table->integer('protect')->nullable();
+            $table->timestamp('protect')->nullable();
             $table->tinyInteger('quest', false, true)->nullable();
             $table->integer('quest_time')->nullable();
             $table->string('gpack', 255)->default('gpack/travian_default/');
@@ -28,7 +28,6 @@ return new class extends Migration
             $table->tinyInteger('ok')->default(0);
             $table->bigInteger('clp', false, true)->default(0);
             $table->bigInteger('oldrank', false, true)->default(0);
-            $table->integer('regtime')->default(0);
             $table->integer('invited')->default(0);
             $table->unsignedMediumInteger('maxevasion')->default(0);
             $table->unsignedBigInteger('village_select')->nullable();
@@ -43,6 +42,8 @@ return new class extends Migration
             $table->text('location')->nullable();
             $table->text('desc1')->nullable();
             $table->text('desc2')->nullable();
+            $table->timestamp('updated_at')->nullable();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
@@ -53,6 +54,8 @@ return new class extends Migration
             $table->integer('RR', false, true)->default(0);
             $table->integer('dpall')->default(0);
             $table->integer('apall')->default(0);
+            $table->timestamp('updated_at')->nullable();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
@@ -65,6 +68,8 @@ return new class extends Migration
             $table->integer('b2')->default(0);
             $table->integer('b3')->default(0);
             $table->integer('b4')->default(0);
+            $table->timestamp('updated_at')->nullable();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
@@ -83,17 +88,33 @@ return new class extends Migration
             $table->string('vac_time', 255)->default('0');
             $table->tinyInteger('vac_mode', false, true)->default(0);
             $table->string('vactwoweeks', 255)->default('0');
+            $table->timestamp('updated_at')->nullable();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
+        Schema::create('user_reservations', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('username', 100);
+            $table->string('password', 100);
+            $table->text('email');
+            $table->tinyInteger('tribe');
+            $table->tinyInteger('location');
+            $table->tinyInteger('invited');
+            $table->string('act', 10);
+            $table->string('act2', 5);
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
         Schema::dropIfExists('user_vacation');
-        Schema::dropIfExists('user_friendlist');
+        Schema::dropIfExists('user_friendslist');
         Schema::dropIfExists('user_premium');
         Schema::dropIfExists('user_statistic');
         Schema::dropIfExists('user_profile');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_reservations');
     }
 };

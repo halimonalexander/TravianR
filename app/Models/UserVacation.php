@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserVacation extends Model
 {
     use HasFactory;
+
+    const CREATED_AT = null;
 }

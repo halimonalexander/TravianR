@@ -7,3 +7,4 @@
 7. fixed users registration
 8. added laravel to project
 9. created first laravel migration, model and seeder
+10. Registration, activation, authorization

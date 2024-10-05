@@ -32,23 +32,6 @@ class GrandRepository
         $this->connection->commit();
     }
 
-    function register($username, $password, $email, $tribe, $act)
-    {
-        $time = time();
-        $stime = strtotime(START_DATE) - strtotime(date('m/d/Y')) + strtotime(START_TIME);
-        if ($stime > time()) {
-            $time = $stime;
-        }
-        $timep = $time + PROTECTION;
-        $time = time();
-        $q = "INSERT INTO users (username,password,access,email,timestamp,tribe,act,protect,lastupdate,regtime) VALUES ('$username', '$password', " . USER . ", '$email', $time, $tribe, '$act', $timep, $time, $time)";
-        if ($this->connection->query($q)) {
-            return mysqli_insert_id($this->connection);
-        } else {
-            return false;
-        }
-    }
-
     function activate($username, $password, $email, $tribe, $locate, $act, $act2)
     {
         $time = time();
@@ -58,12 +41,6 @@ class GrandRepository
         } else {
             return false;
         }
-    }
-
-    function unreg($username)
-    {
-        $q = "DELETE from activate where username = '$username'";
-        return $this->connection->query($q);
     }
 
     function deleteReinf($id)
@@ -224,18 +201,6 @@ class GrandRepository
         $q = "SELECT * FROM vdata where starv = 0 and starvupdate = 0";
         $result = $this->connection->query($q);
         return $this->mysqli_fetch_all($result);
-    }
-
-    function getActivateField($ref, $field, $mode)
-    {
-        if (!$mode) {
-            $q = "SELECT $field FROM activate where id = '$ref'";
-        } else {
-            $q = "SELECT $field FROM activate where username = '$ref'";
-        }
-        $result = $this->connection->query($q);
-        $dbarray = mysqli_fetch_array($result);
-        return $dbarray[$field];
     }
 
     function login($username, $password)
@@ -412,70 +377,9 @@ class GrandRepository
         }
     }
 
-    function generateBase($sector, $mode = 1)
-    {
-        $num_rows = 0;
-        $count_while = 0;
-        while (!$num_rows) {
-            if (!$mode) {
-                $gamesday = time() - COMMENCE;
-                if ($gamesday < 3600 * 24 * 10 && $count_while == 0) { //10 day
-                    $wide1 = 1;
-                    $wide2 = 20;
-                } elseif ($gamesday < 3600 * 24 * 20 && $count_while == 1) { //20 day
-                    $wide1 = 20;
-                    $wide2 = 40;
-                } elseif ($gamesday < 3600 * 24 * 30 && $count_while == 2) { //30 day
-                    $wide1 = 40;
-                    $wide2 = 80;
-                } else {        // over 30 day
-                    $wide1 = 80;
-                    $wide2 = WORLD_MAX;
-                }
-            } else {
-                $wide1 = 1;
-                $wide2 = WORLD_MAX;
-            }
-            switch ($sector) {
-                case 1:
-                    $q = "Select * from wdata where fieldtype = 3 and (x < -$wide1 and x > -$wide2) and (y > $wide1 and y < $wide2) and occupied = 0"; //x- y+
-                    break;
-                case 2:
-                    $q = "Select * from wdata where fieldtype = 3 and (x > $wide1 and x < $wide2) and (y > $wide1 and y < $wide2) and occupied = 0"; //x+ y+
-                    break;
-                case 3:
-                    $q = "Select * from wdata where fieldtype = 3 and (x < -$wide1 and x > -$wide2) and (y < -$wide1 and y > -$wide2) and occupied = 0"; //x- y-
-                    break;
-                case 4:
-                    $q = "Select * from wdata where fieldtype = 3 and (x > $wide1 and x < $wide2) and (y < -$wide1 and y > -$wide2) and occupied = 0"; //x+ y-
-                    break;
-            }
-            $result = $this->connection->query($q);
-            $num_rows = mysqli_num_rows($result);
-            $count_while++;
-        }
-        $result = $this->mysqli_fetch_all($result);
-        $base = random_int(0, ($num_rows - 1));
-        return $result[$base]['id'];
-    }
-
-    function setFieldTaken($id)
-    {
-        $q = "UPDATE wdata set occupied = 1 where id = $id";
-        return $this->connection->query($q);
-    }
-
     function addVillage($wid, $uid, $username, $capital)
     {
-        $total = count($this->getVillagesID($uid));
-        if ($total >= 1) {
-            $vname = $username . "\'s village " . ($total + 1);
-        } else {
-            $vname = $username . "\'s village";
-        }
-        $time = time();
-        $q = "INSERT into vdata (wref, owner, name, capital, pop, cp, celebration, wood, clay, iron, maxstore, crop, maxcrop, lastupdate, created) values ('$wid', '$uid', '$vname', '$capital', 2, 1, 0, 750, 750, 750, " . STORAGE_BASE . ", 750, " . STORAGE_BASE . ", '$time', '$time')";
-        return $this->connection->query($q);
+
     }
 
     function addResourceFields($vid, $type): void
@@ -488,7 +392,8 @@ class GrandRepository
                 $q = "INSERT into fdata (vref,f1t,f2t,f3t,f4t,f5t,f6t,f7t,f8t,f9t,f10t,f11t,f12t,f13t,f14t,f15t,f16t,f17t,f18t,f26,f26t) values($vid,3,4,1,3,2,2,3,4,4,3,3,4,4,1,4,2,1,2,1,15)";
                 break;
             case 3:
-                $q = "INSERT into fdata (vref,f1t,f2t,f3t,f4t,f5t,f6t,f7t,f8t,f9t,f10t,f11t,f12t,f13t,f14t,f15t,f16t,f17t,f18t,f26,f26t) values($vid,1,4,1,3,2,2,3,4,4,3,3,4,4,1,4,2,1,2,1,15)";
+                $q = "INSERT into fdata (vref,f1t,f2t,f3t,f4t,f5t,f6t,f7t,f8t,f9t,f10t,f11t,f12t,f13t,f14t,f15t,f16t,f17t,f18t,f26,f26t)
+                      values($vid,1,4,1,3,2,2,3,4,4,3,3,4,4,1,4,2,1,2,1,15)";
                 break;
             case 4:
                 $q = "INSERT into fdata (vref,f1t,f2t,f3t,f4t,f5t,f6t,f7t,f8t,f9t,f10t,f11t,f12t,f13t,f14t,f15t,f16t,f17t,f18t,f26,f26t) values($vid,1,4,1,2,2,2,3,4,4,3,3,4,4,1,4,2,1,2,1,15)";
@@ -680,19 +585,6 @@ class GrandRepository
                 $result = $this->connection->query($q);
                 break;
         }
-    }
-
-    public function getAllOasises(): array
-    {
-        $q = "SELECT id, oasistype FROM wdata WHERE oasistype != 0";
-
-        return $this->connection->query($q)->fetch_all(\MYSQLI_ASSOC);
-    }
-
-    public function initOasis(string $wid, string $oasisType, int $high): void
-    {
-        $q = "INSERT into odata VALUES ('" . $wid . "'," . $oasisType . ",0,800,800,800,800,800,800," . time() . "," . time() . ",100,2,'Unoccupied Oasis'," . $high . ")";
-        $this->connection->query($q);
     }
 
     function removeOases($wref)
@@ -1916,101 +1808,7 @@ class GrandRepository
         return $this->connection->query($q);
     }
 
-    function sendMessage($client, $owner, $topic, $message, $send, $alliance, $player, $coor, $report)
-    {
-        $time = time();
-        $q = "INSERT INTO mdata values (0,$client,$owner,'$topic',\"$message\",0,0,$send,$time,0,0,$alliance,$player,$coor,$report)";
-        return $this->connection->query($q);
-    }
 
-    function setArchived($id)
-    {
-        $q = "UPDATE mdata set archived = 1 where id = $id";
-        return $this->connection->query($q);
-    }
-
-    function setNorm($id)
-    {
-        $q = "UPDATE mdata set archived = 0 where id = $id";
-        return $this->connection->query($q);
-    }
-
-    /***************************
-     * Function to get messages
-     * Mode 1: Get inbox
-     * Mode 2: Get sent
-     * Mode 3: Get message
-     * Mode 4: Set viewed
-     * Mode 5: Remove message
-     * Mode 6: Retrieve archive
-     * References: User ID/Message ID, Mode
-     ***************************/
-    function getMessage($id, $mode)
-    {
-        global $session;
-        switch ($mode) {
-            case 1:
-                $q = "SELECT * FROM mdata WHERE target = $id and send = 0 and archived = 0 ORDER BY time DESC";
-                break;
-            case 2:
-                $q = "SELECT * FROM mdata WHERE owner = $id ORDER BY time DESC";
-                break;
-            case 3:
-                $q = "SELECT * FROM mdata where id = $id";
-                break;
-            case 4:
-                $q = "UPDATE mdata set viewed = 1 where id = $id AND target = $session->uid";
-                break;
-            case 5:
-                $q = "UPDATE mdata set deltarget = 1,viewed = 1 where id = $id";
-                break;
-            case 6:
-                $q = "SELECT * FROM mdata where target = $id and send = 0 and archived = 1";
-                break;
-            case 7:
-                $q = "UPDATE mdata set delowner = 1 where id = $id";
-                break;
-            case 8:
-                $q = "UPDATE mdata set deltarget = 1,delowner = 1,viewed = 1 where id = $id";
-                break;
-            case 9:
-                $q = "SELECT * FROM mdata WHERE target = $id and send = 0 and archived = 0 and deltarget = 0 ORDER BY time DESC";
-                break;
-            case 10:
-                $q = "SELECT * FROM mdata WHERE owner = $id and delowner = 0 ORDER BY time DESC";
-                break;
-            case 11:
-                $q = "SELECT * FROM mdata where target = $id and send = 0 and archived = 1 and deltarget = 0";
-                break;
-        }
-        if ($mode <= 3 || $mode == 6 || $mode > 8) {
-            $result = $this->connection->query($q);
-            return $this->mysqli_fetch_all($result);
-        } else {
-            return $this->connection->query($q);
-        }
-    }
-
-    function getDelSent($uid)
-    {
-        $q = "SELECT * FROM mdata WHERE owner = $uid and delowner = 1 ORDER BY time DESC";
-        $result = $this->connection->query($q);
-        return $this->mysqli_fetch_all($result);
-    }
-
-    function getDelInbox($uid)
-    {
-        $q = "SELECT * FROM mdata WHERE target = $uid and deltarget = 1 ORDER BY time DESC";
-        $result = $this->connection->query($q);
-        return $this->mysqli_fetch_all($result);
-    }
-
-    function getDelArchive($uid)
-    {
-        $q = "SELECT * FROM mdata WHERE target = $uid and archived = 1 and deltarget = 1 OR owner = $uid and archived = 1 and delowner = 1 ORDER BY time DESC";
-        $result = $this->connection->query($q);
-        return $this->mysqli_fetch_all($result);
-    }
 
     function unarchiveNotice($id)
     {
@@ -2691,11 +2489,6 @@ class GrandRepository
         return mysqli_fetch_array($result);
     }
 
-    function initUnits(string $vid): void
-    {
-        $q = "INSERT into units (vref) values ($vid)";
-        $this->connection->query($q);
-    }
 
     public function populateOasis(string $wid, array $beasts, array $ifNot = []): void
     {

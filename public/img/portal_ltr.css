@@ -229,8 +229,6 @@ DIV#betaSign{color:red;font-size:16px;font-style:italic;font-weight:700;right:24
 .interface_fbconnect_dropdown{background-image:url(/portal/interface/fb-connect-dropdown.gif);}
 .interface_fbconnect_large{background-image:url(/portal/interface/fb-connect-large.gif);}
 .interface_fb{background-image:url(/portal/interface/fb.gif);}
-.interface_newsbox1{background-image:url(/portal/interface/newsbox1.jpg);}
-.interface_newsbox2{background-image:url(/portal/interface/newsbox2.jpg);}
 #helpPlayerTitle{text-align:center;font-seize:10pt;font-weight:700;width:450px;margin-bottom:5px;}
 div.dialogMedium A.playfree{position:absolute;display:none;left:120px;}
 A:HOVER,A.imglink,A.imglink:hover{text-decoration:none;}

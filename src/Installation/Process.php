@@ -100,7 +100,6 @@ class Process
         $text = preg_replace("'%SHOW_NATARS%'", $_POST['show_natars'], $text);
         $text = preg_replace("'%NATARS_UNITS%'", $_POST['natars_units'], $text);
         $text = preg_replace("'%NATURE_REGTIME%'", $_POST['nature_regtime'], $text);
-        $text = preg_replace("'%T4_COMING%'", $_POST['t4_coming'], $text);
         $text = preg_replace("'%REG_OPEN%'", $_POST['reg_open'], $text);
         $text = preg_replace("'%PEACE%'", $_POST['peace'], $text);
 
@@ -124,82 +123,7 @@ class Process
     {
         set_time_limit(0);
 
-        $database->getConnection()->begin_transaction();
-
-        $axiasSize = 2 * WORLD_MAX + 1;
-        for ($i = 0; $i < $axiasSize; $i++) {
-            $y = WORLD_MAX - $i;
-
-            for ($j = 0; $j < $axiasSize; $j++) {
-                $x = -1 * WORLD_MAX + $j;
-
-                $this->generateCell($database, $x, $y);
-            }
-        }
-
-        $database->getConnection()->commit();
-
         header("Location: index.php?s=4");
-    }
-
-    private function generateCell(Database $database, int $x, int $y): void
-    {
-        // choose a field type
-        if (($x === 0 && $y === 0) || ($x === WORLD_MAX && $y === WORLD_MAX)) {
-            $cellType = 3;
-            $aosisType = 0;
-        } else {
-            $rand = random_int(1, 1000);
-            $cellType = $this->getFieldType($rand);
-            $aosisType = $this->getOasisType($rand);
-        }
-
-        // image pick
-        $image = $aosisType !== 0 ?
-            "o" . $aosisType :
-            "t" . random_int(0, 9);
-
-        //into database
-        $sql = "INSERT INTO wdata VALUES (0,'" . $cellType . "','" . $aosisType . "','" . $x . "','" . $y . "',0,'" . $image . "')";
-        $database->query($sql);
-    }
-
-    private function getFieldType(int $rand): int
-    {
-        return match (true) {
-            $rand <= 10 => 1,
-            $rand <= 90 => 2,
-            $rand <= 400 => 3,
-            $rand <= 480 => 4,
-            $rand <= 560 => 5,
-            $rand <= 570 => 6,
-            $rand <= 600 => 7,
-            $rand <= 630 => 8,
-            $rand <= 660 => 9,
-            $rand <= 740 => 10,
-            $rand <= 820 => 11,
-            $rand <= 900 => 12,
-            default => 0,
-        };
-    }
-
-    private function getOasisType(int $rand): int
-    {
-        return match (true) {
-            $rand <= 900 => 0,
-            $rand <= 908 => 1,
-            $rand <= 916 => 2,
-            $rand <= 924 => 3,
-            $rand <= 932 => 4,
-            $rand <= 940 => 5,
-            $rand <= 948 => 6,
-            $rand <= 956 => 7,
-            $rand <= 964 => 8,
-            $rand <= 972 => 9,
-            $rand <= 980 => 10,
-            $rand <= 988 => 11,
-            default => 12,
-        };
     }
 
     public function createMultihunter(Database $database, \MYSQLi_DB $grandModel): void
@@ -232,109 +156,6 @@ class Process
 
     public function populateOasises(\MYSQLi_DB $grandModel): void
     {
-        $this->initOasises($grandModel);
-        $this->initOasisesPopulation($grandModel);
-        $this->populateOasisesUnits($grandModel);
-
         header("Location: ../index.php?s=6");
-    }
-
-    private function initOasises(\MYSQLi_DB $grandModel)
-    {
-        $oaises = $grandModel->getAllOasises();
-
-        $grandModel->getConnection()->begin_transaction();
-
-        foreach ($oaises as $row) {
-            $high = match (true) {
-                $row['oasistype'] < 4 => 1,
-                $row['oasistype'] < 10 => 2,
-                default => 0,
-            };
-
-            $grandModel->initOasis($row['id'], $row['oasistype'], $high);
-        }
-
-        $grandModel->getConnection()->commit();
-    }
-
-    private function initOasisesPopulation(\MYSQLi_DB $grandModel)
-    {
-        $oasises = $grandModel->getAllOasises();
-
-        $grandModel->getConnection()->begin_transaction();
-        foreach ($oasises as $row) {
-            $grandModel->initUnits($row['id']);
-        }
-        $grandModel->getConnection()->commit();
-    }
-
-    private function populateOasisesUnits(\MYSQLi_DB $grandModel)
-    {
-        $oasises = $grandModel->getAllOasises();
-
-        $grandModel->getConnection()->begin_transaction();
-        foreach ($oasises as $row) {
-            $wid = $row['id'];
-            switch ($row['oasistype']) {
-                case 1:
-                case 2:
-                    //+25% lumber oasis
-                    $beasts[35] = random_int(5, 10);
-                    $beasts[36] = random_int(0, 5);
-                    $beasts[37] = random_int(0, 5);
-                    break;
-                case 3:
-                    //+25% lumber and +25% crop oasis
-                    $beasts[35] = random_int(5, 15);
-                    $beasts[36] = random_int(0, 5);
-                    $beasts[37] = random_int(0, 5);
-                    break;
-                case 4:
-                case 5:
-                    //+25% clay oasis
-                    $beasts[31] = random_int(10, 15);
-                    $beasts[32] = random_int(5, 15);
-                    $beasts[35] = random_int(0, 10);
-                    break;
-                case 6:
-                    //+25% clay and +25% crop oasis
-                    $beasts[31] = random_int(15, 20);
-                    $beasts[32] = random_int(10, 15);
-                    $beasts[35] = random_int(0, 10);
-                    break;
-                case 7:
-                case 8:
-                    //+25% iron oasis
-                    $beasts[31] = random_int(10, 15);
-                    $beasts[32] = random_int(5, 15);
-                    $beasts[34] = random_int(0, 10);
-                    break;
-                case 9:
-                    //+25% iron and +25% crop oasis
-                    $beasts[31] = random_int(15, 20);
-                    $beasts[32] = random_int(10, 15);
-                    $beasts[34] = random_int(0, 10);
-                    break;
-                case 10:
-                case 11:
-                    //+25% crop oasis
-                    $beasts[31] = random_int(5, 15);
-                    $beasts[33] = random_int(5, 10);
-                    $beasts[37] = random_int(0, 10);
-                    $beasts[39] = random_int(0, 5);
-                    break;
-                case 12:
-                    //+50% crop oasis
-                    $beasts[31] = random_int(10, 15);
-                    $beasts[33] = random_int(5, 10);
-                    $beasts[38] = random_int(0, 5);
-                    $beasts[39] = random_int(0, 5);
-                    break;
-            }
-
-            $grandModel->populateOasis($wid, $beasts);
-        }
-        $grandModel->getConnection()->commit();
     }
 }

@@ -43,6 +43,7 @@ return [
     "EMAIL_EMPTY" => "(Email Empty)",
     "EMAIL_INVALID" => "(Invalid email address)",
     "EMAIL_TAKEN" => "(Email is already in use)",
+    "LOCATION_EMPTY" => "<li>Please choose a location.</li>",
     "TRIBE_EMPTY" => "<li>Please choose a tribe.</li>",
     "AGREE_ERROR" => "<li>You have to agree to the game rules and the general terms & conditions in order to register.</li>",
     "LOGIN_USR_EMPTY" => "Enter name.",
@@ -51,8 +52,8 @@ return [
     "PASS_MISMATCH" => "Passwords do not match",
     "ALLI_OWNER" => "Please appoint an alliance owner before deleting",
     "SIT_ERROR" => "Sitter already set",
-    "USR_NT_FOUND" => "Name does not exist.",
-    "LOGIN_PW_ERROR" => "The password is wrong.",
+    'incorrect_credentials' => 'Login or password is incorrect',
+    'incorrect_code' => 'Activation code is incorrect',
     "WEL_TOPIC" => "Useful tips & information ",
     "ATAG_EMPTY" => "Tag empty",
     "ANAME_EMPTY" => "Name empty",
@@ -583,7 +584,8 @@ return [
     "RANDOM" => "random",
     "ACCEPT_RULES" => " I accept the game rules and general terms and conditions.",
     "ONE_PER_SERVER" => "Each player may only own ONE account per server.",
-    "BEFORE_REGISTER" => "Before you register an account you should read the <a href='../anleitung.php' target='_blank'>instructions</a> of Travian ro1 to see the specific advantages and disadvantages of the three tribes.",
+    "BEFORE_REGISTER" => "Before you register an account you should read the :link of :servername to see the specific advantages and disadvantages of the three tribes.",
+    'instructions' => 'instructions',
     "BUILDING_UPGRADING" => "Building:",
     "HOURS" => "hours",
 
@@ -1214,4 +1216,7 @@ return [
 
     To build a World Wonder, you must own the Construction Plans yourself (you = the World Wonder Village Owner) from level 0 to 50, and then from level 51 to 100 you will need an additional set of Construction Plans in your Alliance! Two sets of Construction Plans in the World Wonder Village Account will not work!",
     "WWVILLAGE" => "WW village",
+
+    'starting_village' => '\'s staring village',
+    'new_village' => 'New village',
 ];

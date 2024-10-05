@@ -107,9 +107,6 @@ define("NATARS_UNITS",%NATARS_UNITS%);
 // ***** Nature troops regeneration time
 define("NATURE_REGTIME",%NATURE_REGTIME%);
 
-// ***** Enable T4 is Coming screen
-define("T4_COMING",%T4_COMING%);
-
 // ***** Activation Mail
 // true = activation mail will be sent, users will have to finish registration
 //        by clicking on link recieved in mail.
@@ -158,19 +155,6 @@ define("LOG_WAR",%LOGWAR%);
 define("LOG_MARKET",%LOGMARKET%);
 // LOG ILLEGAL ACTIONS
 define("LOG_ILLEGAL",%LOGILLEGAL%);
-
-
-
-//////////////////////////////////
-// ****  NEWSBOX SETTINGS  **** //
-//////////////////////////////////
-//true = enabled
-//false = disabled
-define("NEWSBOX1",%BOX1%);
-define("NEWSBOX2",%BOX2%);
-define("NEWSBOX3",%BOX3%);
-
-
 
 //////////////////////////////////
 //   ****  SQL SETTINGS  ****   //

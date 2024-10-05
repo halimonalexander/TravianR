@@ -8,7 +8,6 @@ $myFile = "../../config.php";
 $fh = fopen($myFile, 'w') or die("<br/><br/><br/>Can't open file: GameEngine\config.php");
 
 $ERRORREPORT = ERROR_REPORT;
-$T4 = (T4_COMING == false) ? "false" : "true";
 $GP_ENABLE = (GP_ENABLE == false) ? "false" : "true";
 $QUEST = (QUEST == false) ? "false" : "true";
 $WW = (WW == false) ? "false" : "true";
@@ -17,9 +16,6 @@ $AUTH_EMAIL = (AUTH_EMAIL == false) ? "false" : "true";
 $GREAT_WKS = (GREAT_WKS == false) ? "false" : "true";
 $REG_OPEN = (REG_OPEN == false) ? "false" : "true";
 
-$NEWSBOX1 = (NEWSBOX1 == false) ? "false" : "true";
-$NEWSBOX2 = (NEWSBOX2 == false) ? "false" : "true";
-$NEWSBOX3 = (NEWSBOX3 == false) ? "false" : "true";
 $LIMIT_MAILBOX = (LIMIT_MAILBOX == false) ? "false" : "true";
 $INCLUDE_ADMIN = (INCLUDE_ADMIN == false) ? "false" : "true";
 
@@ -51,7 +47,6 @@ $text = preg_replace("'%WW%'", $WW, $text);
 $text = preg_replace("'%SHOW_NATARS%'", $SHOW_NATARS, $text);
 $text = preg_replace("'%NATARS_UNITS%'", NATARS_UNITS, $text);
 $text = preg_replace("'%NATURE_REGTIME%'", NATURE_REGTIME, $text);
-$text = preg_replace("'%T4_COMING%'", $T4, $text);
 $text = preg_replace("'%ACTIVATE%'", $AUTH_EMAIL, $text);
 $text = preg_replace("'%PLUS_TIME%'", PLUS_TIME, $text);
 $text = preg_replace("'%PLUS_PRODUCTION%'", PLUS_PRODUCTION, $text);
@@ -70,9 +65,6 @@ $text = preg_replace("'%LOGWAR%'", $_POST['log_war'], $text);
 $text = preg_replace("'%LOGMARKET%'", $_POST['log_market'], $text);
 $text = preg_replace("'%LOGILLEGAL%'", $_POST['log_illegal'], $text);
 //end update
-$text = preg_replace("'%BOX1%'", $NEWSBOX1, $text);
-$text = preg_replace("'%BOX2%'", $NEWSBOX2, $text);
-$text = preg_replace("'%BOX3%'", $NEWSBOX3, $text);
 $text = preg_replace("'%SSERVER%'", SQL_SERVER, $text);
 $text = preg_replace("'%SUSER%'", SQL_USER, $text);
 $text = preg_replace("'%SPASS%'", SQL_PASS, $text);

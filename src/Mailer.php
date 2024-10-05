@@ -3,33 +3,6 @@
 namespace Travian;
 class Mailer
 {
-
-    function sendActivate($email, $username, $pass, $act)
-    {
-
-        $subject = "Welcome to " . SERVER_NAME;
-
-        $message = "Hello " . $username . "
-
-Thank you for your registration.
-
-----------------------------
-Name: " . $username . "
-Password: " . $pass . "
-Activation code: " . $act . "
-----------------------------
-
-Click the following link in order to activate your account:
-" . SERVER . "activate.php?code=" . $act . "
-
-Greetings,
-Travian adminision";
-
-        $headers = "From: " . ADMIN_EMAIL . "\n";
-
-        mail($email, $subject, $message, $headers);
-    }
-
     function sendInvite($email, $uid, $text)
     {
 

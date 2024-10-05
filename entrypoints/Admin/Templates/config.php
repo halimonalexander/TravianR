@@ -319,30 +319,6 @@ if ($_SESSION['access'] < 9) die(ACCESS_DENIED_ADMIN);
         <td class="b">Value</td>
     </tr>
     <tr>
-        <td>Newsbox 1</td>
-        <td><?php if (NEWSBOX1 == true) {
-                echo "<b><font color='Green'>Enabled</font></b>";
-            } else if (NEWSBOX1 == false) {
-                echo "<b><font color='Red'>Disabled</font></b>";
-            } ?> </td>
-    </tr>
-    <tr>
-        <td>Newsbox 2</td>
-        <td><?php if (NEWSBOX2 == true) {
-                echo "<b><font color='Green'>Enabled</font></b>";
-            } else if (NEWSBOX2 == false) {
-                echo "<b><font color='Red'>Disabled</font></b>";
-            } ?> </td>
-    </tr>
-    <tr>
-        <td>Newsbox 3</td>
-        <td><?php if (NEWSBOX3 == true) {
-                echo "<b><font color='Green'>Enabled</font></b>";
-            } else if (NEWSBOX3 == false) {
-                echo "<b><font color='Red'>Disabled</font></b>";
-            } ?> </td>
-    </tr>
-    <tr>
         <!--<td>Home 1</td>
 		<td><?php if (HOME1 == true) {
             echo "<b><font color='Green'>Enabled</font></b>";

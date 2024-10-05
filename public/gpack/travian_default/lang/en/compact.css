@@ -3370,7 +3370,7 @@ div.signup table th, div.signup table td {
     padding-top: 2px;
 }
 div.signup input.text {
-    width: 113px;
+    width: 225px;
 }
 div.signup input.radio {
     float: left;
@@ -6884,7 +6884,7 @@ img.iReport19 {
 }
 div#map a#map_makelarge img {
     background-image: url("../../img/m/max.gif");
-	
+
     height: 25px;
     width: 33px;
 }
@@ -8248,7 +8248,7 @@ img.g16 {
     background-image: url("../../img/g/g16.gif");
 }
 img.g16b {
-    background-image: url("../../img/g/g16b.gif"); 
+    background-image: url("../../img/g/g16b.gif");
 }
 img.g16e {
     background-image: url("../../img/g/g16e.gif");

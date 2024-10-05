@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserFriendslist extends Model
 {
     use HasFactory;
+
+    const CREATED_AT = null;
 }

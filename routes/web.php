@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::class, 'indexPage'])->name('indexPage');
-Route::get('/login', [IndexController::class, 'loginPage'])->name('login');
+Route::group(['middleware' => 'guest'], static function () {
+    Route::get('/', [GuestController::class, 'showIndexPage'])->name('indexPage');
+    Route::get('/login', [GuestController::class, 'showLoginPage'])->name('loginPage');
+    Route::post('/login', [GuestController::class, 'login'])->name('login');
+    Route::get('/registration', [GuestController::class, 'showRegistrationPage'])->name('registrationPage');
+    Route::post('/registration', [GuestController::class, 'registration']);
+    Route::get('/activation', [GuestController::class, 'activationPage'])->name('activationPage');
+    Route::post('/activation', [GuestController::class, 'activation']);
+});
+
+Route::group(['middleware' => 'auth'], static function () {
+    Route::get('/main', [MainController::class, 'showMainPage'])->name('mainPage');
+    Route::get('/logout', [MainController::class, 'logout'])->name('logout');
+});
